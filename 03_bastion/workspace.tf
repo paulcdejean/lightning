@@ -3,7 +3,7 @@ locals {
   workspaces = {
     unstable = {
       instance_type = "t4g.small"
-      enabled       = true
+      enabled       = false
       az            = "us-east-2a"
     }
   }
