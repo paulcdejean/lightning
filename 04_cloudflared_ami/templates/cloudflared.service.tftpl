@@ -1,0 +1,9 @@
+[Unit]
+Description=cloudflared tunnel
+After=cloud-final.service
+
+[Service]
+ExecStart=/usr/local/bin/cloudflared tunnel run
+
+[Install]
+WantedBy=cloud-init.target
