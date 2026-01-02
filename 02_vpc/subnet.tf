@@ -32,4 +32,5 @@ locals {
   hexnumber_ipv6_only_public  = "1"
   hexnumber_dualstack_public  = "2"
   hexnumber_ipv6_only_private = "3"
+  hexnumber_dualstack_private = "4"
 }

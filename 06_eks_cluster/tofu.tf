@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.27.0"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "5.15.0"
-    }
   }
 }
 
@@ -20,7 +16,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "01_ipspace"
+    key                  = "06_eks_cluster"
     use_lockfile         = true
   }
 }

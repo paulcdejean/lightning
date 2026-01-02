@@ -1,7 +1,7 @@
 data "aws_subnet" "ipv6_only_private" {
   filter {
     name   = "tag:Name"
-    values = ["lightning-${tofu.workspace}-ipv6only-private-${local.workspace.az}"]
+    values = ["lightning-${tofu.workspace}-dualstack-private-${local.workspace.az}"]
   }
 }
 
