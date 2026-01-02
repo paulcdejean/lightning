@@ -8,9 +8,9 @@ locals {
       cf_account_id    = "287cae24e46a0aeed1dbc2942fc58dd7"
       min_replicas     = 0
       max_replicas     = 2
-      desired_replicas = 0
+      desired_replicas = 2
       instance_type    = "t4g.small"
-      enable_admin_ssh = true
+      enable_admin_ssh = false
     }
   }
 }
