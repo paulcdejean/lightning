@@ -1,10 +1,3 @@
-data "aws_ssoadmin_instances" "main" {}
-
-locals {
-  identity_store_id = tolist(data.aws_ssoadmin_instances.main.identity_store_ids)[0]
-  users_map         = provider::toml::decode(file("${path.module}/users.toml"))
-}
-
 resource "aws_identitystore_user" "users" {
   for_each          = local.users_map
   identity_store_id = local.identity_store_id

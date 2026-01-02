@@ -2,3 +2,4 @@
 email = "paulcdejean@gmail.com"
 first = "Paul"
 last = "Dejean"
+groups = ["admin"]
