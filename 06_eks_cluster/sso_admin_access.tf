@@ -1,5 +1,5 @@
 # Important note!
-# It's important to attach cluster admin directly to the user.
+# It's important to attach cluster admin directly to identity used to log into the console.
 # If you instead attach it to a role and have the user assume that role, then they won't have access in the console.
 # Yes even if they're a AWS admin.
 
