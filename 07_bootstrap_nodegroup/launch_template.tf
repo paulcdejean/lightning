@@ -3,19 +3,13 @@ data "aws_ssm_parameter" "latest_bottlerocket" {
 }
 
 resource "aws_launch_template" "bootstrap_nodegroup" {
-  name     = "lightning-${tofu.workspace}-bootstrap-nodegroup"
-  image_id = "resolve:ssm:${data.aws_ssm_parameter.latest_bottlerocket.name}"
-  instance_market_options {
-    market_type = "spot"
-  }
+  name                   = "lightning-${tofu.workspace}-bootstrap-nodegroup"
+  image_id               = data.aws_ssm_parameter.latest_bottlerocket.insecure_value
   instance_type          = local.workspace.bootstrap_nodegroup_instance_type
   vpc_security_group_ids = [aws_security_group.bootstrap_nodegroup.id]
   metadata_options {
     http_endpoint      = "enabled"
     http_protocol_ipv6 = "enabled"
-  }
-  iam_instance_profile {
-    arn = aws_iam_instance_profile.bootstrap_nodegroup.arn
   }
   update_default_version = true
 }

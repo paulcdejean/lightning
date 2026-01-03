@@ -1,3 +1,10 @@
+data "aws_vpc" "main" {
+  filter {
+    name   = "tag:Name"
+    values = ["lightning-${tofu.workspace}"]
+  }
+}
+
 resource "aws_security_group" "bootstrap_nodegroup" {
   name   = "lightning-${tofu.workspace}-bootstrap-nodegroup"
   vpc_id = data.aws_vpc.main.id

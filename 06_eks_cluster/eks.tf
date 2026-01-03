@@ -1,3 +1,4 @@
+# The control plane needs an ipv4 address sadly.
 data "aws_subnets" "dualstack_private" {
   filter {
     name   = "tag:Name"
@@ -20,6 +21,10 @@ resource "aws_eks_cluster" "main" {
   }
   kubernetes_network_config {
     ip_family = "ipv6"
+  }
+  # Do I look like I'm made of money?
+  upgrade_policy {
+    support_type = "STANDARD"
   }
   # The below comment is from the terraform docs!
   # Ensure that IAM Role permissions are created before and deleted

@@ -14,9 +14,10 @@ resource "aws_ssoadmin_account_assignment" "admin" {
 }
 
 resource "aws_ssoadmin_permission_set" "admin" {
-  name         = "admin"
-  description  = "admin"
-  instance_arn = local.sso_instance_id
+  name             = "admin"
+  description      = "admin"
+  instance_arn     = local.sso_instance_id
+  session_duration = "PT12H" # A full working day
 }
 
 resource "aws_ssoadmin_managed_policy_attachment" "admin" {

@@ -25,5 +25,8 @@ resource "aws_autoscaling_group" "cloudflared" {
     replace_triggered_by = [
       aws_launch_template.cloudflared,
     ]
+    ignore_changes = [
+      desired_capacity
+    ]
   }
 }

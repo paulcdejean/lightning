@@ -1,8 +1,3 @@
-resource "aws_iam_instance_profile" "bootstrap_nodegroup" {
-  name = "lightning-${tofu.workspace}-bootstrap-nodegroup"
-  role = aws_iam_role.bootstrap_nodegroup.name
-}
-
 resource "aws_iam_role" "bootstrap_nodegroup" {
   name = "lightning-${tofu.workspace}-bootstrap-nodegroup"
   assume_role_policy = jsonencode({
