@@ -1,4 +1,4 @@
-data "aws_subnets" "ipv6_only_private" {
+data "aws_subnets" "dualstack_private" {
   filter {
     name   = "tag:Name"
     values = ["lightning-${tofu.workspace}-dualstack-private-*"]
@@ -16,7 +16,7 @@ resource "aws_eks_cluster" "main" {
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = false
-    subnet_ids              = toset(data.aws_subnets.ipv6_only_private.ids)
+    subnet_ids              = toset(data.aws_subnets.dualstack_private.ids)
   }
   kubernetes_network_config {
     ip_family = "ipv6"

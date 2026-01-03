@@ -1,4 +1,4 @@
-data "aws_subnets" "ipv6_only_private" {
+data "aws_subnets" "dualstack_private" {
   filter {
     name   = "tag:Name"
     values = ["lightning-${tofu.workspace}-dualstack-private-*"]
@@ -14,7 +14,7 @@ resource "aws_autoscaling_group" "cloudflared" {
   launch_template {
     id = aws_launch_template.cloudflared.id
   }
-  vpc_zone_identifier = toset(data.aws_subnets.ipv6_only_private.ids)
+  vpc_zone_identifier = toset(data.aws_subnets.dualstack_private.ids)
   tag {
     key                 = "Name"
     value               = "lightning-${tofu.workspace}-cloudflared"
