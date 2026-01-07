@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Prevents DNF timeouts
+echo "ip_resolve=6" >> /etc/dnf/dnf.conf
+
 mkdir -p /home/fedora/.ssh/
 chown fedora:fedora /home/fedora/.ssh/
 echo "${public_key}" > /home/fedora/.ssh/authorized_keys
