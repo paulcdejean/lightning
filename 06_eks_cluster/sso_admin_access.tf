@@ -1,5 +1,5 @@
 # Important note!
-# It's important to attach cluster admin directly to the user.
+# It's important to attach cluster admin directly to the identity used to log into the AWS console.
 # If you instead attach it to a role and have the user assume that role, then they won't have access in the console.
 # Yes even if they're a AWS admin.
 
@@ -22,7 +22,7 @@ resource "aws_eks_access_entry" "admin" {
 
 resource "aws_eks_access_policy_association" "admin" {
   cluster_name  = aws_eks_cluster.main.name
-  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminPolicy"
+  policy_arn    = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
   principal_arn = data.aws_iam_role.admin.arn
   access_scope {
     type = "cluster"

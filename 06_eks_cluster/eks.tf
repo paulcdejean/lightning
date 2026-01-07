@@ -1,4 +1,5 @@
-data "aws_subnets" "ipv6_only_private" {
+# The control plane needs an ipv4 address sadly.
+data "aws_subnets" "dualstack_private" {
   filter {
     name   = "tag:Name"
     values = ["lightning-${tofu.workspace}-dualstack-private-*"]
@@ -16,10 +17,14 @@ resource "aws_eks_cluster" "main" {
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = false
-    subnet_ids              = toset(data.aws_subnets.ipv6_only_private.ids)
+    subnet_ids              = toset(data.aws_subnets.dualstack_private.ids)
   }
   kubernetes_network_config {
     ip_family = "ipv6"
+  }
+  # Do I look like I'm made of money?
+  upgrade_policy {
+    support_type = "STANDARD"
   }
   # The below comment is from the terraform docs!
   # Ensure that IAM Role permissions are created before and deleted
