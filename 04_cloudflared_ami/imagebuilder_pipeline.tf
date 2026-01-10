@@ -56,7 +56,7 @@ resource "aws_iam_role_policy" "imagebuilder_ssm" {
           "ssm:DeleteParameters",
         ]
         Effect   = "Allow"
-        Resource = aws_ssm_parameter.cloudflared.arn
+        Resource = "arn:aws:ssm:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:parameter/lightning-amis/${tofu.workspace}/*"
       },
       {
         Action   = ["ssm:DescribeParameters"]

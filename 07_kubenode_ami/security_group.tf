@@ -6,5 +6,5 @@ data "aws_vpc" "main" {
 }
 
 data "aws_security_group" "imagebuilder" {
-  name   = "lightning-${tofu.workspace}-imagebuilder"
+  name = "lightning-${tofu.workspace}-imagebuilder"
 }

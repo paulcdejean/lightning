@@ -1,5 +1,5 @@
 data "aws_ssm_parameter" "cloudflared" {
-  name = "lightning-${tofu.workspace}-cloudflared"
+  name = "/lightning-amis/${tofu.workspace}/cloudflared"
 }
 
 
