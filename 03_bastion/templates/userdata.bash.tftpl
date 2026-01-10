@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-# Prevents DNF timeouts
-echo "ip_resolve=6" >> /etc/dnf/dnf.conf
+# Prevents DNF timeouts, for AMIs that we haven't yet blessed.
+if ! grep -q "ip_resolve=6" /etc/dnf/dnf.conf ; then
+  echo "ip_resolve=6" >> /etc/dnf/dnf.conf
+fi
 
 mkdir -p /home/fedora/.ssh/
 chown fedora:fedora /home/fedora/.ssh/

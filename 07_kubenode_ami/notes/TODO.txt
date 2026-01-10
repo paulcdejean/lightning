@@ -1,0 +1,47 @@
+curl -s -H "X-aws-ec2-metadata-token: $(curl -s -X PUT "http://[fd00:ec2::254]/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")" http://[fd00:ec2::254]/latest/meta-data/instance-id && echo ""
+
+ec2-metadata --availability-zone --quiet
+ec2-metadata --instance-id --quiet
+
+ 2091 root      0:08 /usr/bin/kubelet --image-credential-provider-config=/etc/eks/image-credential-provider/config.json --node-ip=2600:1f26:16:8112:179a:e149:d08b:53ea --cloud-provider=external --hostname-override=ip-10-10-18-45.us-east-2.compute.internal --config=/etc/kubernetes/kubelet/config.json --config-dir=/etc/kubernetes/kubelet/config.json.d --kubeconfig=/var/lib/kubelet/kubeconfig --image-credential-provider-bin-dir=/etc/eks/image-credential-provider --node-labels=eks.amazonaws.com/nodegroup-image=ami-08c17ee8c7971dee5,eks.amazonaws.com/capacityType=ON_DEMAND,eks.amazonaws.com/nodegroup=pain
+
+
+/etc/eks/image-credential-provider/config.json 
+ {
+  "kind": "CredentialProviderConfig",
+  "apiVersion": "kubelet.config.k8s.io/v1",
+  "providers": [
+    {
+      "name": "ecr-credential-provider",
+      "matchImages": [
+        "*.dkr.ecr.*.amazonaws.com",
+        "*.dkr-ecr.*.on.aws",
+        "*.dkr.ecr.*.amazonaws.com.cn",
+        "*.dkr-ecr.*.on.amazonwebservices.com.cn",
+        "*.dkr.ecr-fips.*.amazonaws.com",
+        "*.dkr-ecr-fips.*.on.aws",
+        "*.dkr.ecr.*.c2s.ic.gov",
+        "*.dkr.ecr.*.sc2s.sgov.gov",
+        "*.dkr.ecr.*.cloud.adc-e.uk",
+        "*.dkr.ecr.*.csp.hci.ic.gov",
+        "*.dkr.ecr.*.amazonaws.eu",
+        "public.ecr.aws"
+      ],
+      "defaultCacheDuration": "12h0m0s",
+      "apiVersion": "credentialprovider.kubelet.k8s.io/v1"
+    }
+  ]
+}
+
+Swap needs to be off
+
+Set vm/overcommit_memory to 0
+Set kernel/panic to 10
+Set kernel/panic_on_oops to 1
+
+Remove /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+sudo dnf remove zram-generator-defaults
+
+sudo dnf install kubernetes1.34
+sudo dnf install containerd
