@@ -20,9 +20,8 @@ data "aws_ami" "fedora" {
 }
 
 resource "aws_imagebuilder_component" "cloudflared" {
-  name = "lightning-${tofu.workspace}-cloudflared"
-  data = yamlencode(yamldecode(templatefile("${path.module}/templates/cloudflared.yaml.tftpl", {
-  })))
+  name     = "lightning-${tofu.workspace}-cloudflared"
+  data     = yamlencode(local.cloudflared_imagebuilder_component)
   platform = "Linux"
   version  = "1.0.0"
 }
