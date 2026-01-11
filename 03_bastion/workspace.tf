@@ -3,7 +3,7 @@ locals {
   workspaces = {
     unstable = {
       instance_type             = "t4g.medium"
-      enabled                   = true
+      enabled                   = false
       az                        = "us-east-2a"
       allow_insecure_global_ssh = true
     }

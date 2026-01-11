@@ -143,6 +143,15 @@ locals {
               ]
             }
           },
+          {
+            name   = "EnableKubelet"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "systemctl enable kubelet"
+              ]
+            }
+          },
         ]
       },
       {
