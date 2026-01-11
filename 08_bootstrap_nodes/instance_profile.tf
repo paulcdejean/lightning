@@ -20,7 +20,6 @@ data "aws_iam_policy_document" "kubenode_assume_role" {
   }
 }
 
-
 resource "aws_iam_role_policy_attachment" "eks_node_default" {
   role       = aws_iam_role.kubenode.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"

@@ -1,3 +1,7 @@
+[Unit]
+After=containerd.service
+After=cloud-final.service
+
 [Service]
 # Don't load these, it's a headache.
 EnvironmentFile=
@@ -8,3 +12,6 @@ ExecStart=/usr/local/bin/lightning_kubelet_wrapper.bash
 
 # TODO: Temp
 Restart=no
+
+[Install]
+WantedBy=cloud-init.target

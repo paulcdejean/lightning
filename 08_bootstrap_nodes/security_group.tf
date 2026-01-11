@@ -27,8 +27,6 @@ data "aws_security_group" "control_plane" {
 
 resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_kubenode_to_control_plane" {
   security_group_id            = data.aws_security_group.control_plane.id
-  from_port                    = 22
-  ip_protocol                  = "tcp"
-  to_port                      = 22
   referenced_security_group_id = aws_security_group.bootstrap_kubenode.id
+  ip_protocol                  = "-1"
 }
