@@ -1,0 +1,2 @@
+* Seperate filesystem for container stuff on kube nodes
+* CNI helm chart: https://github.com/aws/amazon-vpc-cni-k8s/tree/master/charts/aws-vpc-cni
