@@ -6,4 +6,4 @@ Versions to be kept up to date:
 * Kubernetes
 * Helm charts
 
-AMIs need to be cleaned up
+Old AMIs need to be cleaned up
