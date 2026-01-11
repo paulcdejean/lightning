@@ -36,6 +36,15 @@ resource "aws_instance" "bastion" {
   user_data_base64 = base64encode(templatefile("${path.module}/templates/userdata.bash.tftpl", {
     public_key = trimspace(file("~/.ssh/id_ed25519.pub"))
   }))
+  private_dns_name_options {
+    enable_resource_name_dns_aaaa_record = true
+    enable_resource_name_dns_a_record = false
+    hostname_type = "resource-name"
+  }
+  metadata_options {
+    http_endpoint      = "enabled"
+    http_protocol_ipv6 = "enabled"
+  }
   tags = {
     Name = "lightning-${tofu.workspace}-bastion"
   }
@@ -43,9 +52,5 @@ resource "aws_instance" "bastion" {
     ignore_changes = [
       ami
     ]
-  }
-  metadata_options {
-    http_endpoint      = "enabled"
-    http_protocol_ipv6 = "enabled"
   }
 }

@@ -14,6 +14,7 @@ fi
 instance_id=$(ec2-metadata --instance-id --quiet)
 availability_zone=$(ec2-metadata --availability-zone --quiet)
 region=$(ec2-metadata --region --quiet)
+private_hostname=$(ec2-metadata --local-hostname --quiet)
 cluster_name=$(cat /etc/lightning/cluster_name.txt)
 cluster_endpoint=$(AWS_USE_DUALSTACK_ENDPOINT=true aws eks describe-cluster --name lightning-unstable --query "cluster.endpoint" --output text)
 
@@ -44,7 +45,7 @@ exec /usr/bin/kubelet \
   --image-credential-provider-config=/etc/lightning/credential_provider_config.yaml \
   "--node-ip=::" \
   --cloud-provider=external \
-  --hostname-override=$instance_id \
+  --hostname-override=$private_hostname \
   --config=/etc/lightning/kublet_config.yaml \
   --kubeconfig=/etc/lightning/kube_client_config.yaml \
   --image-credential-provider-bin-dir=/usr/local/bin
