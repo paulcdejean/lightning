@@ -10,8 +10,9 @@ EnvironmentFile=
 ExecStart=
 ExecStart=/usr/local/bin/lightning_kubelet_wrapper.bash
 
-# TODO: Temp
-Restart=no
+# My personal preference
+Restart=on-abnormal
 
 [Install]
+WantedBy=
 WantedBy=cloud-init.target
