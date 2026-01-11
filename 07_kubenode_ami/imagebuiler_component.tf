@@ -23,7 +23,7 @@ locals {
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "dnf install -y kubernetes1.34"
+                "dnf --setopt=install_weak_deps=False -y install kubernetes1.34-systemd"
               ]
             }
           },
@@ -70,11 +70,21 @@ locals {
             ]
           },
           {
+            name   = "CreateImageCredProviderFolder"
+            action = "CreateFolder"
+            inputs = [
+              {
+                path      = "/etc/lightning"
+                overwrite = true
+              }
+            ]
+          },
+          {
             name   = "CreateKubeletConfig"
             action = "CreateFile"
             inputs = [
               {
-                path      = "/etc/kubernetes/kubelet/config.yaml"
+                path      = "/etc/lightning/kublet_config.yaml"
                 content   = templatefile("${path.module}/templates/kubelet_config.yaml", {})
                 overwrite = true
               }
@@ -85,18 +95,8 @@ locals {
             action = "CreateFile"
             inputs = [
               {
-                path      = "/var/lib/kubelet/kubeconfig"
+                path      = "/etc/lightning/kube_client_config.yaml"
                 content   = templatefile("${path.module}/templates/kubeconfig.yaml", {})
-                overwrite = true
-              }
-            ]
-          },
-          {
-            name   = "CreateImageCredProviderFolder"
-            action = "CreateFolder"
-            inputs = [
-              {
-                path      = "/etc/eks/image-credential-provider"
                 overwrite = true
               }
             ]
@@ -106,7 +106,7 @@ locals {
             action = "CreateFile"
             inputs = [
               {
-                path      = "/etc/eks/image-credential-provider/config.json"
+                path      = "/etc/lightning/credential_provider_config.yaml"
                 content   = templatefile("${path.module}/templates/image_credential_provider.yaml", {})
                 overwrite = true
               }
