@@ -37,6 +37,15 @@ locals {
             }
           },
           {
+            name   = "EnableContainerd"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "systemctl enable containerd"
+              ]
+            }
+          },
+          {
             name   = "CreateKubenodeKernelDefaults"
             action = "CreateFile"
             inputs = [
@@ -63,9 +72,10 @@ locals {
             action = "CreateFile"
             inputs = [
               {
-                path      = "/usr/local/bin/lightning_kubelet_wrapper.bash"
-                content   = templatefile("${path.module}/templates/kubelet_wrapper.bash", {})
-                overwrite = true
+                path        = "/usr/local/bin/lightning_kubelet_wrapper.bash"
+                content     = templatefile("${path.module}/templates/kubelet_wrapper.bash", {})
+                overwrite   = true
+                permissions = "0755"
               }
             ]
           },
@@ -96,7 +106,7 @@ locals {
             inputs = [
               {
                 path      = "/etc/lightning/kube_client_config.yaml"
-                content   = templatefile("${path.module}/templates/kubeconfig.yaml", {})
+                content   = templatefile("${path.module}/templates/kube_client_config.yaml", {})
                 overwrite = true
               }
             ]
@@ -108,6 +118,17 @@ locals {
               {
                 path      = "/etc/lightning/credential_provider_config.yaml"
                 content   = templatefile("${path.module}/templates/image_credential_provider.yaml", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateKubeletServiceOverride"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/etc/systemd/system/kubelet.service.d/lightning.conf"
+                content   = templatefile("${path.module}/templates/kubelet.service", {})
                 overwrite = true
               }
             ]

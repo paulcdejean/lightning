@@ -7,7 +7,7 @@ authentication:
     cacheTTL: 2m0s
     enabled: true
   x509:
-    clientCAFile: /etc/kubelet/pki/ca.crt
+    clientCAFile: /etc/lightning/pki_ca.crt
 authorization:
   mode: Webhook
   webhook:
@@ -36,7 +36,7 @@ logging:
   verbosity: 2
 maxPods: 35
 protectKernelDefaults: true
-providerID: aws:///__REGION__/__INSTNACE__
+providerID: aws:///__ZONE__/__INSTNACE__
 readOnlyPort: 0
 serializeImagePulls: false
 serverTLSBootstrap: true

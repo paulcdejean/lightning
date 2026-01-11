@@ -1,0 +1,10 @@
+[Service]
+# Don't load these, it's a headache.
+EnvironmentFile=
+
+# ExecStart is a list, so you need to blank it out to override it properly.
+ExecStart=
+ExecStart=/usr/local/bin/lightning_kubelet_wrapper.bash
+
+# TODO: Temp
+Restart=no
