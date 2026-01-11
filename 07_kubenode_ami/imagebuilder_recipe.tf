@@ -20,8 +20,8 @@ data "aws_ami" "fedora" {
 }
 
 resource "aws_imagebuilder_component" "kubenode" {
-  name = "lightning-${tofu.workspace}-kubenode"
-  data = yamlencode(local.kubenode_imagebuilder_component)
+  name     = "lightning-${tofu.workspace}-kubenode"
+  data     = yamlencode(local.kubenode_imagebuilder_component)
   platform = "Linux"
   version  = "1.0.0"
 }
@@ -41,7 +41,7 @@ resource "aws_imagebuilder_image_recipe" "kubenode" {
   component {
     component_arn = aws_imagebuilder_component.kubenode.arn
   }
-  user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash.tftpl", {
+  user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash", {
   }))
   parent_image = data.aws_ami.fedora.id
   version      = "1.0.0"

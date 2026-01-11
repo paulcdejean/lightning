@@ -45,3 +45,4 @@ sudo dnf remove zram-generator-defaults
 
 sudo dnf install kubernetes1.34
 sudo dnf install containerd
+

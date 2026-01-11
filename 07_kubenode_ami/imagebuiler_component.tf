@@ -56,6 +56,17 @@ locals {
               }
             ]
           },
+          {
+            name   = "CreateSystemEnvVars"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/etc/profile.d/lightning_env_vars.bash"
+                content   = templatefile("${path.module}/templates/lightning_env_vars.bash", {})
+                overwrite = true
+              }
+            ]
+          },
         ]
       },
       {
