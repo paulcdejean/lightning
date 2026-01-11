@@ -1,7 +1,7 @@
 locals {
   kubenode_imagebuilder_component = {
-    name          = "CloudflaredTunnel"
-    description   = "Cloudflared tunnel AMI"
+    name          = "LightningKubeNode"
+    description   = "Lightning Kubernetes node AMI"
     schemaVersion = 1
 
     phases = [
@@ -138,7 +138,7 @@ locals {
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "AWS_USE_DUALSTACK_ENDPOINT=true aws --no-sign-request s3 cp s3://amazon-ecr-credential-helper-releases/${ecr_credential_helper_version}/linux-arm64/docker-credential-ecr-login /usr/local/bin/docker-credential-ecr-login",
+                "AWS_USE_DUALSTACK_ENDPOINT=true aws --no-sign-request s3 cp s3://amazon-ecr-credential-helper-releases/${local.workspace.ecr_credential_helper_version}/linux-arm64/docker-credential-ecr-login /usr/local/bin/docker-credential-ecr-login",
                 "chmod a+x /usr/local/bin/docker-credential-ecr-login"
               ]
             }
