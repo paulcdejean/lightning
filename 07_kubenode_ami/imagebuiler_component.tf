@@ -37,15 +37,6 @@ locals {
             }
           },
           {
-            name   = "RemoveKubeadmDropin"
-            action = "ExecuteBash"
-            inputs = {
-              commands = [
-                "rm /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf"
-              ]
-            }
-          },
-          {
             name   = "CreateKubenodeKernelDefaults"
             action = "CreateFile"
             inputs = [
@@ -62,7 +53,72 @@ locals {
             inputs = [
               {
                 path      = "/etc/profile.d/lightning_env_vars.bash"
-                content   = templatefile("${path.module}/templates/lightning_env_vars.bash", {})
+                content   = templatefile("${path.module}/templates/lightning_env_vars.sh", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateWrapperScript"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/usr/local/bin/lightning_kubelet_wrapper.bash"
+                content   = templatefile("${path.module}/templates/kubelet_wrapper.bash", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateWrapperScript"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/usr/local/bin/lightning_kubelet_wrapper.bash"
+                content   = templatefile("${path.module}/templates/kubelet_wrapper.bash", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateKubeletConfig"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/etc/kubernetes/kubelet/config.yaml"
+                content   = templatefile("${path.module}/templates/kublet_config.bash", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateKubeConfig"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/var/lib/kubelet/kubeconfig"
+                content   = templatefile("${path.module}/templates/kubeconfig.yaml", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateImageCredProviderFolder"
+            action = "CreateFolder"
+            inputs = [
+              {
+                path      = "/etc/eks/image-credential-provider"
+                overwrite = true
+              }
+            ]
+          },
+          {
+            name   = "CreateImageCredProviderConfig"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/etc/eks/image-credential-provider/config.json"
+                content   = templatefile("${path.module}/templates/image_credential_provider.yaml", {})
                 overwrite = true
               }
             ]
@@ -73,11 +129,20 @@ locals {
         name = "validate"
         steps = [
           {
-            name   = "NoopValidateStep"
+            name   = "VerifyKubePackage"
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "echo 'No validation performed.'"
+                "rpm -V kubernetes1.34"
+              ]
+            }
+          },
+          {
+            name   = "VerifyContainerdPackage"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "rpm -V containerd"
               ]
             }
           }
