@@ -61,7 +61,7 @@ locals {
             action = "CreateFile"
             inputs = [
               {
-                path      = "/etc/profile.d/lightning_env_vars.bash"
+                path      = "/etc/profile.d/lightning_env_vars.sh"
                 content   = templatefile("${path.module}/templates/env_vars.sh", {})
                 overwrite = true
               }
@@ -133,6 +133,16 @@ locals {
               }
             ]
           },
+          {
+            name   = "InstallEcrHelper"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "AWS_USE_DUALSTACK_ENDPOINT=true aws --no-sign-request s3 cp s3://amazon-ecr-credential-helper-releases/${ecr_credential_helper_version}/linux-arm64/docker-credential-ecr-login /usr/local/bin/docker-credential-ecr-login",
+                "chmod a+x /usr/local/bin/docker-credential-ecr-login"
+              ]
+            }
+          },
         ]
       },
       {
@@ -175,3 +185,5 @@ locals {
     ]
   }
 }
+
+

@@ -22,7 +22,6 @@ evictionHard:
   nodefs.available: 10%
   nodefs.inodesFree: 5%
 featureGates:
-  DynamicResourceAllocation: true
   MutableCSINodeAllocatableCount: true
   RotateKubeletServerCertificate: true
 hairpinMode: hairpin-veth

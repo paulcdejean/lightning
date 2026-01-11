@@ -6,7 +6,7 @@ if [[ ! -f /etc/lightning/cluster_name.txt ]] ; then
     exit 1
 fi
 
-if ! grep -E -q '[%\\/;:]' /etc/lightning/cluster_name.txt ; then
+if grep -q '[$%\\/;:]' /etc/lightning/cluster_name.txt ; then
   echo "/etc/lightning/cluster_name.txt contains invalid characters"
   exit 1
 fi
@@ -32,9 +32,6 @@ sed -i \
   -e s%__ZONE__%$availability_zone% \
   -e s%__INSTNACE__%$instance_id% \
   /etc/lightning/kublet_config.yaml
-
-exit 1
-
 
 # Notes:
 # Cluster name format according to the AWS console:
