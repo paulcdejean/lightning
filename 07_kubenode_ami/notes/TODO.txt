@@ -33,17 +33,5 @@ ec2-metadata --instance-id --quiet
   ]
 }
 
-Swap needs to be off
-
-Set vm/overcommit_memory to 0
-Set kernel/panic to 10
-Set kernel/panic_on_oops to 1
-
-Remove /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
-
-sudo dnf remove zram-generator-defaults
-
-sudo dnf install kubernetes1.34
-sudo dnf install containerd
-
-sudo dnf --setopt=install_weak_deps=False -y install kubernetes1.34-systemd
+TOOD:
+Dynamic calculation of RAM and CPU reservation
