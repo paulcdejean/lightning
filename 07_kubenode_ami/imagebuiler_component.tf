@@ -53,18 +53,7 @@ locals {
             inputs = [
               {
                 path      = "/etc/profile.d/lightning_env_vars.bash"
-                content   = templatefile("${path.module}/templates/lightning_env_vars.sh", {})
-                overwrite = true
-              }
-            ]
-          },
-          {
-            name   = "CreateWrapperScript"
-            action = "CreateFile"
-            inputs = [
-              {
-                path      = "/usr/local/bin/lightning_kubelet_wrapper.bash"
-                content   = templatefile("${path.module}/templates/kubelet_wrapper.bash", {})
+                content   = templatefile("${path.module}/templates/env_vars.sh", {})
                 overwrite = true
               }
             ]
@@ -86,7 +75,7 @@ locals {
             inputs = [
               {
                 path      = "/etc/kubernetes/kubelet/config.yaml"
-                content   = templatefile("${path.module}/templates/kublet_config.bash", {})
+                content   = templatefile("${path.module}/templates/kubelet_config.yaml", {})
                 overwrite = true
               }
             ]

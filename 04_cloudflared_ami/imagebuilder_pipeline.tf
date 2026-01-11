@@ -9,6 +9,9 @@ resource "aws_imagebuilder_image_pipeline" "cloudflared" {
       aws_imagebuilder_image_recipe.cloudflared
     ]
   }
+  provisioner "local-exec" {
+    command = "aws imagebuilder start-image-pipeline-execution --image-pipeline-arn ${self.arn}"
+  }
 }
 
 resource "aws_iam_role" "imagebuilder_execution" {
