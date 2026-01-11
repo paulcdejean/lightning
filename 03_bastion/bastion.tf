@@ -28,7 +28,7 @@ data "aws_ami" "fedora" {
 
 resource "aws_instance" "bastion" {
   count                       = local.workspace.enabled ? 1 : 0
-  ami                         = "ami-0dbd5546e187a07dd"
+  ami                         = "ami-08f6c82770fa3b6ee"
   instance_type               = local.workspace.instance_type
   subnet_id                   = data.aws_subnet.ipv6_only_private.id
   vpc_security_group_ids      = [aws_security_group.bastion.id]
@@ -38,8 +38,8 @@ resource "aws_instance" "bastion" {
   }))
   private_dns_name_options {
     enable_resource_name_dns_aaaa_record = true
-    enable_resource_name_dns_a_record = false
-    hostname_type = "resource-name"
+    enable_resource_name_dns_a_record    = false
+    hostname_type                        = "resource-name"
   }
   metadata_options {
     http_endpoint      = "enabled"

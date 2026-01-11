@@ -1,39 +1,7 @@
-curl -s -H "X-aws-ec2-metadata-token: $(curl -s -X PUT "http://[fd00:ec2::254]/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")" http://[fd00:ec2::254]/latest/meta-data/instance-id && echo ""
-
-ec2-metadata --availability-zone --quiet
-ec2-metadata --instance-id --quiet
-
- 2091 root      0:08 /usr/bin/kubelet --image-credential-provider-config=/etc/eks/image-credential-provider/config.json --node-ip=2600:1f26:16:8112:179a:e149:d08b:53ea --cloud-provider=external --hostname-override=ip-10-10-18-45.us-east-2.compute.internal --config=/etc/kubernetes/kubelet/config.json --config-dir=/etc/kubernetes/kubelet/config.json.d --kubeconfig=/var/lib/kubelet/kubeconfig --image-credential-provider-bin-dir=/etc/eks/image-credential-provider --node-labels=eks.amazonaws.com/nodegroup-image=ami-08c17ee8c7971dee5,eks.amazonaws.com/capacityType=ON_DEMAND,eks.amazonaws.com/nodegroup=pain
-
-
-/etc/eks/image-credential-provider/config.json 
- {
-  "kind": "CredentialProviderConfig",
-  "apiVersion": "kubelet.config.k8s.io/v1",
-  "providers": [
-    {
-      "name": "ecr-credential-provider",
-      "matchImages": [
-        "*.dkr.ecr.*.amazonaws.com",
-        "*.dkr-ecr.*.on.aws",
-        "*.dkr.ecr.*.amazonaws.com.cn",
-        "*.dkr-ecr.*.on.amazonwebservices.com.cn",
-        "*.dkr.ecr-fips.*.amazonaws.com",
-        "*.dkr-ecr-fips.*.on.aws",
-        "*.dkr.ecr.*.c2s.ic.gov",
-        "*.dkr.ecr.*.sc2s.sgov.gov",
-        "*.dkr.ecr.*.cloud.adc-e.uk",
-        "*.dkr.ecr.*.csp.hci.ic.gov",
-        "*.dkr.ecr.*.amazonaws.eu",
-        "public.ecr.aws"
-      ],
-      "defaultCacheDuration": "12h0m0s",
-      "apiVersion": "credentialprovider.kubelet.k8s.io/v1"
-    }
-  ]
-}
-
 TOOD:
 Dynamic calculation of RAM and CPU reservation
-
-AWS_USE_DUALSTACK_ENDPOINT=true aws --no-sign-request s3 cp s3://amazon-ecr-credential-helper-releases/0.11.0/linux-arm64/docker-credential-ecr-login /usr/local/bin/docker-credential-ecr-login
+Error: cni plugin not initialized
+Can't pull images due to it not using the dualstack endpoint
+Also the credential provider is crashing:
+Jan 11 06:48:54 i-03297ebd8c8309a3c.us-east-2.compute.internal lightning_kubelet_wrapper.bash[1221]: E0111 06:48:54.210089    1221 plugin.go:520] Failed getting credential from external registry credential pro
+vider: error execing credential provider plugin docker-credential-ecr-login for image 602401143452.dkr.ecr.us-east-2.amazonaws.com/amazon-k8s-cni-init: exit status 1

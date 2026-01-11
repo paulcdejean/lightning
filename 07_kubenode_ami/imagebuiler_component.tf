@@ -23,7 +23,7 @@ locals {
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "dnf --setopt=install_weak_deps=False -y install kubernetes1.34-systemd"
+                "dnf --setopt=install_weak_deps=False -y install kubernetes${local.workspace.kube_version}-systemd kubernetes${local.workspace.kube_version}-client"
               ]
             }
           },
@@ -153,7 +153,7 @@ locals {
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "rpm -V kubernetes1.34"
+                "rpm -V kubernetes${local.workspace.kube_version}"
               ]
             }
           },
