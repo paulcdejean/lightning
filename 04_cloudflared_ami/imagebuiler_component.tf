@@ -32,7 +32,7 @@ locals {
             inputs = [
               {
                 path      = "/etc/systemd/system/cloudflared.service"
-                content   = templatefile("${path.module}/templates/cloudflared.service.tftpl", {})
+                content   = templatefile("${path.module}/templates/cloudflared.service", {})
                 overwrite = true
               }
             ]

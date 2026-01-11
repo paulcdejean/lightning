@@ -20,7 +20,7 @@ resource "aws_launch_template" "cloudflared" {
     arn = aws_iam_instance_profile.cloudflared.arn
   }
   update_default_version = true
-  user_data = base64encode(templatefile("${path.module}/templates/cloudflared_userdata.bash.tftpl", {
+  user_data = base64encode(templatefile("${path.module}/templates/cloudflared_userdata.bash", {
     tunnel_id = cloudflare_zero_trust_tunnel_cloudflared.lightning.id
     secret_id = aws_secretsmanager_secret.cloudflared_tunnel.name
   }))

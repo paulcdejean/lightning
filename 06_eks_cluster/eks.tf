@@ -1,4 +1,4 @@
-# The control plane needs an ipv4 address sadly.
+# The control plane needs a private ipv4 address sadly.
 data "aws_subnets" "dualstack_private" {
   filter {
     name   = "tag:Name"
@@ -12,8 +12,9 @@ resource "aws_eks_cluster" "main" {
     authentication_mode                         = "API"
     bootstrap_cluster_creator_admin_permissions = false
   }
-  role_arn = aws_iam_role.eks_cluster.arn
-  version  = local.workspace.kube_version
+  role_arn                      = aws_iam_role.eks_cluster.arn
+  version                       = local.workspace.kube_version
+  bootstrap_self_managed_addons = false
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = false

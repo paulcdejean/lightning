@@ -41,7 +41,7 @@ resource "aws_imagebuilder_image_recipe" "cloudflared" {
   component {
     component_arn = aws_imagebuilder_component.cloudflared.arn
   }
-  user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash.tftpl", {
+  user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash", {
   }))
   parent_image = data.aws_ami.fedora.id
   version      = "1.0.0"
