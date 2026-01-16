@@ -5,7 +5,7 @@ terraform {
       version = "6.28.0"
     }
     helm = {
-      source = "hashicorp/helm"
+      source  = "hashicorp/helm"
       version = "3.1.1"
     }
   }
@@ -28,6 +28,6 @@ provider "aws" {
 provider "helm" {
   kubernetes = {
     config_path = "~/.kube/config"
-    context = data.aws_eks_cluster.lightning.arn
+    context     = data.aws_eks_cluster.lightning.arn
   }
 }
