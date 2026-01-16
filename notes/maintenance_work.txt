@@ -1,0 +1,9 @@
+Versions to be kept up to date:
+* Fedora
+* Opentofu
+* Opentofu providers
+* Fedora
+* Kubernetes
+* Helm charts
+
+Old AMIs need to be cleaned up

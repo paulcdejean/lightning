@@ -1,0 +1,5 @@
+1. Build AMI
+2. Remake bastion with that new AMI
+3. Attach instance profile
+4. Create /etc/lightning/cluster_name.txt with the cluster name: echo lightning-unstable | sudo tee /etc/lightning/cluster_name.txt
+5. Start kubelet

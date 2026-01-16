@@ -1,5 +1,3 @@
-data "aws_region" "current" {}
-
 resource "aws_imagebuilder_distribution_configuration" "cloudflared" {
   name = "lightning-${tofu.workspace}-cloudflared"
   distribution {
