@@ -9,5 +9,13 @@ resource "helm_release" "aws_cni" {
       name  = "image.overrideRepository"
       value = "ecr-public.aws.com/eks/amazon-k8s-cni-init"
     },
+    {
+      name  = "init.image.overrideRepository"
+      value = "ecr-public.aws.com/eks/amazon-k8s-cni-init"
+    },
+    {
+      name  = "nodeAgent.image.overrideRepository"
+      value = "ecr-public.aws.com/eks/amazon-k8s-cni-init"
+    },
   ]
 }
