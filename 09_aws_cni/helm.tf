@@ -6,7 +6,7 @@ resource "helm_release" "aws_cni" {
   version    = "1.21.1"
   set = [
     {
-      name  = "init.image.overrideRepository"
+      name  = "image.overrideRepository"
       value = "ecr-public.aws.com/eks/amazon-k8s-cni-init"
     },
   ]
