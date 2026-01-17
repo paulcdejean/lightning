@@ -11,24 +11,12 @@ resource "helm_release" "aws_cni" {
       value = "ecr-public.aws.com/eks/amazon-k8s-cni"
     },
     {
-      name  = "image.tag"
-      value = "v${local.workspace.version}"
-    },
-    {
       name  = "init.image.overrideRepository"
       value = "ecr-public.aws.com/eks/amazon-k8s-cni-init"
     },
     {
-      name  = "init.image.tag"
-      value = "v${local.workspace.version}"
-    },
-    {
       name  = "nodeAgent.image.overrideRepository"
       value = "ecr-public.aws.com/eks/aws-network-policy-agent"
-    },
-    {
-      name  = "nodeAgent.image.tag"
-      value = "v${local.workspace.version}"
     },
     # Disable ipv4, enable ipv6.
     {
