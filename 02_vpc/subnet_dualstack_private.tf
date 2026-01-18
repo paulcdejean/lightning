@@ -1,15 +1,15 @@
 locals {
   dualstack_private_ipv6_ranges = {
-    for k, v in local.azs : k =>
-    provider::toml::decode(file("${path.module}/network.toml")).ipv6["dualstack-private-${v}"]
+    for k, v in local.azs :
+    k => provider::toml::decode(file("${path.module}/network.toml")).ipv6["dualstack-private-${v}"]
   }
   dualstack_private_ipv6_blocks = {
-    for k, v in local.dualstack_private_ipv6_ranges : k =>
-    "${local.ipv6_prefix}${format("%x", local.ipv6_cidr_fourth_numeric + v)}::/64"
+    for k, v in local.dualstack_private_ipv6_ranges : 
+    k => "${local.ipv6_prefix}${format("%x", local.ipv6_cidr_fourth_numeric + v)}::/64"
   }
   dualstack_private_ipv4_blocks = {
-    for k, v in local.azs : k =>
-    "${local.workspace.ipv4_cidr_prefix}${provider::toml::decode(file("${path.module}/network.toml")).ipv4["dualstack-private-${v}"]}"
+    for k, v in local.azs :
+    k => "${local.workspace.ipv4_cidr_prefix}${provider::toml::decode(file("${path.module}/network.toml")).ipv4["dualstack-private-${v}"]}"
   }
 }
 

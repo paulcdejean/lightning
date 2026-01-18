@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.28.0"
     }
+    toml = {
+      source  = "Tobotimus/toml"
+      version = "0.3.0"
+    }
   }
 }
 
