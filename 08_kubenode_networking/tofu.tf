@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.28.0"
     }
-    toml = {
-      source  = "Tobotimus/toml"
-      version = "0.3.0"
-    }
   }
 }
 
@@ -20,7 +16,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "02_vpc"
+    key                  = "08_kubenode_networking"
     use_lockfile         = true
   }
 }

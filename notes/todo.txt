@@ -5,3 +5,8 @@
 Failed to pull image "ecr-public.aws.com/eks/amazon-k8s-cni-init:v1.3.1":
 rpc error: code = NotFound desc = failed to pull and unpack image "ecr-public.aws.com/eks/amazon-k8s-cni-init:v1.3.1":
 failed to resolve image: ecr-public.aws.com/eks/amazon-k8s-cni-init:v1.3.1: not found
+
+Amazon ECR credential helper is the wrong kind.
+
+Even if it was the right kind it wouldn't work for public over ipv6 what a joke.
+https://github.com/awslabs/amazon-eks-ami/issues/2592#issuecomment-3762485508

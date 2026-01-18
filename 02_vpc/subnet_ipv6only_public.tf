@@ -1,9 +1,20 @@
+locals {
+  ipv6only_public_ipv6_ranges = {
+    for k, v in local.azs : k =>
+    provider::toml::decode(file("${path.module}/network.toml")).ipv6["ipv6only-public-${v}"]
+  }
+  ipv6only_public_ipv6_blocks = {
+    for k, v in local.ipv6only_public_ipv6_ranges : k =>
+    "${local.ipv6_prefix}${format("%x", local.ipv6_cidr_fourth_numeric + v)}::/64"
+  }
+}
+
 resource "aws_subnet" "ipv6_only_public" {
-  for_each                                       = local.azs
+  for_each                                       = local.ipv6only_public_ipv6_blocks
   vpc_id                                         = data.aws_vpc.main.id
   availability_zone                              = each.key
   ipv6_native                                    = true
-  ipv6_cidr_block                                = "${local.vpc_ipv6space_array[0]}:${local.vpc_ipv6space_array[1]}:${local.vpc_ipv6space_array[2]}:${format("%x", parseint(local.vpc_ipv6space_array[3], 16) + parseint("${each.value}${local.hexnumber_ipv6_only_public}", 16))}::/64"
+  ipv6_cidr_block                                = each.value
   assign_ipv6_address_on_creation                = true
   enable_resource_name_dns_aaaa_record_on_launch = true
   tags = {

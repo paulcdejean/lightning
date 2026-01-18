@@ -1,0 +1,71 @@
+# All the subnetwork and their ranges are consolidated here.
+# They may be created or used in other layers, but we need them all in one place to prevent overlap and keep things clear.
+# Worth noting, us-east-1 has the most availability zones at 6. However one of them is EVIL and should not be used.
+# So I'm prone to segmenting things in groups of 5.
+[ipv4]
+dualstack-public-a = "0.0/24"
+dualstack-public-b = "1.0/24"
+dualstack-public-c = "2.0/24"
+
+dualstack-private-a = "5.0/24"
+dualstack-private-b = "6.0/24"
+dualstack-private-c = "7.0/24"
+
+ipv4only-public-a = "10.0/24"
+ipv4only-public-b = "11.0/24"
+ipv4only-public-c = "12.0./24"
+
+dualstack-nat-public-a = "15.0/24"
+dualstack-nat-public-b = "16.0/24"
+dualstack-nat-public-c = "17.0/24"
+
+dualstack-nat-private-a = "20.0/24"
+dualstack-nat-private-b = "21.0/24"
+dualstack-nat-private-c = "22.0/24"
+
+ipv4only-nat-private-a = "25.0/24"
+ipv4only-nat-private-b = "26.0/24"
+ipv4only-nat-private-c = "27.0/24"
+
+kubenode-small-a = "30.0/24"
+kubenode-small-b = "31.0/24"
+kubenode-small-c = "32.0/24"
+
+# 8000+ private ipv4 addresses per.
+# Only four AZs supported.
+large-a = "128.0/19"
+large-b = "160.0/19"
+large-c = "192.0/19"
+large-d = "224.0/19"
+
+# ipv6 subnets are always /64 by convention.
+# Rather than strings, we give a number, and we add that number to the vpc cidr.
+# Number is 0x0 to 0xff.
+[ipv6]
+dualstack-public-a = 0x01
+dualstack-public-b = 0x02
+dualstack-public-c = 0x03
+
+dualstack-private-a = 0x06
+dualstack-private-b = 0x07
+dualstack-private-c = 0x08
+
+dualstack-nat-public-a = 0x0b
+dualstack-nat-public-b = 0x0c
+dualstack-nat-public-c = 0x0d
+
+dualstack-nat-private-a = 0x11
+dualstack-nat-private-b = 0x12
+dualstack-nat-private-c = 0x13
+
+ipv6only-public-a = 0x16
+ipv6only-public-b = 0x17
+ipv6only-public-c = 0x18
+
+ipv6only-private-a = 0x1b
+ipv6only-private-b = 0x1c
+ipv6only-private-c = 0x1d
+
+kubenode-small-a = 0x21
+kubenode-small-b = 0x22
+kubenode-small-c = 0x23

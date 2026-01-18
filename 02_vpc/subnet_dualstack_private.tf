@@ -1,9 +1,24 @@
+locals {
+  dualstack_private_ipv6_ranges = {
+    for k, v in local.azs : k =>
+    provider::toml::decode(file("${path.module}/network.toml")).ipv6["dualstack-private-${v}"]
+  }
+  dualstack_private_ipv6_blocks = {
+    for k, v in local.dualstack_private_ipv6_ranges : k =>
+    "${local.ipv6_prefix}${format("%x", local.ipv6_cidr_fourth_numeric + v)}::/64"
+  }
+  dualstack_private_ipv4_blocks = {
+    for k, v in local.azs : k =>
+    "${local.workspace.ipv4_cidr_prefix}${provider::toml::decode(file("${path.module}/network.toml")).ipv4["dualstack-private-${v}"]}"
+  }
+}
+
 resource "aws_subnet" "dualstack_private" {
   for_each                                       = local.azs
   vpc_id                                         = data.aws_vpc.main.id
   availability_zone                              = each.key
-  ipv6_cidr_block                                = "${local.vpc_ipv6space_array[0]}:${local.vpc_ipv6space_array[1]}:${local.vpc_ipv6space_array[2]}:${format("%x", parseint(local.vpc_ipv6space_array[3], 16) + parseint("${each.value}${local.hexnumber_dualstack_private}", 16))}::/64"
-  cidr_block                                     = "${local.vpc_ipv4space_array[0]}.${local.vpc_ipv4space_array[1]}.${parseint("${each.value}${local.hexnumber_dualstack_private}", 16)}.0/24"
+  ipv6_cidr_block                                = local.dualstack_private_ipv6_blocks[each.key]
+  cidr_block                                     = local.dualstack_private_ipv4_blocks[each.key]
   assign_ipv6_address_on_creation                = true
   enable_resource_name_dns_aaaa_record_on_launch = true
   map_public_ip_on_launch                        = false
