@@ -45,10 +45,6 @@ locals {
   ]...)
 }
 
-# "10.10.32.217" = {   
-#   "az" = "us-east-2c"   
-#   "ipv6_hex" = "20d9"
-# }
 resource "aws_network_interface" "kubenode_small_secondary" {
   # for_each = local.subnet_eips_final
   # subnet_id       = aws_subnet.kubenode_small[each.value.az].id
@@ -58,7 +54,7 @@ resource "aws_network_interface" "kubenode_small_secondary" {
   subnet_id       = aws_subnet.kubenode_small[each.value.az].id
   private_ips     = [each.key]
   security_groups = [aws_security_group.kubenode.id]
-  ipv6_prefixes   = "${trimsuffix(aws_subnet.kubenode_small[each.value.az].ipv6_cidr_block, "::/64")}:${each.value.ipv6_hex}::/80"
+  ipv6_prefixes   = ["${trimsuffix(aws_subnet.kubenode_small[each.value.az].ipv6_cidr_block, "::/64")}:${each.value.ipv6_hex}::/80"]
   tags = {
     Name = "lightning-kubenode-secondary-${tofu.workspace}-${each.key}"
   }
