@@ -25,6 +25,12 @@ resource "aws_vpc_security_group_egress_rule" "allow_local_egress_ipv4" {
   ip_protocol       = "-1"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "allow_intra_bastion_traffic" {
+  security_group_id            = aws_security_group.bastion.id
+  referenced_security_group_id = aws_security_group.bastion.id
+  ip_protocol                  = "-1"
+}
+
 resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_ssh_ingress_ipv6" {
   count             = local.workspace.allow_insecure_global_ssh ? 1 : 0
   security_group_id = aws_security_group.bastion.id
