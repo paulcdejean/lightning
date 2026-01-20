@@ -32,4 +32,7 @@ resource "aws_autoscaling_group" "bootstrap_nodegroup" {
       desired_capacity
     ]
   }
+  depends_on = [
+    aws_eks_access_entry.kubenode
+  ]
 }

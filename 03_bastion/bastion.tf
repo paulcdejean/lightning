@@ -1,7 +1,7 @@
 data "aws_subnet" "bastion" {
   filter {
     name   = "tag:Name"
-    values = ["lightning-${tofu.workspace}-kubenode-small-${local.workspace.az}"]
+    values = ["lightning-${tofu.workspace}-dualstack-private-${local.workspace.az}"]
   }
 }
 
