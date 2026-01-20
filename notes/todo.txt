@@ -14,3 +14,22 @@ https://github.com/awslabs/amazon-eks-ami/issues/2592#issuecomment-3762485508
 
 This works???
 ip addr add 2600:1f26:16:8121:1ea0::/80 dev ens6
+
+ping 2600:1f26:0016:8121:1ea0:0000:0000:abcd
+
+aws ec2 attach-network-interface --network-interface-id eni-0d56f502727e619ed --instance-id i-03da4c58678915ae3 --device-index 1
+
+10.10.30.204
+
+
+tls.secretsNamespace.create = false
+
+
+.Values.clustermesh.apiserver.tls.auto.enabled
+
+--set clustermesh.apiserver.tls.auto.enabled=false --set hubble.enabled=false
+--set tls.secretsNamespace.create=false
+--set agent=false
+--set operator.enabled=false
+--set envoy.enabled=false
+--set tls.readSecretsOnlyFromSecretsNamespace=false

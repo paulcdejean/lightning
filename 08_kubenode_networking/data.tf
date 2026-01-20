@@ -23,3 +23,7 @@ locals {
     for zone in data.aws_availability_zones.available.names : zone => substr(zone, -1, 1)
   }
 }
+
+data "aws_eks_cluster" "lightning" {
+  name = "lightning-${tofu.workspace}"
+}

@@ -6,27 +6,31 @@ resource "aws_security_group" "kubenode" {
   }
 }
 
-# resource "aws_vpc_security_group_egress_rule" "allow_all_egress_ipv6" {
-#   security_group_id = aws_security_group.bootstrap_kubenode.id
-#   cidr_ipv6         = "::/0"
-#   ip_protocol       = "-1"
-# }
+resource "aws_vpc_security_group_egress_rule" "allow_all_egress_ipv6" {
+  security_group_id = aws_security_group.kubenode.id
+  cidr_ipv6         = "::/0"
+  ip_protocol       = "-1"
+}
 
-# resource "aws_vpc_security_group_ingress_rule" "allow_ssh_ingress_ipv6" {
-#   count             = local.workspace.enable_admin_ssh ? 1 : 0
-#   security_group_id = aws_security_group.bootstrap_kubenode.id
-#   cidr_ipv6         = "::/0"
-#   from_port         = 22
-#   ip_protocol       = "tcp"
-#   to_port           = 22
-# }
+resource "aws_vpc_security_group_egress_rule" "allow_all_egress_ipv4" {
+  security_group_id = aws_security_group.kubenode.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
 
-# data "aws_security_group" "control_plane" {
-#   id = data.aws_eks_cluster.lightning.vpc_config[0].cluster_security_group_id
-# }
+# As per the kubernetes networking model, all pods need to be able to communicate with each other.
+resource "aws_vpc_security_group_ingress_rule" "allow_self_ingress" {
+  security_group_id            = aws_security_group.kubenode.id
+  referenced_security_group_id = aws_security_group.kubenode.id
+  ip_protocol                  = "-1"
+}
 
-# resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_kubenode_to_control_plane" {
-#   security_group_id            = data.aws_security_group.control_plane.id
-#   referenced_security_group_id = aws_security_group.bootstrap_kubenode.id
-#   ip_protocol                  = "-1"
-# }
+data "aws_security_group" "control_plane" {
+  id = data.aws_eks_cluster.lightning.vpc_config[0].cluster_security_group_id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_kubenode_to_control_plane" {
+  security_group_id            = data.aws_security_group.control_plane.id
+  referenced_security_group_id = aws_security_group.kubenode.id
+  ip_protocol                  = "-1"
+}
