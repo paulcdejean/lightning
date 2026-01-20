@@ -12,3 +12,7 @@ data "aws_vpc" "main" {
     values = ["lightning-${tofu.workspace}"]
   }
 }
+
+data "aws_security_group" "kubenode" {
+  name = "lightning-${tofu.workspace}-kubenode"
+}

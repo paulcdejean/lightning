@@ -15,6 +15,9 @@ resource "aws_autoscaling_group" "cloudflared" {
     id = aws_launch_template.cloudflared.id
   }
   vpc_zone_identifier = toset(data.aws_subnets.dualstack_private.ids)
+  availability_zone_distribution {
+    capacity_distribution_strategy = "balanced-only"
+  }
   tag {
     key                 = "Name"
     value               = "lightning-${tofu.workspace}-cloudflared"

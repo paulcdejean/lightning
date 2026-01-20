@@ -1,24 +1,3 @@
-data "aws_ami" "fedora" {
-  most_recent = true
-  owners      = ["125523088429"] # Fedora
-  filter {
-    name   = "name"
-    values = ["Fedora-Cloud-Base-AmazonEC2.aarch64-43-*"]
-  }
-  filter {
-    name   = "architecture"
-    values = ["arm64"]
-  }
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
 resource "aws_imagebuilder_component" "kubenode" {
   name     = "lightning-${tofu.workspace}-kubenode"
   data     = yamlencode(local.kubenode_imagebuilder_component)
@@ -43,7 +22,7 @@ resource "aws_imagebuilder_image_recipe" "kubenode" {
   }
   user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash", {
   }))
-  parent_image = data.aws_ami.fedora.id
+  parent_image = "ssm:${aws_ssm_parameter.base_image.name}"
   version      = "1.0.0"
   systems_manager_agent {
     # We need to do this, because we'll have these running in ipv6 only subnets where system manager doesn't work.

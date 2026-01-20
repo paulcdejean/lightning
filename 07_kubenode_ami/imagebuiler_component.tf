@@ -19,6 +19,15 @@ locals {
             }
           },
           {
+            name   = "UpgradePackages"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "dnf upgrade -y"
+              ]
+            }
+          },
+          {
             name   = "InstallKube"
             action = "ExecuteBash"
             inputs = {
@@ -194,5 +203,3 @@ locals {
     ]
   }
 }
-
-

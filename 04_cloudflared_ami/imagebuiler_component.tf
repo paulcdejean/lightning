@@ -9,6 +9,15 @@ locals {
         name = "build"
         steps = [
           {
+            name   = "UpgradePackages"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "dnf upgrade -y"
+              ]
+            }
+          },
+          {
             name   = "AddCloudflareRepo"
             action = "ExecuteBash"
             inputs = {

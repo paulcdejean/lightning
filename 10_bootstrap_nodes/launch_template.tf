@@ -6,7 +6,7 @@ resource "aws_launch_template" "bootstrap_kubenode" {
   }
   instance_type          = local.workspace.instance_type
   key_name               = local.workspace.enable_admin_ssh ? aws_key_pair.bootstrap_nodegroup_admin_ssh[0].id : null
-  vpc_security_group_ids = [aws_security_group.bootstrap_kubenode.id]
+  vpc_security_group_ids = [data.aws_security_group.kubenode.id]
   metadata_options {
     http_endpoint      = "enabled"
     http_protocol_ipv6 = "enabled"

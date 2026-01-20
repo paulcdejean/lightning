@@ -1,24 +1,23 @@
-data "aws_subnets" "ipv6only_private" {
+data "aws_subnets" "kubenode" {
   filter {
     name   = "tag:Name"
-    values = ["lightning-${tofu.workspace}-ipv6only-private-*"]
+    values = ["lightning-${tofu.workspace}-kubenode-small-*"]
   }
-}
-
-locals {
-  asg_size = length(data.aws_subnets.ipv6only_private.ids) * local.workspace.nodes_per_az
 }
 
 resource "aws_autoscaling_group" "bootstrap_nodegroup" {
   name_prefix       = "lightning-${tofu.workspace}-bootstrap-nodegroup"
-  max_size          = local.asg_size
+  max_size          = local.workspace.node_count
   min_size          = 0
-  desired_capacity  = local.asg_size
+  desired_capacity  = local.workspace.node_count
   health_check_type = "EC2"
   launch_template {
     id = aws_launch_template.bootstrap_kubenode.id
   }
-  vpc_zone_identifier = toset(data.aws_subnets.ipv6only_private.ids)
+  vpc_zone_identifier = toset(data.aws_subnets.kubenode.ids)
+  availability_zone_distribution {
+    capacity_distribution_strategy = "balanced-only"
+  }
   tag {
     key                 = "Name"
     value               = "lightning-${tofu.workspace}-bootstrap-kubenode"
