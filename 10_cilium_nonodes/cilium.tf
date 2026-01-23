@@ -21,5 +21,17 @@ resource "helm_release" "cilium_foundation" {
       name  = "ipv6.enabled"
       value = true
     },
+    {
+      name = "k8sServiceHost"
+      value = data.aws_eks_cluster.lightning.endpoint
+    },
+    {
+      name = "kubeProxyReplacement"
+      value = "true" # This is a string NOT a boolean.
+    },
+    {
+      name = "kubeProxyReplacementHealthzBindAddr"
+      value = "[::]:10256"
+    }
   ]
 }
