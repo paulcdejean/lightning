@@ -33,3 +33,9 @@ tls.secretsNamespace.create = false
 --set operator.enabled=false
 --set envoy.enabled=false
 --set tls.readSecretsOnlyFromSecretsNamespace=false
+
+#############################
+
+
+time=2026-01-23T21:13:30.303911574Z level=info msg=Running subsys=cilium-dbg time=2026-01-23T21:13:30.304860484Z level=error msg="Invoke failed" subsys=cilium-dbg error="unable to create k8s client rest configuration: unable to load in-cluster configuration, KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT must be defined" function="client.registerMappingsUpdater (.../k8s/client/rest_config_provider.go:434)" time=2026-01-23T21:13:30.304937323Z level=info msg="Stopping hive" subsys=cilium-dbg Error: Build config failed: failed to start: failed to populate object graph: unable to create k8s client rest configuration: unable to load in-cluster configuration, KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT must be defined time=2026-01-23T21:13:30.305021882Z level=info msg="Stopped hive" subsys=cilium-dbg duration=4.701µs
+

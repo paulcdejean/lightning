@@ -23,7 +23,11 @@ resource "helm_release" "cilium_foundation" {
     },
     {
       name = "k8sServiceHost"
-      value = data.aws_eks_cluster.lightning.endpoint
+      value = trimprefix(data.aws_eks_cluster.lightning.endpoint, "https://")
+    },
+    {
+      name = "k8sServicePort"
+      value = 443 # I think EKS uses the default?
     },
     {
       name = "kubeProxyReplacement"
