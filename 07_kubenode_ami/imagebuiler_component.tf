@@ -147,8 +147,8 @@ locals {
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "AWS_USE_DUALSTACK_ENDPOINT=true aws --no-sign-request s3 cp s3://amazon-ecr-credential-helper-releases/${local.workspace.ecr_credential_helper_version}/linux-arm64/docker-credential-ecr-login /usr/local/bin/docker-credential-ecr-login",
-                "chmod a+x /usr/local/bin/docker-credential-ecr-login"
+                "AWS_USE_DUALSTACK_ENDPOINT=true aws --no-sign-request s3 cp s3://${local.workspace.ecr_credential_helper_path} /usr/local/bin/ecr-credential-provider",
+                "chmod a+x /usr/local/bin/ecr-credential-provider"
               ]
             }
           },
