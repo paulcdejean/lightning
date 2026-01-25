@@ -20,7 +20,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "08_kubenode_networking"
+    key                  = "07_kubenode_networking"
     use_lockfile         = true
   }
 }

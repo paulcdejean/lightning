@@ -29,8 +29,16 @@ data "aws_security_group" "control_plane" {
   id = data.aws_eks_cluster.lightning.vpc_config[0].cluster_security_group_id
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_kubenode_to_control_plane" {
+# As per the kubernetes networking model, the nodes and control plane need to be able to communicate.
+resource "aws_vpc_security_group_ingress_rule" "allow_kubenode_to_control_plane" {
   security_group_id            = data.aws_security_group.control_plane.id
   referenced_security_group_id = aws_security_group.kubenode.id
+  ip_protocol                  = "-1"
+}
+
+# As per the kubernetes networking model, the nodes and control plane need to be able to communicate.
+resource "aws_vpc_security_group_ingress_rule" "allow_control_plane_to_kubenode" {
+  security_group_id            = aws_security_group.kubenode.id
+  referenced_security_group_id = data.aws_security_group.control_plane.id
   ip_protocol                  = "-1"
 }

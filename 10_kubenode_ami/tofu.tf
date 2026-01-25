@@ -16,7 +16,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "07_kubenode_ami"
+    key                  = "10_kubenode_ami"
     use_lockfile         = true
   }
 }

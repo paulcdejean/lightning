@@ -16,6 +16,10 @@ terraform {
       source  = "hashicorp/local"
       version = "2.6.1"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "3.0.1"
+    }
   }
 }
 
@@ -31,4 +35,9 @@ terraform {
     key                  = "11_bootstrap_nodes"
     use_lockfile         = true
   }
+}
+
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+  config_context = data.aws_eks_cluster.lightning.arn
 }

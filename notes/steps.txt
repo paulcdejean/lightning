@@ -1,4 +1,0 @@
-1. Attach the ENI (DONE)
-2. ip addr add to it (DONE)
-3. Create the cilium node CRD
-4. Start kubelet

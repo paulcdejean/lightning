@@ -1,4 +1,4 @@
-TOOD:
+TODO:
 Dynamic calculation of RAM and CPU reservation
 Error: cni plugin not initialized
 Can't pull images due to it not using the dualstack endpoint
