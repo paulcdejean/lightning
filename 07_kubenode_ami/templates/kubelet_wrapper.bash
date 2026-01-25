@@ -9,7 +9,7 @@ if [[ ! -f /etc/lightning/cluster_name.txt ]] ; then
     exit 1
 fi
 
-if grep -q '[$%\\/;:]' /etc/lightning/cluster_name.txt ; then
+if grep -q '[$%\\/;: ]' /etc/lightning/cluster_name.txt ; then
   echo "/etc/lightning/cluster_name.txt contains invalid characters"
   exit 1
 fi
@@ -30,13 +30,16 @@ eni_id=$(jq -r '.NetworkInterfaces[0].NetworkInterfaceId' <<< "$eni_info")
 eni_mac=$(jq -r '.NetworkInterfaces[0].MacAddress' <<< "$eni_info")
 instance_id=$(ec2-metadata --instance-id --quiet)
 
-cat | sudo tee /etc/systemd/network/10-kube.link << HEREDOC
+cat | tee /etc/systemd/network/10-kube.link << HEREDOC
 [Match]
 MACAddress=$eni_mac
 
 [Link]
 Name=kube
 HEREDOC
+
+# Required to pick up the new link file.
+udevadm control --reload
 
 aws ec2 attach-network-interface --network-interface-id "$eni_id" --instance-id "$instance_id" --device-index 1
 udevadm wait /sys/class/net/kube
