@@ -24,4 +24,9 @@ resource "aws_launch_template" "cloudflared" {
     tunnel_id = cloudflare_zero_trust_tunnel_cloudflared.lightning.id
     secret_id = aws_secretsmanager_secret.cloudflared_tunnel.name
   }))
+  private_dns_name_options {
+    enable_resource_name_dns_aaaa_record = true
+    enable_resource_name_dns_a_record    = false
+    hostname_type                        = "resource-name"
+  }
 }

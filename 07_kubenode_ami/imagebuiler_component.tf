@@ -153,14 +153,23 @@ locals {
             }
           },
           {
-            name   = "EnableKubelet"
+            name   = "InstallBashEssentials"
             action = "ExecuteBash"
             inputs = {
               commands = [
-                "systemctl enable kubelet"
+                "dnf install -y tmux jq"
               ]
             }
           },
+          # {
+          #   name   = "EnableKubelet"
+          #   action = "ExecuteBash"
+          #   inputs = {
+          #     commands = [
+          #       "systemctl enable kubelet"
+          #     ]
+          #   }
+          # },
         ]
       },
       {

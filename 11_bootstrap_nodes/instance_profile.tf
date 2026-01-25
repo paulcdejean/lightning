@@ -34,3 +34,8 @@ resource "aws_iam_role_policy_attachment" "eks_node_pull_ecr_public" {
   role       = aws_iam_role.kubenode.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonElasticContainerRegistryPublicReadOnly"
 }
+
+resource "aws_iam_role_policy_attachment" "eks_node_cni_policy" {
+  role       = aws_iam_role.kubenode.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+}

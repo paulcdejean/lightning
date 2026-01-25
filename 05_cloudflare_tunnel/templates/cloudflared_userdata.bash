@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # Sleeps until the network is online
 /usr/bin/nm-online -q -t 300
@@ -15,3 +15,4 @@ edge-ip-version: "6"
 warp-routing:
   enabled: true
 HEREDOC
+

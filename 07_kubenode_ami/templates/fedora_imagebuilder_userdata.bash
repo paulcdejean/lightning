@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # Can prevent some dnf error spam
 echo "ip_resolve=6" >> /etc/dnf/dnf.conf

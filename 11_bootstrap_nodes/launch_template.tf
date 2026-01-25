@@ -10,6 +10,11 @@ resource "aws_launch_template" "bootstrap_kubenode" {
   metadata_options {
     http_endpoint      = "enabled"
     http_protocol_ipv6 = "enabled"
+    # This stops pods from being able to assume the instance role.
+    # https://docs.aws.amazon.com/eks/latest/best-practices/identity-and-access-management.html
+    # Under: "Restrict access to the instance profile assigned to the worker node"
+    http_put_response_hop_limit = 1
+    http_tokens                 = "required"
   }
   iam_instance_profile {
     arn = aws_iam_instance_profile.kubenode.arn
@@ -18,4 +23,10 @@ resource "aws_launch_template" "bootstrap_kubenode" {
   user_data = base64encode(templatefile("${path.module}/templates/bootstrap_kubenode_userdata.bash", {
     cluster_name = data.aws_eks_cluster.lightning.name
   }))
+  private_dns_name_options {
+    enable_resource_name_dns_aaaa_record = true
+    enable_resource_name_dns_a_record    = false
+    hostname_type                        = "resource-name"
+  }
 }
+
