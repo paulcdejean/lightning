@@ -3,4 +3,4 @@ TODO:
 * Working IRSA for cilium
 * Seperate filesystem for container stuff on kube nodes, should fix invalid capacity 0 error too
 * ECR credential helper working, prove ability to pull a private image
-
+* Reduce cilium startup noise? Not sure how this would work.
