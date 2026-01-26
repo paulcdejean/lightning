@@ -5,7 +5,7 @@ locals {
   }
   subnet_eip_count = {
     for k, v in local.subnet_slash_number :
-    k => pow(2, 31 - tonumber(v)) - 1 # last address is reserved, we need to cover the entire "top half" so DHCP doesn't assign it
+    k => pow(2, 31 - tonumber(v)) # The first 4 adddress and the last address is reserved. This 2 is doubled.
   }
   subnet_cidr_no_slash = {
     for az, cidr in local.kubenode_small_ipv4_blocks :
@@ -21,7 +21,7 @@ locals {
   }
   subnet_eip_starting_number = {
     for k, v in local.subnet_starting_number :
-    k => v + local.subnet_eip_count[k] + 1 # last address is reserved, we need to cover the entire "top half" so DHCP doesn't assign it
+    k => v + local.subnet_eip_count[k] - 1 # And we add 1 here.
   }
   # Sanity check.
   subnet_eip_first_address = {
