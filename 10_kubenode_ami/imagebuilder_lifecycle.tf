@@ -1,6 +1,6 @@
 resource "aws_imagebuilder_lifecycle_policy" "kubenode" {
   name           = "lightning-${tofu.workspace}-kubenode"
-  execution_role = aws_iam_role.imagebuilder_execution.arn
+  execution_role = data.aws_iam_role.imagebuilder_execution.arn
   resource_type  = "AMI_IMAGE"
   policy_detail {
     action {
@@ -13,8 +13,10 @@ resource "aws_imagebuilder_lifecycle_policy" "kubenode" {
       unit            = "DAYS"
     }
   }
-  depends_on = [
-    aws_iam_role_policy.imagebuilder_defaults,
-    aws_iam_role_policy.imagebuilder_ssm
-  ]
+  resource_selection {
+    recipe {
+      name             = aws_imagebuilder_image_recipe.kubenode.name
+      semantic_version = aws_imagebuilder_image_recipe.kubenode.version
+    }
+  }
 }
