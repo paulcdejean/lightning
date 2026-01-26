@@ -1,4 +1,4 @@
-data "aws_subnet" "ipv6_only_private" {
+data "aws_subnet" "bastion" {
   filter {
     name   = "tag:Name"
     values = ["lightning-${tofu.workspace}-dualstack-private-${local.workspace.az}"]
@@ -27,11 +27,12 @@ data "aws_ami" "fedora" {
 }
 
 resource "aws_instance" "bastion" {
-  count                       = local.workspace.enabled ? 1 : 0
-  ami                         = data.aws_ami.fedora.id
-  instance_type               = local.workspace.instance_type
-  subnet_id                   = data.aws_subnet.ipv6_only_private.id
-  vpc_security_group_ids      = [aws_security_group.bastion.id]
+  count         = local.workspace.enabled ? 1 : 0
+  ami           = data.aws_ami.fedora.id
+  instance_type = local.workspace.instance_type
+  subnet_id     = data.aws_subnet.bastion.id
+  # vpc_security_group_ids      = [aws_security_group.bastion.id]
+  vpc_security_group_ids      = ["sg-04f0a660b34eec9f2"]
   user_data_replace_on_change = true
   user_data_base64 = base64encode(templatefile("${path.module}/templates/userdata.bash.tftpl", {
     public_key = trimspace(file("~/.ssh/id_ed25519.pub"))

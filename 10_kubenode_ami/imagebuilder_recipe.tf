@@ -1,12 +1,12 @@
-resource "aws_imagebuilder_component" "cloudflared" {
-  name     = "lightning-${tofu.workspace}-cloudflared"
-  data     = yamlencode(local.cloudflared_imagebuilder_component)
+resource "aws_imagebuilder_component" "kubenode" {
+  name     = "lightning-${tofu.workspace}-kubenode"
+  data     = yamlencode(local.kubenode_imagebuilder_component)
   platform = "Linux"
   version  = "1.0.0"
 }
 
-resource "aws_imagebuilder_image_recipe" "cloudflared" {
-  name = "lightning-${tofu.workspace}-cloudflared"
+resource "aws_imagebuilder_image_recipe" "kubenode" {
+  name = "lightning-${tofu.workspace}-kubenode"
   block_device_mapping {
     # Source of truth for the device name, is the base ami.
     # This will be different for fedora vs debian for example.
@@ -18,7 +18,7 @@ resource "aws_imagebuilder_image_recipe" "cloudflared" {
     }
   }
   component {
-    component_arn = aws_imagebuilder_component.cloudflared.arn
+    component_arn = aws_imagebuilder_component.kubenode.arn
   }
   user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash", {
   }))

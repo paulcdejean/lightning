@@ -1,0 +1,7 @@
+TODO:
+Dynamic calculation of RAM and CPU reservation
+Error: cni plugin not initialized
+Can't pull images due to it not using the dualstack endpoint
+Also the credential provider is crashing:
+Jan 11 06:48:54 i-03297ebd8c8309a3c.us-east-2.compute.internal lightning_kubelet_wrapper.bash[1221]: E0111 06:48:54.210089    1221 plugin.go:520] Failed getting credential from external registry credential pro
+vider: error execing credential provider plugin docker-credential-ecr-login for image 602401143452.dkr.ecr.us-east-2.amazonaws.com/amazon-k8s-cni-init: exit status 1

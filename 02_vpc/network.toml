@@ -27,9 +27,9 @@ ipv4only-nat-private-a = "25.0/24"
 ipv4only-nat-private-b = "26.0/24"
 ipv4only-nat-private-c = "27.0/24"
 
-kubenode-small-a = "30.0/24"
-kubenode-small-b = "31.0/24"
-kubenode-small-c = "32.0/24"
+kubenode-small-a = "30.0/27" # 16 addresses, but 5 aren't usable, then you half, so 5 nodes.
+kubenode-small-b = "31.0/27"
+kubenode-small-c = "32.0/27"
 
 # 8000+ private ipv4 addresses per.
 # Only four AZs supported.

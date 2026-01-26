@@ -4,7 +4,7 @@ locals {
     k => provider::toml::decode(file("${path.module}/network.toml")).ipv6["dualstack-private-${v}"]
   }
   dualstack_private_ipv6_blocks = {
-    for k, v in local.dualstack_private_ipv6_ranges : 
+    for k, v in local.dualstack_private_ipv6_ranges :
     k => "${local.ipv6_prefix}${format("%x", local.ipv6_cidr_fourth_numeric + v)}::/64"
   }
   dualstack_private_ipv4_blocks = {
