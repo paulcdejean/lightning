@@ -5,7 +5,7 @@ resource "kubernetes_cluster_role_v1" "cilium_node" {
   rule {
     api_groups = ["cilium.io"]
     resources  = ["ciliumnodes"]
-    verbs      = ["get", "list", "watch", "create"]
+    verbs      = ["get", "list", "watch", "create", "patch", "update"]
   }
 }
 
