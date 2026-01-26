@@ -12,6 +12,9 @@ resource "aws_imagebuilder_image_pipeline" "kubenode" {
   provisioner "local-exec" {
     command = "aws imagebuilder start-image-pipeline-execution --image-pipeline-arn ${self.arn}"
   }
+  image_tests_configuration {
+    image_tests_enabled = false
+  }
 }
 
 data "aws_iam_role" "imagebuilder_execution" {

@@ -194,20 +194,6 @@ locals {
             }
           }
         ]
-      },
-      {
-        name = "test"
-        steps = [
-          {
-            name   = "NoopTestStep"
-            action = "ExecuteBash"
-            inputs = {
-              commands = [
-                "echo 'No testing performed.'"
-              ]
-            }
-          }
-        ]
       }
     ]
   }
