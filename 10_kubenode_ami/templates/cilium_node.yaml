@@ -1,0 +1,18 @@
+apiVersion: cilium.io/v2
+kind: CiliumNode
+metadata:
+  name: "__HOSTNAME__"
+spec:
+  addresses:
+    - ip: "__IPV4__"
+      type: InternalIP
+    - ip: "__IPV6__"
+      type: ExternalIP
+  instance-id: __INSTANCE__
+  ipam:
+    max-above-watermark: 100
+    max-allocate: 255 # Pod limit is 110
+    min-allocate: 5
+    podCIDRs:
+     - "__PREFIX__"
+    pre-allocate: 110
