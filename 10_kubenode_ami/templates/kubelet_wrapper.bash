@@ -34,6 +34,8 @@ instance_id=$(ec2-metadata --instance-id --quiet)
 cluster_name=$(cat /etc/lightning/cluster_name.txt)
 cluster_endpoint=$(aws eks describe-cluster --name lightning-unstable --query "cluster.endpoint" --output text)
 
+if [[ ! -f /etc/lightning/bootstrap_complete.empty ]] ; then
+
 cat | tee /etc/systemd/network/10-kube.link << HEREDOC
 [Match]
 MACAddress=$eni_mac
@@ -74,6 +76,12 @@ sed -i \
   -e s%__INSTANCE__%$instance_id% \
   -e s%__PREFIX__%$ipv6_prefix% \
   /etc/lightning/cilium_node.yaml
+
+kubectl --kubeconfig=/etc/lightning/kube_client_config.yaml apply -f /etc/lightning/cilium_node.yaml
+
+touch /etc/lightning/bootstrap_complete.empty
+
+fi
 
 # Notes:
 # Cluster name format according to the AWS console:

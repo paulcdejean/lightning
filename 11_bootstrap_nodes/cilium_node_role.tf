@@ -11,7 +11,7 @@ resource "kubernetes_cluster_role_v1" "cilium_node" {
 
 resource "kubernetes_cluster_role_binding_v1" "bind_node_to_cilium_node" {
   metadata {
-    name      = "node-to-cilium-node"
+    name = "node-to-cilium-node"
   }
   role_ref {
     api_group = "rbac.authorization.k8s.io"
