@@ -143,6 +143,17 @@ locals {
             ]
           },
           {
+            name   = "CreateCiliumNodeTemplate"
+            action = "CreateFile"
+            inputs = [
+              {
+                path      = "/etc/lightning/cilium_node.yaml"
+                content   = templatefile("${path.module}/templates/cilium_node.yaml", {})
+                overwrite = true
+              }
+            ]
+          },
+          {
             name   = "InstallEcrHelper"
             action = "ExecuteBash"
             inputs = {
@@ -161,15 +172,15 @@ locals {
               ]
             }
           },
-          # {
-          #   name   = "EnableKubelet"
-          #   action = "ExecuteBash"
-          #   inputs = {
-          #     commands = [
-          #       "systemctl enable kubelet"
-          #     ]
-          #   }
-          # },
+          {
+            name   = "EnableKubelet"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "systemctl enable kubelet"
+              ]
+            }
+          },
         ]
       },
       {
