@@ -32,7 +32,7 @@ eni_id=$(jq -r '.NetworkInterfaces[0].NetworkInterfaceId' <<< "$eni_info")
 eni_mac=$(jq -r '.NetworkInterfaces[0].MacAddress' <<< "$eni_info")
 instance_id=$(ec2-metadata --instance-id --quiet)
 cluster_name=$(cat /etc/lightning/cluster_name.txt)
-cluster_endpoint=$(aws eks describe-cluster --name lightning-unstable --query "cluster.endpoint" --output text)
+cluster_endpoint=$(aws eks describe-cluster --name "$cluster_name" --query "cluster.endpoint" --output text)
 
 if [[ ! -f /etc/lightning/bootstrap_complete.empty ]] ; then
 
@@ -53,7 +53,7 @@ ip addr add "$ipv6_prefix" dev kube
 ip a
 
 # Put the ca data to a file
-aws eks describe-cluster --name lightning-unstable --query "cluster.certificateAuthority.data" --output text | base64 -d > /etc/lightning/pki_ca.crt
+aws eks describe-cluster --name "$cluster_name" --query "cluster.certificateAuthority.data" --output text | base64 -d > /etc/lightning/pki_ca.crt
 
 # Configure kube client config
 sed -i \
