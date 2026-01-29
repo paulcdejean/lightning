@@ -38,4 +38,8 @@ resource "helm_release" "cilium_foundation" {
       value = "[::]:10256"
     }
   ]
+
+  depends_on = [
+    kubernetes_role_v1.hack
+  ]
 }
