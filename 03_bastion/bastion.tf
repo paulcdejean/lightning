@@ -47,24 +47,6 @@ data "aws_ami" "flatcar" {
   }
 }
 
-resource "tls_private_key" "bastion" {
-  algorithm = "ED25519"
-}
-
-resource "aws_key_pair" "bastion" {
-  key_name_prefix = "lightning-${tofu.workspace}-bastion"
-  public_key      = tls_private_key.bastion.public_key_openssh
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "local_sensitive_file" "bastion_ssh_private_key" {
-  content         = tls_private_key.bastion.private_key_openssh
-  file_permission = "0600"
-  filename        = pathexpand("~/.ssh/bastion.pem")
-}
-
 resource "aws_instance" "bastion" {
   count                       = local.workspace.enabled ? 1 : 0
   ami                         = data.aws_ami.flatcar.id
