@@ -3,3 +3,8 @@ TODO:
 * Seperate filesystem for container stuff on kube nodes, should fix invalid capacity 0 error too
 * ECR credential helper working, prove ability to pull a private image
 * Reduce cilium startup noise? Not sure how this would work.
+
+
+Startup warnings:
+* Startup probe failed: Get "http://[::1]:9878/healthz": dial tcp [::1]:9878: connect: connection refused
+* 0/1 nodes are available: 1 node(s) didn't match pod affinity rules. no new claims to deallocate, preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
