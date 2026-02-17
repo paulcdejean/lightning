@@ -6,3 +6,10 @@ TODO:
 * Explore workaround for https://github.com/cilium/cilium/issues/44199
 * Install aws node termination handler to get rid of shutdown noise
 ** ECR credential helper working, prove ability to pull a private image
+
+
+ipv6 only!
+
+When node spins up, create a ENI with a single ipv6_prefix_count
+In a seperate subnet in the same AZ
+It finds the subnet via a mapping toml included in the userdata
