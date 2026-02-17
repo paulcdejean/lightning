@@ -49,15 +49,15 @@ data "aws_ami" "flatcar" {
 
 resource "aws_instance" "bastion" {
   count                       = local.workspace.enabled ? 1 : 0
-  ami                         = data.aws_ami.flatcar.id
+  ami                         = data.aws_ami.fedora.id
   instance_type               = local.workspace.instance_type
   subnet_id                   = data.aws_subnet.bastion.id
   vpc_security_group_ids      = [aws_security_group.bastion.id]
   user_data_replace_on_change = true
   key_name                    = aws_key_pair.bastion.key_name
-  # user_data_base64 = base64encode(templatefile("${path.module}/templates/userdata.bash.tftpl", {
-  #   public_key = trimspace(file("~/.ssh/id_ed25519.pub"))
-  # }))
+  user_data_base64 = base64encode(templatefile("${path.module}/templates/userdata.bash.tftpl", {
+    public_key = trimspace(file("~/.ssh/id_ed25519.pub"))
+  }))
   private_dns_name_options {
     enable_resource_name_dns_aaaa_record = true
     enable_resource_name_dns_a_record    = false

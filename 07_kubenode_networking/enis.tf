@@ -46,10 +46,6 @@ locals {
 }
 
 resource "aws_network_interface" "kubenode_small_secondary" {
-  # for_each = local.subnet_eips_final
-  # subnet_id       = aws_subnet.kubenode_small[each.value.az].id
-  # private_ips     = [each.key]
-  # security_groups = [aws_security_group.kubenode.id]
   for_each        = local.subnet_eips_final
   subnet_id       = aws_subnet.kubenode_small[each.value.az].id
   private_ips     = [each.key]
