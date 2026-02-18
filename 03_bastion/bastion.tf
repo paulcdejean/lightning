@@ -1,7 +1,7 @@
 data "aws_subnet" "bastion" {
   filter {
     name   = "tag:Name"
-    values = ["lightning-${tofu.workspace}-dualstack-private-${local.workspace.az}"]
+    values = ["lightning-${tofu.workspace}-ipv6only-public-${local.workspace.az}"]
   }
 }
 
@@ -26,27 +26,6 @@ data "aws_ami" "fedora" {
   }
 }
 
-data "aws_ami" "flatcar" {
-  most_recent = true
-  owners      = ["075585003325"] # Flatcar current account
-  filter {
-    name   = "name"
-    values = ["Flatcar-stable-*"]
-  }
-  filter {
-    name   = "architecture"
-    values = ["arm64"]
-  }
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-}
-
 resource "aws_instance" "bastion" {
   count                       = local.workspace.enabled ? 1 : 0
   ami                         = data.aws_ami.fedora.id
@@ -55,9 +34,6 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids      = [aws_security_group.bastion.id]
   user_data_replace_on_change = true
   key_name                    = aws_key_pair.bastion.key_name
-  user_data_base64 = base64encode(templatefile("${path.module}/templates/userdata.bash.tftpl", {
-    public_key = trimspace(file("~/.ssh/id_ed25519.pub"))
-  }))
   private_dns_name_options {
     enable_resource_name_dns_aaaa_record = true
     enable_resource_name_dns_a_record    = false

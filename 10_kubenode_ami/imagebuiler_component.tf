@@ -176,8 +176,10 @@ locals {
             name   = "EnableKubelet"
             action = "ExecuteBash"
             inputs = {
-              commands = [
+              commands = local.workspace.enable_kubelet ? [
                 "systemctl enable kubelet"
+                ] : [
+                "echo 'Not enabling kubelet'"
               ]
             }
           },
