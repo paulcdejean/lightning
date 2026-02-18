@@ -24,6 +24,7 @@ resource "aws_vpc_ipam_pool" "public" {
 }
 
 resource "aws_vpc_ipam_pool_cidr" "public" {
-  ipam_pool_id   = aws_vpc_ipam_pool.public.id
-  netmask_length = 52 # The smallest allowed is plenty big
+  ipam_pool_id = aws_vpc_ipam_pool.public.id
+  # The only size amazon will give you without a limit increase.
+  netmask_length = 52
 }

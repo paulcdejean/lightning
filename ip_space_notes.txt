@@ -1,7 +1,0 @@
-# ipv6 address layout
-
-* ipam cidr /40, 256 possible environments in the ipam cidr
-* environment /48, 256 possible vpcs in each environment
-* vpc /52, 65,536 possible subnets in each vpc
-* subnet /60, 1,048,576 /80 prefixes per subnet
-* ENI prefix /80 (FIXED SIZE by amazon)
