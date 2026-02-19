@@ -32,6 +32,6 @@ ipv6only-private-b = 0x1c
 ipv6only-private-c = 0x1d
 
 # ipv6 only subnets that pod ip range ENIs are assigned from
-podsonly-a = 0x21
-podsonly-b = 0x22
-podsonly-c = 0x23
+pods-only-a = 0x21
+pods-only-b = 0x22
+pods-only-c = 0x23
