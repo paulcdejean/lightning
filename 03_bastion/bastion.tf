@@ -28,7 +28,7 @@ data "aws_ami" "fedora" {
 
 resource "aws_instance" "bastion" {
   count                       = local.workspace.enabled ? 1 : 0
-  ami                         = "ami-02d0423ee8ea96dc5"
+  ami                         = "ami-0757dfcc583b139f2"
   instance_type               = local.workspace.instance_type
   subnet_id                   = data.aws_subnet.bastion.id
   vpc_security_group_ids      = [aws_security_group.bastion.id]
