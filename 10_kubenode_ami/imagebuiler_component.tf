@@ -42,6 +42,15 @@ locals {
             ]
           },
           {
+            name   = "CreateContainerdFolder"
+            action = "CreateFolder"
+            inputs = [
+              {
+                path = "/var/lib/containerd"
+              }
+            ]
+          },
+          {
             name   = "RunContainerVolumeScript"
             action = "ExecuteBash"
             inputs = {
