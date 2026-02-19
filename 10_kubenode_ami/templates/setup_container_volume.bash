@@ -1,7 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-for disk in $(lsblk -dpno NAME) ; do
+lsblk -I 259 -dpn
+
+for disk in $(lsblk -I 259 -dpno NAME) ; do
   ebs_id=$(PYTHONWARNINGS="ignore" ebsnvme-id -b $disk)
   if [[ "$ebs_id" == "${container_volume_device_name}" || "$ebs_id" == "/dev/${container_volume_device_name}" ]] ; then
     mkfs.btrfs -f $disk
