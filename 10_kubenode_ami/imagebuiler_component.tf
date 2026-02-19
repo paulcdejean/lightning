@@ -41,15 +41,15 @@ locals {
               }
             ]
           },
-          {
-            name   = "RunContainerVolumeScript"
-            action = "ExecuteBash"
-            inputs = {
-              commands = [
-                "/usr/local/bin/setup_container_volume.bash"
-              ]
-            }
-          },
+          # {
+          #   name   = "RunContainerVolumeScript"
+          #   action = "ExecuteBash"
+          #   inputs = {
+          #     commands = [
+          #       "/usr/local/bin/setup_container_volume.bash"
+          #     ]
+          #   }
+          # },
           {
             name   = "InstallKube"
             action = "ExecuteBash"

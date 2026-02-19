@@ -7,7 +7,7 @@ resource "aws_imagebuilder_component" "kubenode" {
 
 locals {
   # Recommended by Amazon for data volumes on linux.
-  container_volume_device_name = "/dev/sdf"
+  container_volume_device_name = "sdf"
 }
 
 resource "aws_imagebuilder_image_recipe" "kubenode" {
@@ -24,7 +24,7 @@ resource "aws_imagebuilder_image_recipe" "kubenode" {
   }
   # Container volume.
   block_device_mapping {
-    device_name = local.container_volume_device_name
+    device_name = "/dev/${local.container_volume_device_name}"
     ebs {
       delete_on_termination = true
       volume_size           = 20
