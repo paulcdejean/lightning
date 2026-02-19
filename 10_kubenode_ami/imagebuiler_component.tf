@@ -28,6 +28,29 @@ locals {
             }
           },
           {
+            name   = "CreateContainerVolumeScript"
+            action = "CreateFile"
+            inputs = [
+              {
+                path = "/usr/local/bin/setup_container_volume.bash"
+                content = templatefile("${path.module}/templates/setup_container_volume.bash", {
+                  container_volume_device_name = local.container_volume_device_name
+                })
+                overwrite   = true
+                permissions = "0755"
+              }
+            ]
+          },
+          {
+            name   = "RunContainerVolumeScript"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "/usr/local/bin/setup_container_volume.bash"
+              ]
+            }
+          },
+          {
             name   = "InstallKube"
             action = "ExecuteBash"
             inputs = {

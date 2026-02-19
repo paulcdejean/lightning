@@ -10,7 +10,7 @@ resource "aws_imagebuilder_image_recipe" "cloudflared" {
   block_device_mapping {
     # Source of truth for the device name, is the base ami.
     # This will be different for fedora vs debian for example.
-    device_name = "/dev/sda1"
+    device_name = data.aws_ami.fedora.root_device_name
     ebs {
       delete_on_termination = true
       volume_size           = 20

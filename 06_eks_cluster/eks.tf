@@ -36,5 +36,5 @@ resource "aws_eks_cluster" "main" {
   ]
   provisioner "local-exec" {
     command = "aws eks update-kubeconfig --name lightning-${tofu.workspace}"
-  }  
+  }
 }
