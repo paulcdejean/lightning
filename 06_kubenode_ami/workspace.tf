@@ -2,7 +2,7 @@ locals {
   workspace = local.workspaces[tofu.workspace]
   workspaces = {
     unstable = {
-      state_bucket = "lightning-593941967609-us-east-2-an
+      state_bucket = "lightning-593941967609-us-east-2-an"
       # This is the AZ where imagebuilder builds the image.
       az = "us-east-2a"
       # Its harder to find this than it should be.
