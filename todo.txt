@@ -1,5 +1,16 @@
 TODO:
 
+I'm still in the middle of switching to ipv6 only. The idea was to create the ENIs on boot.
+
+Last time we looked at this, we rethought the ENI layout.
+
+Next we need to write the script for allocating the ENIs.
+
+Also I was thinking of breaking down ENI allocation into a seperate unit.
+
+
+TODO:
+
 * Get cilium image pulled into the AMI
 * Adjust pod affinity rules to get rid of "no new claims to deallocate" noise
 * Explore workaround for https://github.com/cilium/cilium/issues/44199
