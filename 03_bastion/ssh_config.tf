@@ -21,11 +21,13 @@ resource "local_sensitive_file" "bastion_ssh_private_key" {
 }
 
 resource "local_file" "bastion_ssh_conf" {
-  count = local.workspace.enabled ? 1 : 0
   content = templatefile("${path.module}/templates/bastion.config", {
-    ipv6_address     = aws_instance.bastion[0].ipv6_addresses[0]
+    ipv6_address     = aws_instance.bastion.ipv6_addresses[0]
     private_key_path = local.private_key_local_path
   })
   file_permission = "0600"
   filename        = pathexpand("~/.ssh/conf.d/bastion.config")
+  lifecycle {
+    enabled = local.workspace.enabled
+  }
 }

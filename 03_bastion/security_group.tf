@@ -32,19 +32,23 @@ resource "aws_vpc_security_group_ingress_rule" "allow_intra_bastion_traffic" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_ssh_ingress_ipv6" {
-  count             = local.workspace.allow_insecure_global_ssh ? 1 : 0
   security_group_id = aws_security_group.bastion.id
   cidr_ipv6         = "::/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
+  lifecycle {
+    enabled = local.workspace.allow_insecure_global_ssh
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_bootstrap_ssh_ingress_ipv4" {
-  count             = local.workspace.allow_insecure_global_ssh ? 1 : 0
   security_group_id = aws_security_group.bastion.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
+  lifecycle {
+    enabled = local.workspace.allow_insecure_global_ssh
+  }
 }

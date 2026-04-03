@@ -27,7 +27,6 @@ data "aws_ami" "fedora" {
 }
 
 resource "aws_instance" "bastion" {
-  count                       = local.workspace.enabled ? 1 : 0
   ami                         = "ami-01ea66560fb5ab110"
   instance_type               = local.workspace.instance_type
   subnet_id                   = data.aws_subnet.bastion.id
@@ -45,5 +44,8 @@ resource "aws_instance" "bastion" {
   }
   tags = {
     Name = "lightning-${tofu.workspace}-bastion"
+  }
+  lifecycle {
+    enabled = local.workspace.enabled
   }
 }

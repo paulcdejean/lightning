@@ -10,7 +10,7 @@ resource "aws_launch_template" "cloudflared" {
     market_type = "spot"
   }
   instance_type          = local.workspace.instance_type
-  key_name               = local.workspace.enable_admin_ssh ? aws_key_pair.cloudflared_admin_ssh[0].id : null
+  key_name               = local.workspace.enable_admin_ssh ? aws_key_pair.cloudflared_admin_ssh.id : null
   vpc_security_group_ids = [aws_security_group.cloudflared.id]
   metadata_options {
     http_endpoint      = "enabled"
