@@ -20,7 +20,7 @@ terraform {
   required_version = "1.11.5"
   backend "s3" {
     region               = "us-east-2"
-    bucket               = "pauldejean-tofu"
+    bucket               = local.workspace.state_bucket
     workspace_key_prefix = "lightning"
     key                  = basename(abspath(path.module))
     use_lockfile         = true
