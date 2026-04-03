@@ -1,5 +1,5 @@
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.5"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -29,7 +29,7 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.5"
   backend "s3" {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"

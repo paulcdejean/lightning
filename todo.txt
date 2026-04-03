@@ -1,7 +1,6 @@
 TODO:
 
 * Get cilium image pulled into the AMI
-* Seperate filesystem for container stuff on kube nodes, should fix invalid capacity 0 error too
 * Adjust pod affinity rules to get rid of "no new claims to deallocate" noise
 * Explore workaround for https://github.com/cilium/cilium/issues/44199
 * Install aws node termination handler to get rid of shutdown noise
