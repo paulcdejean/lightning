@@ -34,7 +34,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "11_bootstrap_nodes"
+    key                  = basename(abspath(path.module))
     use_lockfile         = true
   }
 }

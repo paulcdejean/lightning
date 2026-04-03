@@ -22,7 +22,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "08_cilium_crds"
+    key                  = basename(abspath(path.module))
     use_lockfile         = true
   }
 }

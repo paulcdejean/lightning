@@ -22,7 +22,7 @@ terraform {
     region               = "us-east-2"
     bucket               = "pauldejean-tofu"
     workspace_key_prefix = "lightning"
-    key                  = "00_aws_users"
+    key                  = basename(abspath(path.module))
     use_lockfile         = true
   }
 }
