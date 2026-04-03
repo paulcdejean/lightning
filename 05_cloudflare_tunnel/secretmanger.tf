@@ -36,6 +36,6 @@ resource "aws_key_pair" "cloudflared_admin_ssh" {
   public_key      = tls_private_key.cloudflared_admin_ssh.public_key_openssh
   lifecycle {
     create_before_destroy = true
-    enabled = local.workspace.enable_admin_ssh
+    enabled               = local.workspace.enable_admin_ssh
   }
 }

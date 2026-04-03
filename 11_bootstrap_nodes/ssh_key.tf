@@ -10,7 +10,7 @@ resource "aws_key_pair" "bootstrap_nodegroup_admin_ssh" {
   public_key      = tls_private_key.bootstrap_nodegroup_admin_ssh[0].public_key_openssh
   lifecycle {
     create_before_destroy = true
-    enabled = local.workspace.enable_admin_ssh
+    enabled               = local.workspace.enable_admin_ssh
   }
 }
 
