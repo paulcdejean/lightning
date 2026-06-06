@@ -1,4 +1,2 @@
 Convert over to r2 state.
 
-Remove all the kube stuff for now, to set some smaller goals.
-

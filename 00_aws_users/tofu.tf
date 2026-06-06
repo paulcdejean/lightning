@@ -1,4 +1,18 @@
 terraform {
+  backend "s3" {
+    profile                     = "cloudflare"
+    bucket                      = "tofu"
+    workspace_key_prefix        = "lightning"
+    key                         = basename(abspath(path.module))
+    use_lockfile                = true
+    region                      = "auto"
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+    use_path_style              = true
+  }
   required_version = "1.11.5"
   required_providers {
     aws = {
@@ -13,16 +27,5 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-2"
-}
-
-terraform {
-  required_version = "1.11.5"
-  backend "s3" {
-    region               = "us-east-2"
-    bucket               = local.workspace.state_bucket
-    workspace_key_prefix = "lightning"
-    key                  = basename(abspath(path.module))
-    use_lockfile         = true
-  }
+  region = local.workspace.region
 }
