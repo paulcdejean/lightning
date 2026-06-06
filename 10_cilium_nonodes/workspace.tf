@@ -2,7 +2,8 @@ locals {
   workspace = local.workspaces[tofu.workspace]
   workspaces = {
     unstable = {
-      kube_version = "1.34"
+      state_bucket   = "lightning-593941967609-us-east-2-an"
+      cilium_version = "1.18.6"
     }
   }
 }

@@ -11,7 +11,10 @@ data "aws_vpc_ipam_pool_cidrs" "lightning" {
 
 # Calculation of the VPC ipv6 cidr from the hexnumber provided in the workspace.
 locals {
-  ipspace            = one(data.aws_vpc_ipam_pool_cidrs.lightning.ipam_pool_cidrs).cidr
+  ipspace = coalesce([
+    for cidr in data.aws_vpc_ipam_pool_cidrs.lightning.ipam_pool_cidrs :
+    cidr.cidr
+  ]...)
   ipspace_pool       = one(data.aws_vpc_ipam_pools.lightning.ipam_pools).id
   ipv6_ipspace_array = split(":", trimsuffix(local.ipspace, "::/52"))
   # The prefix is the first 3 ipv6 segments.

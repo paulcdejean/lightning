@@ -8,6 +8,9 @@ resource "aws_imagebuilder_image_pipeline" "cloudflared" {
     image_log_group_name    = aws_cloudwatch_log_group.image_log_group.name
     pipeline_log_group_name = aws_cloudwatch_log_group.pipeline_log_group.name
   }
+  image_tests_configuration {
+    image_tests_enabled = false
+  }
   lifecycle {
     replace_triggered_by = [
       aws_imagebuilder_image_recipe.cloudflared

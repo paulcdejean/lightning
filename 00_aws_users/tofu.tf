@@ -1,9 +1,9 @@
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.5"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.28.0"
+      version = "6.39.0"
     }
     toml = {
       source  = "Tobotimus/toml"
@@ -17,12 +17,12 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.5"
   backend "s3" {
     region               = "us-east-2"
-    bucket               = "pauldejean-tofu"
+    bucket               = local.workspace.state_bucket
     workspace_key_prefix = "lightning"
-    key                  = "00_aws_users"
+    key                  = basename(abspath(path.module))
     use_lockfile         = true
   }
 }

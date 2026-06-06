@@ -11,7 +11,7 @@ locals {
 
 resource "aws_subnet" "ipv6_only_public" {
   for_each                                       = local.ipv6only_public_ipv6_blocks
-  vpc_id                                         = data.aws_vpc.main.id
+  vpc_id                                         = aws_vpc.main.id
   availability_zone                              = each.key
   ipv6_native                                    = true
   ipv6_cidr_block                                = each.value

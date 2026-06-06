@@ -15,7 +15,7 @@ locals {
 
 resource "aws_subnet" "dualstack_public" {
   for_each                                       = local.azs
-  vpc_id                                         = data.aws_vpc.main.id
+  vpc_id                                         = aws_vpc.main.id
   availability_zone                              = each.key
   ipv6_cidr_block                                = local.dualstack_public_ipv6_blocks[each.key]
   cidr_block                                     = local.dualstack_public_ipv4_blocks[each.key]

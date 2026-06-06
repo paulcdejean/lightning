@@ -28,6 +28,38 @@ locals {
             }
           },
           {
+            name   = "CreateContainerVolumeScript"
+            action = "CreateFile"
+            inputs = [
+              {
+                path = "/usr/local/bin/setup_container_volume.bash"
+                content = templatefile("${path.module}/templates/setup_container_volume.bash", {
+                  container_volume_device_name = local.container_volume_device_name
+                })
+                overwrite   = true
+                permissions = "0755"
+              }
+            ]
+          },
+          {
+            name   = "CreateContainerdFolder"
+            action = "CreateFolder"
+            inputs = [
+              {
+                path = "/var/lib/containerd"
+              }
+            ]
+          },
+          {
+            name   = "RunContainerVolumeScript"
+            action = "ExecuteBash"
+            inputs = {
+              commands = [
+                "/usr/local/bin/setup_container_volume.bash"
+              ]
+            }
+          },
+          {
             name   = "InstallKube"
             action = "ExecuteBash"
             inputs = {
@@ -176,8 +208,10 @@ locals {
             name   = "EnableKubelet"
             action = "ExecuteBash"
             inputs = {
-              commands = [
+              commands = local.workspace.enable_kubelet ? [
                 "systemctl enable kubelet"
+                ] : [
+                "echo 'Not enabling kubelet'"
               ]
             }
           },

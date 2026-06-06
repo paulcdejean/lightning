@@ -1,13 +1,13 @@
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.5"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.28.0"
+      version = "6.39.0"
     }
-    toml = {
-      source  = "Tobotimus/toml"
-      version = "0.3.0"
+    tls = {
+      source  = "hashicorp/tls"
+      version = "4.2.0"
     }
   }
 }
@@ -17,12 +17,12 @@ provider "aws" {
 }
 
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.5"
   backend "s3" {
     region               = "us-east-2"
-    bucket               = "pauldejean-tofu"
+    bucket               = "lightning-593941967609-us-east-2-an"
     workspace_key_prefix = "lightning"
-    key                  = "07_kubenode_networking"
+    key                  = basename(abspath(path.module))
     use_lockfile         = true
   }
 }
