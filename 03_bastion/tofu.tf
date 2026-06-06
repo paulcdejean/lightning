@@ -14,19 +14,22 @@ terraform {
       version = "2.6.1"
     }
   }
+  backend "s3" {
+    profile                     = "cloudflare"
+    bucket                      = "tofu"
+    workspace_key_prefix        = "lightning"
+    key                         = basename(abspath(path.module))
+    use_lockfile                = true
+    region                      = "auto"
+    skip_credentials_validation = true
+    skip_metadata_api_check     = true
+    skip_region_validation      = true
+    skip_requesting_account_id  = true
+    skip_s3_checksum            = true
+    use_path_style              = true
+  }
 }
 
 provider "aws" {
-  region = "us-east-2"
-}
-
-terraform {
-  required_version = "1.11.5"
-  backend "s3" {
-    region               = "us-east-2"
-    bucket               = "lightning-593941967609-us-east-2-an"
-    workspace_key_prefix = "lightning"
-    key                  = basename(abspath(path.module))
-    use_lockfile         = true
-  }
+  region = local.workspace.region
 }

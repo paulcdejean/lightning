@@ -27,7 +27,7 @@ data "aws_ami" "fedora" {
 }
 
 resource "aws_instance" "bastion" {
-  ami                         = "ami-01ea66560fb5ab110"
+  ami                         = data.aws_ami.fedora.id
   instance_type               = local.workspace.instance_type
   subnet_id                   = data.aws_subnet.bastion.id
   vpc_security_group_ids      = [aws_security_group.bastion.id]
