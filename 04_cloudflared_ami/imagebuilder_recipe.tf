@@ -21,6 +21,7 @@ resource "aws_imagebuilder_image_recipe" "cloudflared" {
     component_arn = aws_imagebuilder_component.cloudflared.arn
   }
   user_data_base64 = base64encode(templatefile("${path.module}/templates/fedora_imagebuilder_userdata.bash", {
+    region = local.workspace.region
   }))
   parent_image = "ssm:${aws_ssm_parameter.base_image.name}"
   version      = "1.0.0"

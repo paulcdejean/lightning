@@ -2,7 +2,7 @@ locals {
   workspace = local.workspaces[tofu.workspace]
   workspaces = {
     unstable = {
-      state_bucket = "lightning-593941967609-us-east-2-an"
+      region = "us-east-2"
       az           = "us-east-2a"
       logs_bucket  = "pauldejean-logs"
     }
