@@ -1,6 +1,7 @@
 # Important notes
 
 Chores must be run in order, not in parallel.
+Whenever tofu plan is run, use lock=false to avoid accidently holding the lock.
 
 ## Chores
 
