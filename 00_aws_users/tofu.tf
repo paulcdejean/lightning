@@ -13,11 +13,11 @@ terraform {
     skip_s3_checksum            = true
     use_path_style              = true
   }
-  required_version = "1.11.5"
+  required_version = "1.12.1"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.39.0"
+      version = "6.49.0"
     }
     toml = {
       source  = "Tobotimus/toml"

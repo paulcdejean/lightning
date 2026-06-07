@@ -1,6 +1,6 @@
 # Important notes
 
-Choures must be run in order, not in parallel.
+Chores must be run in order, not in parallel.
 
 ## Chores
 

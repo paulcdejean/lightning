@@ -49,7 +49,7 @@ resource "aws_iam_role_policy" "imagebuilder_ssm" {
           "ssm:DeleteParameters",
         ]
         Effect   = "Allow"
-        Resource = "arn:aws:ssm:${data.aws_region.current.id}:${data.aws_caller_identity.current.account_id}:parameter/lightning-amis/${tofu.workspace}/*"
+        Resource = "arn:aws:ssm:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:parameter/lightning-amis/${tofu.workspace}/*"
       },
       {
         Action   = ["ssm:DescribeParameters"]
