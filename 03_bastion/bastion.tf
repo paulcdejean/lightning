@@ -10,7 +10,7 @@ data "aws_ami" "fedora" {
   owners      = ["125523088429"] # Fedora
   filter {
     name   = "name"
-    values = ["Fedora-Cloud-Base-AmazonEC2.aarch64-43-*"]
+    values = ["Fedora-Cloud-Base-AmazonEC2.aarch64-44-?.*"]
   }
   filter {
     name   = "architecture"
