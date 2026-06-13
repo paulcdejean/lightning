@@ -1,4 +1,4 @@
-resource null_resource "trigger_update" {
+resource "null_resource" "trigger_update" {
   triggers = {
     base_image_ami = aws_ssm_parameter.base_image.insecure_value
   }
