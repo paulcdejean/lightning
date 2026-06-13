@@ -1,11 +1,4 @@
 # The control plane needs a private ipv4 address sadly.
-data "aws_subnets" "dualstack_private" {
-  filter {
-    name   = "tag:Name"
-    values = ["lightning-${tofu.workspace}-dualstack-private-*"]
-  }
-}
-
 resource "aws_eks_cluster" "main" {
   name = "lightning-${tofu.workspace}"
   access_config {

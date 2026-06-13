@@ -2,14 +2,6 @@
 # It's important to attach cluster admin directly to the identity used to log into the AWS console.
 # If you instead attach it to a role and have the user assume that role, then they won't have access in the console.
 # Yes even if they're a AWS admin.
-
-data "aws_region" "current" {}
-
-data "aws_iam_roles" "admin" {
-  path_prefix = "/aws-reserved/sso.amazonaws.com/${data.aws_region.current.region}/"
-  name_regex  = "AWSReservedSSO_admin_.*"
-}
-
 data "aws_iam_role" "admin" {
   name = one(data.aws_iam_roles.admin.names)
 }
