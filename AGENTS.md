@@ -5,7 +5,7 @@
 
 ## Agent requirements
 
-* Github MCP, for checking latest versions of software
+* Github MCP, for checking latest versions of software.
 * Opentofu MCP, for checking provider versions.
 
 ## Chores
