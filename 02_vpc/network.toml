@@ -13,7 +13,7 @@ dualstack-private-c = "112.0/20"
 
 # ipv6 subnets are always /64 by convention.
 # Rather than strings, we give a number, and we add that number to the vpc cidr.
-# Number is 0x0 to 0xff.
+# Number is 0x00 to 0xff.
 [ipv6]
 dualstack-public-a = 0x01
 dualstack-public-b = 0x02
