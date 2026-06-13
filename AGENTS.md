@@ -5,6 +5,7 @@ Whenever tofu plan is run, use lock=false to avoid accidently holding the lock.
 
 ## Chores
 
+* Do these chores for each folder in the git source tree
 * Prompt the user to update opentofu if they're not running the latest version
 * Update tofu.tf files to set the required version as the latest version
 * Update tofu.tf files so all providers are using the latest version
