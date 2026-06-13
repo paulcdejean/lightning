@@ -10,7 +10,7 @@
 
 ## Chores
 
-* Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. Report if they aren't and exit.
+* Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. AWS cli is also allowed. Report if they aren't and exit.
 * Do these chores for each folder in the git source tree
 * Prompt the user to update opentofu if they're not running the latest version
 * Update tofu.tf files to set the required version as the latest version
