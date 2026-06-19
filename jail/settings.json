@@ -1,4 +1,7 @@
 {
   "defaultProvider": "opencode-go",
-  "defaultModel": "glm-5.2"
+  "defaultModel": "glm-5.2",
+  "extensions": [
+    "/root/.pi/agent/node_modules/pi-mcp-adapter/index.ts"
+  ]
 }

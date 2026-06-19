@@ -7,8 +7,11 @@ run ln -s /root/.bun/bin/bun /usr/local/bin/node
 run ln -s /root/.bun/bin/bun /usr/local/bin/npm
 run bun install -g --ignore-scripts @earendil-works/pi-coding-agent
 run ln -s /root/.bun/bin/pi /usr/local/bin/pi
+run curl -fsSL https://github.com/aaif-goose/goose/releases/download/stable/download_cli.sh | CONFIGURE=false GOOSE_BIN_DIR=/usr/local/bin bash
 run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-opentofu.sh \
     && sh /tmp/install-opentofu.sh --install-method standalone \
     && rm /tmp/install-opentofu.sh
 copy jail/settings.json /root/.pi/agent/settings.json
+copy jail/mcp.json /root/.pi/agent/mcp.json
+run cd /root/.pi/agent && bun add --ignore-scripts pi-mcp-adapter@2.10.0
 workdir /root/lightning/
