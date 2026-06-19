@@ -7,5 +7,8 @@ run ln -s /root/.bun/bin/bun /usr/local/bin/node
 run ln -s /root/.bun/bin/bun /usr/local/bin/npm
 run bun install -g --ignore-scripts @earendil-works/pi-coding-agent
 run ln -s /root/.bun/bin/pi /usr/local/bin/pi
+run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-opentofu.sh \
+    && sh /tmp/install-opentofu.sh --install-method standalone \
+    && rm /tmp/install-opentofu.sh
 copy jail/settings.json /root/.pi/agent/settings.json
 workdir /root/lightning/
