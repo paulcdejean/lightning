@@ -1,2 +1,6 @@
 .terraform/
 *.tfstate
+.env
+node_modules/
+package.json
+bun.lock
