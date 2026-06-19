@@ -12,3 +12,6 @@ Note: This will **not** work out of the box on us-east-1, because us-east-1 has 
 * subnet /64, 256 possible subnets per vpc
 * ENI prefix /80 (FIXED SIZE by amazon), 65536 possible ENIs per subnet
 
+# AI support
+Personally I set:
+`alias ai='container run --env-file .env -v $(pwd):/root/lightning/ -it $(container build -f jail.containerfile)'``
