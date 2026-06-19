@@ -15,3 +15,4 @@ copy jail/settings.json /root/.pi/agent/settings.json
 copy jail/mcp.json /root/.pi/agent/mcp.json
 run cd /root/.pi/agent && bun add --ignore-scripts pi-mcp-adapter@2.10.0
 workdir /root/lightning/
+cmd /root/.bun/bin/pi
