@@ -14,6 +14,9 @@ run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-open
 copy jail/settings.json /root/.pi/agent/settings.json
 copy jail/mcp.json /root/.pi/agent/mcp.json
 copy jail/models.json /root/.pi/agent/models.json
+copy jail/entrypoint.sh /root/entrypoint.sh
+run chmod +x /root/entrypoint.sh
 run cd /root/.pi/agent && bun add --ignore-scripts pi-mcp-adapter@2.10.0
 workdir /root/lightning/
-cmd /root/.bun/bin/pi
+entrypoint ["/root/entrypoint.sh"]
+cmd ["/root/.bun/bin/pi"]
