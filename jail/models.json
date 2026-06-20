@@ -1,0 +1,9 @@
+{
+  "providers": {
+    "cloudflare-workers-ai": {
+      "headers": {
+        "cf-aig-gateway-id": "$CLOUDFLARE_GATEWAY_ID"
+      }
+    }
+  }
+}
