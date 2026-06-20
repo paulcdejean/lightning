@@ -3,6 +3,11 @@
     "cloudflare-workers-ai": {
       "headers": {
         "cf-aig-gateway-id": "$CLOUDFLARE_GATEWAY_ID"
+      },
+      "modelOverrides": {
+        "@cf/zai-org/glm-5.2": {
+          "contextWindow": 20480
+        }
       }
     }
   }

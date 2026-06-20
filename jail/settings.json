@@ -1,6 +1,11 @@
 {
   "defaultProvider": "cloudflare-workers-ai",
   "defaultModel": "@cf/zai-org/glm-5.2",
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 8192,
+    "keepRecentTokens": 8192
+  },
   "extensions": [
     "/root/.pi/agent/node_modules/pi-mcp-adapter/index.ts"
   ]
