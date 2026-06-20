@@ -34,3 +34,14 @@ resource "aws_iam_user_policy" "lightning_agent_github_secret_read" {
   user   = aws_iam_user.lightning_agent.name
   policy = data.aws_iam_policy_document.lightning_agent_github_secret_read.json
 }
+
+resource "aws_secretsmanager_secret_version" "github_token" {
+  secret_id                = aws_secretsmanager_secret.github_token.id
+  secret_string_wo         = "not_the_token"
+  secret_string_wo_version = 0
+}
+
+data "aws_secretsmanager_secret_version" "github_token" {
+  secret_id = aws_secretsmanager_secret_version.github_token.secret_id
+}
+

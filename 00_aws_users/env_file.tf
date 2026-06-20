@@ -10,5 +10,6 @@ resource "local_sensitive_file" "env" {
     r2_access_key_id      = cloudflare_account_token.r2.id
     r2_secret_access_key  = sha256(cloudflare_account_token.r2.value)
     r2_endpoint           = "https://${local.cf_account_id}.r2.cloudflarestorage.com"
+    github_token          = data.aws_secretsmanager_secret_version.github_token.secret_string
   })
 }
