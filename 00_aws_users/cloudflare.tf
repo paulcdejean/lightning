@@ -62,3 +62,27 @@ resource "cloudflare_account_token" "agent" {
     ]
   }]
 }
+
+# Read-only R2 token for the lightning agent. The terraform state backend is
+# S3-on-R2 (profile = "cloudflare"; see any tofu.tf). R2 S3-compatible creds
+# are *derived* from a Cloudflare API token, not supplied separately:
+#   Access Key ID      = token id
+#   Secret Access Key  = SHA-256 of token value
+# Source: https://developers.cloudflare.com/r2/api/tokens/
+#         #get-s3-api-credentials-from-an-api-token
+# This iteration only surfaces the derived creds into ../.env; a future
+# iteration will write the `[cloudflare]` AWS profile to ~/.aws/credentials.
+resource "cloudflare_account_token" "r2" {
+  account_id = local.cf_account_id
+  name       = "lightning-agent-r2"
+
+  policies = [{
+    effect = "allow"
+    resources = jsonencode({
+      "com.cloudflare.api.account.${local.cf_account_id}" = "*"
+    })
+    permission_groups = [
+      { id = local.cf_perm_groups["com.cloudflare.api.account"]["Workers R2 Storage Read"] },
+    ]
+  }]
+}
