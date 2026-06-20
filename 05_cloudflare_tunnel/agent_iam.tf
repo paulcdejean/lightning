@@ -8,21 +8,26 @@
 # exist (reaching backwards to the user from 00_aws_users), never reaching
 # forward from layer 0 to a secret that does not exist yet. Both secrets this
 # policy covers are declared in this same folder (see secretmanger.tf), so the
-# grant is made here.
-
-data "aws_caller_identity" "current" {}
+# grant is made here and the resource ARNs are referenced directly.
 
 data "aws_iam_user" "lightning_agent" {
   user_name = "lightning-agent"
 }
 
+locals {
+  # ARNs of the Secrets Manager secrets declared in this layer. The admin SSH
+  # secret only exists when enable_admin_ssh is true, so it is included
+  # conditionally and compact() drops it when disabled.
+  agent_secret_arns = compact([
+    aws_secretsmanager_secret.cloudflared_tunnel.arn,
+    local.workspace.enable_admin_ssh ? aws_secretsmanager_secret.cloudflared_admin_ssh.arn : null,
+  ])
+}
+
 data "aws_iam_policy_document" "lightning_agent_secret_read" {
   statement {
-    actions = ["secretsmanager:GetSecretValue"]
-    resources = [
-      "arn:aws:secretsmanager:${local.workspace.region}:${data.aws_caller_identity.current.account_id}:secret:${tofu.workspace}/cloudflared_tunnel-*",
-      "arn:aws:secretsmanager:${local.workspace.region}:${data.aws_caller_identity.current.account_id}:secret:${tofu.workspace}/admin_ssh_keys/cloudflared-*",
-    ]
+    actions   = ["secretsmanager:GetSecretValue"]
+    resources = local.agent_secret_arns
   }
 }
 
