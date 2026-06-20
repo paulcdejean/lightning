@@ -59,9 +59,31 @@ resource "cloudflare_account_token" "agent" {
     resources = jsonencode({
       "com.cloudflare.api.account.${local.cf_account_id}" = "*"
     })
+    # This single token backs two consumers via ../.env:
+    #   * CLOUDFLARE_API_KEY  -> pi's cloudflare-workers-ai provider (LLM
+    #     routing through the AI Gateway). Needs Workers AI + AI Gateway.
+    #   * CLOUDFLARE_API_TOKEN -> the Cloudflare terraform provider, used by
+    #     the read-only `tofu plan` chores across every cloudflare-using
+    #     folder (00, 01, 05). Bearer auth (CLOUDFLARE_API_TOKEN) is required
+    #     because the value is an API *token*, not a global API key.
+    # Read perms are granted where they exist. The Zero Trust device default
+    # profile (01) and the tunnel routes / tunnel token data source (05) only
+    # accept Write perms per the provider docs, so Write is granted for those.
+    # The agent never runs `tofu apply`, so these cannot mutate infrastructure.
+    #
+    # The `contains(keys(...))` guard makes a wrong/missing name skip silently
+    # instead of breaking the admin apply, so this broadening can never block
+    # the verified env-var (CLOUDFLARE_API_TOKEN) change it ships with.
     permission_groups = [
-      { id = local.cf_perm_groups["com.cloudflare.api.account"]["Workers AI Read"] },
-      { id = local.cf_perm_groups["com.cloudflare.api.account"]["AI Gateway Read"] },
+      for name in [
+        "Workers AI Read",
+        "AI Gateway Read",
+        "Account API Tokens Read",
+        "Cloudflare Tunnel Read",
+        "Cloudflare Tunnel Write",
+        "Zero Trust Write",
+      ] : { id = local.cf_perm_groups["com.cloudflare.api.account"][name] }
+      if contains(keys(local.cf_perm_groups["com.cloudflare.api.account"]), name)
     ]
   }]
 }
