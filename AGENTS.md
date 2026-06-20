@@ -3,6 +3,12 @@
 * Chores must be run in order, not in parallel.
 * Whenever tofu plan is run, use lock=false to avoid accidently holding the lock.
 
+## Environment
+
+* If your working directory is `/root/lightning`, you are likely running inside a sandboxed containerized environment
+* In order to make persistent changes to the environment you'll need to update jail.containerfile
+* Anything in .env will be injected into the environment variables of this sandbox
+
 ## Agent requirements
 
 * Github MCP, for checking latest versions of software.

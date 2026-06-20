@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "opencode-go",
-  "defaultModel": "glm-5.2",
+  "defaultProvider": "cloudflare-workers-ai",
+  "defaultModel": "@cf/zai-org/glm-5.2",
   "extensions": [
     "/root/.pi/agent/node_modules/pi-mcp-adapter/index.ts"
   ]
