@@ -14,6 +14,10 @@
 * Github MCP, for checking latest versions of software.
 * Opentofu MCP, for checking provider versions.
 
+## Objectives
+
+Refer to objectives.md
+
 ## Chores
 
 * Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. AWS cli is also allowed. Report if they aren't and exit.

@@ -1,5 +1,5 @@
 from quay.io/fedora/fedora:44
-run dnf install unzip ripgrep fd git -y
+run dnf install unzip ripgrep fd git awscli -y
 run git config --global user.name "Lightning Agent" && git config --global user.email "agent@lightning.local"
 run curl -fsSL https://bun.com/install | bash
 run ln -s /root/.bun/bin/bun /usr/local/bin/bun
