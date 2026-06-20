@@ -20,12 +20,4 @@ Refer to objectives.md
 
 ## Chores
 
-* Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. The `gh` CLI and AWS CLI are also allowed. Report if they aren't available/authenticated and exit.
-* Do these chores for each folder in the git source tree
-* Prompt the user to update opentofu if they're not running the latest version
-* Update tofu.tf files to set the required version as the latest version
-* Update tofu.tf files so all providers are using the latest version
-* If any updates are made, run tofu init -upgrade and tofu plan in all folders, and report if they are not clean plans
-* Report on any warnings related to deprecations from the providers
-* Update the major fedora version if needed, and report if this is updated
-* If the EKS version is lower than the latest supported AWS version, then report
+There's a human written procedure in chores.md and also an AI written skill.
