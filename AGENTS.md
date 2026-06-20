@@ -11,7 +11,7 @@
 
 ## Agent requirements
 
-* Github MCP, for checking latest versions of software.
+* Github CLI (`gh`), for checking latest versions of software. Authenticated via a read-only token surfaced into `.env` as `GH_TOKEN`.
 * Opentofu MCP, for checking provider versions.
 
 ## Objectives
@@ -20,7 +20,7 @@ Refer to objectives.md
 
 ## Chores
 
-* Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. AWS cli is also allowed. Report if they aren't and exit.
+* Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. The `gh` CLI and AWS CLI are also allowed. Report if they aren't available/authenticated and exit.
 * Do these chores for each folder in the git source tree
 * Prompt the user to update opentofu if they're not running the latest version
 * Update tofu.tf files to set the required version as the latest version
