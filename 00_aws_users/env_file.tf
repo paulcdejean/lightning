@@ -5,5 +5,7 @@ resource "local_sensitive_file" "env" {
     cloudflare_api_token  = cloudflare_account_token.agent.value
     cloudflare_account_id = local.cf_account_id
     cloudflare_ai_gateway = cloudflare_ai_gateway.lightning.id
+    aws_access_key_id     = aws_iam_access_key.lightning_agent.id
+    aws_secret_access_key = aws_iam_access_key.lightning_agent.secret
   })
 }
