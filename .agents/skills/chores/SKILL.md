@@ -122,14 +122,15 @@ Bump the major in `jail.containerfile` only if a newer stable major exists.
 
 - Cluster version: read `06_eks_cluster/workspace.tf` → `kube_version` for the
   active workspace (default workspace).
-- Latest AWS-supported version: probe with the aws CLI in `us-east-2` — the
-  highest `<v>` for which `describe-addon-versions` returns addons is the latest
-  supported. Probe downward from a candidate (e.g. try 1.37, 1.36, …):
+- Latest AWS-supported version: ask the aws CLI directly — no hardcoded
+  candidate list. `describe-cluster-versions` returns every supported version;
+  take the highest:
   ```bash
-  aws eks describe-addon-versions --kubernetes-version <v> \
-    --region us-east-2 --query 'addons[].addonVersion' --output text
+  aws eks describe-cluster-versions --region us-east-2 \
+    --query 'clusterVersions[].clusterVersion' --output text \
+    | tr '\t' '\n' | sort -V | tail -1
   ```
-  Empty output ⇒ that version is not yet supported.
+  Add `--default-only` to see AWS's current default version instead.
 - **Report** the gap. Do **not** bump `kube_version`. (EKS requires sequential
   minor upgrades; that's a user decision.)
 

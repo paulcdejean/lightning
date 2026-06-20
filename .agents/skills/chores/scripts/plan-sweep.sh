@@ -37,9 +37,11 @@ for d in "${FOLDERS[@]}"; do
   echo "---------------------------------------------------------------"
 
   echo "--- tofu init -upgrade ---"
-  if ! timeout "$TIMEOUT" tofu -chdir="$d" init -upgrade -input=false -no-color \
-        >"$log" 2>&1; then
-    echo "[$d] init FAILED (exit $?)"; tail -n 30 "$log"; FAIL=1; continue
+  timeout "$TIMEOUT" tofu -chdir="$d" init -upgrade -input=false -no-color \
+        >"$log" 2>&1
+  ec=$?
+  if [[ $ec -ne 0 ]]; then
+    echo "[$d] init FAILED (exit $ec)"; tail -n 30 "$log"; FAIL=1; continue
   fi
 
   echo "--- tofu plan -lock=false -input=false -no-color ---"

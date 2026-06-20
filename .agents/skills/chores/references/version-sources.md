@@ -49,21 +49,24 @@ or `gh api repos/<org>` to list).
 
 ## EKS (latest AWS-supported Kubernetes version) — `aws` CLI
 
-Probe in the cluster's region (`us-east-2`). The highest `<v>` for which
-addon versions are returned is the latest supported.
+`describe-cluster-versions` lists every Kubernetes version EKS supports — no
+hardcoded candidate list, no probing. Query it in the cluster's region
+(`us-east-2`) and take the highest:
 
 ```bash
-for v in 1.37 1.36 1.35 1.34; do
-  n=$(aws eks describe-addon-versions --kubernetes-version "$v" \
-        --region us-east-2 --query 'addons[].addonVersion' --output text \
-        2>/dev/null | wc -w)
-  echo "$v -> $n addon versions"
-done
+aws eks describe-cluster-versions --region us-east-2 \
+  --query 'clusterVersions[].clusterVersion' --output text \
+  | tr '\t' '\n' | sort -V | tail -1
+#   → e.g. "1.34"  (latest supported)
 ```
 
-The first (highest) `v` with a non-zero count is the latest supported. Compare to
-`kube_version` in `06_eks_cluster/workspace.tf` for the active workspace.
-**Report only — never bump.**
+Useful filters:
+- `--default-only` — only AWS's current default version.
+- `--status STANDARD_SUPPORT` / `--status EXTENDED_SUPPORT` — filter by support tier.
+- `--include-all` — include versions outside standard support.
+
+Compare the result to `kube_version` in `06_eks_cluster/workspace.tf` for the
+active workspace. **Report only — never bump.**
 
 ## Fedora (latest stable major) — `skopeo` preferred
 
