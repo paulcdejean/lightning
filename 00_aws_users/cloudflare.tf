@@ -45,6 +45,9 @@ resource "cloudflare_ai_gateway" "lightning" {
   log_management_strategy    = "DELETE_OLDEST"
   log_management             = 100000
   zdr                        = false
+  lifecycle {
+    ignore_changes = [store_id]
+  }
 }
 
 resource "cloudflare_account_token" "agent" {
