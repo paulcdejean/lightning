@@ -8,6 +8,11 @@
       "url": "https://mcp.opentofu.org/mcp",
       "lifecycle": "lazy",
       "directTools": true
+    },
+    "cloudflare-docs": {
+      "url": "https://docs.mcp.cloudflare.com/sse",
+      "lifecycle": "lazy",
+      "directTools": true
     }
   }
 }
