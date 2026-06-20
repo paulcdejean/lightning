@@ -1,3 +1,5 @@
 .terraform/
 *.tfstate
 .env
+handoff.md
+feedback.md
