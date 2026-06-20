@@ -42,7 +42,20 @@ provider "registry.opentofu.org/tobotimus/toml" {
   version     = "0.3.0"
   constraints = "0.3.0"
   hashes = [
+    "h1:8+4PxylXzwM73yuljg+doC0AFeNlk/NxhqpZcib2KfE=",
+    "h1:DcBbu+5px3jPwHoMCD+3wX2xRHcfg4qhqjeA6Io87Z0=",
+    "h1:OkXfJ02Ob2YOsOEb7YV0W60RhnYKrLzfyu9+QTiUrwo=",
+    "h1:Q8ZtbGbl+SI5gvOtmDOeaCBtuPh3TRpOh+B0YpLaSco=",
+    "h1:TIHqBlyTD52uPceFGUKuWWzl0WKIRX/BaNjqdjxHF/k=",
     "h1:WSeYoBJ/nliSqH6ONQh73/9J4f0tYMZvP/nA4AMs4h0=",
+    "h1:WZo4v9YmTZd5vJQH9MWZkdwlbiKHaRvU0oYkn5/eSMQ=",
+    "h1:l6pmQPHm8G5wub2T5ho0I1PiZ132kzTs8ZY1zzLllVI=",
+    "h1:nq4Hjiea3PDPoyh2ziFLeZSZJJ2pMsNyDi8HcTyjZME=",
+    "h1:osCtLUhx5CH7fgilPP6JsNPkcHcl8ootxemsf7VYAjk=",
+    "h1:uzgWCrhPmdIyWOttdlp6MskkbPs0aiRJ8Z/K/MlQ5s4=",
+    "h1:vxx3JFgCOF5i58E0GH4XvX7ougbTi9iP2ISsCP0Jj+c=",
+    "h1:xkt9p7y5Al/SKrrGpz13sC7gNLj04YZ3KnQLXECbRA4=",
+    "h1:yAKeY4fkQgIJlx5UDTF03DzDIqdid8+KhqG8cvHlohw=",
     "zh:1b310b15939e8b347fa32b155d390e245be2556cb1dae5d948d970cda20f23e3",
     "zh:1bdcd625aea30f546c5fd1b9e688f704fd31edfa4c4b589e4766b5086b3718fb",
     "zh:27556fa31199994c1deba810800f4a8ffd1c79d5460b22c24aca71f4a09f00a0",

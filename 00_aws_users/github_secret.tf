@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "lightning_agent_github_secret_read" {
   statement {
     actions = ["secretsmanager:GetSecretValue"]
     resources = [
-      "arn:aws:secretsmanager:${local.workspace.region}:${data.aws_caller_identity.current.account_id}:secret:${tofu.workspace}/github_token-*",
+      aws_secretsmanager_secret.github_token.arn
     ]
   }
 }
