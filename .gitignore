@@ -6,3 +6,4 @@ feedback.md
 .hermes/
 .hermes-persist/
 .claude/
+.DS_Store
