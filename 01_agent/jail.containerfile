@@ -19,7 +19,11 @@ run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-open
 # Nous Hermes Agent. Headless install: no setup wizard (we supply config.yaml
 # below) and no browser/Playwright stack (this agent does infra work, not web
 # automation). Running as root on Linux, the installer symlinks the venv
-# entrypoint to /usr/local/bin/hermes. HERMES_HOME pins the data dir.
+# entrypoint to /usr/local/bin/hermes. HERMES_HOME is set to /root/.hermes here
+# only to tell the installer where to place the initial config and bundled
+# skills; at runtime entrypoint.sh leaves it unset so Hermes uses the default
+# (/root/.hermes, ephemeral in the image) and symlinks skills/ + memories/ into
+# the bind mount for persistence across rebuilds.
 run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
     | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-setup --skip-browser
 

@@ -34,6 +34,14 @@ approvals:
 security:
   tirith_enabled: false
 
+# Disable the hardcoded "coding agent" system-prompt block (the
+# CODING_AGENT_GUIDANCE constant in agent/coding_context.py). It injects a
+# "you are a senior engineer" persona and a "don't commit unless asked" rule
+# that we don't want — commit policy belongs in AGENTS.md, not a baked-in
+# prompt block. agent.coding_context: off removes the entire block.
+agent:
+  coding_context: off
+
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.
 mcp_servers:

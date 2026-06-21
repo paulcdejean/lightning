@@ -30,18 +30,30 @@ else
        "the [cloudflare] AWS profile will not be written and tofu cannot reach the R2 backend." >&2
 fi
 
-# Pin HERMES_HOME inside the bind mount (/root/lightning) so that memories,
-# skills, sessions, and state.db survive container rebuilds. The Hermes venv
-# and code live at /usr/local/lib/hermes-agent (baked into the image) and are
-# unaffected. On first run the image's /root/.hermes (populated during build
-# by the installer + our COPY) is used as a seed; after that the bind mount
-# is the source of truth.
-export HERMES_HOME=/root/lightning/.hermes
-mkdir -p "$HERMES_HOME"
-if [ ! -f "$HERMES_HOME/config.yaml" ]; then
-  echo "entrypoint: seeding HERMES_HOME from /root/.hermes (first run)" >&2
-  cp -a /root/.hermes/. "$HERMES_HOME/"
+# HERMES_HOME stays at the image default (/root/.hermes) — config, sessions,
+# logs, and state.db are ephemeral per rebuild, which is fine for a disposable
+# jail. Only skills and memories need to survive rebuilds, so those two
+# directories are symlinked into the bind mount at /root/lightning/.hermes-persist.
+# The image's bundled skills are merged in on each startup (without clobbering
+# agent-created skills) so Hermes updates bring fresh bundled skills through.
+PERSIST=/root/lightning/.hermes-persist
+mkdir -p "$PERSIST/skills" "$PERSIST/memories"
+
+# Merge fresh bundled skills from the image into the persist dir. cp -an
+# (archive, no-clobber) preserves agent-created/patched skills; new bundled
+# skills from a Hermes update get added. Then replace the image dir with a
+# symlink so skill_manage writes land in the persist dir.
+if [ -d /root/.hermes/skills ] && [ ! -L /root/.hermes/skills ]; then
+  cp -an /root/.hermes/skills/. "$PERSIST/skills/"
+  rm -rf /root/.hermes/skills
 fi
+ln -sfn "$PERSIST/skills" /root/.hermes/skills
+
+# Memories are purely agent-created (no bundled memories to seed).
+if [ -d /root/.hermes/memories ] && [ ! -L /root/.hermes/memories ]; then
+  rm -rf /root/.hermes/memories
+fi
+ln -sfn "$PERSIST/memories" /root/.hermes/memories
 
 # Hand off to the declared CMD (e.g. hermes).
 exec "$@"
