@@ -15,7 +15,6 @@ model:
   provider: custom
   base_url: "https://inference-api.nousresearch.com/v1"
   api_key: ${NOUS_API_KEY}
-  context_length: 131072
 
 # Show the model's reasoning/thinking tokens by default (was the default in pi).
 display:
