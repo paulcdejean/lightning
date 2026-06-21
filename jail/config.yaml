@@ -21,6 +21,14 @@ model:
 display:
   show_reasoning: true
 
+# This Hermes instance runs inside a disposable Fedora container jail, so the
+# approval prompt before destructive CLI commands (rm -rf, git reset --hard,
+# etc.) is unnecessary friction. `off` is equivalent to running with --yolo.
+# Note: this only bypasses command approval; secret redaction in tool output
+# is a separate toggle (security.redact_secrets, default on) and stays on.
+approvals:
+  mode: off
+
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.
 mcp_servers:
