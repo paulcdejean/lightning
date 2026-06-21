@@ -34,7 +34,7 @@ run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-open
 # (/root/.hermes, ephemeral in the image) and symlinks skills/ + memories/ into
 # the bind mount for persistence across rebuilds.
 run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
-    | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-browser
+    | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-setup --skip-browser
 
 # OpenRouter server-tools plugin. Advertises OpenRouter server tools
 # (web_search, web_fetch, datetime, ... — configured in jail/config.yaml) to the
