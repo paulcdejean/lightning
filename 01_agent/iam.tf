@@ -17,10 +17,8 @@ data "aws_iam_policy_document" "agent_secrets_read" {
   statement {
     actions = ["secretsmanager:GetSecretValue"]
     resources = [
-      [
-        "arn:aws:secretsmanager:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:secret:agent/*",
-        "arn:aws:secretsmanager:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:secret:lightning/unstable/*",
-      ]
+      "arn:aws:secretsmanager:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:secret:agent/*",
+      "arn:aws:secretsmanager:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:secret:lightning/unstable/*",
     ]
   }
 }
