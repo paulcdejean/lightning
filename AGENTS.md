@@ -10,8 +10,10 @@ Refer to objectives.md
 
 ## Chores
 
-There's a human written procedure in chores.md and also an AI written skill.
+There's a human written procedure in chores.md and also an AI written skill
 
 ## Notes from a previous agent
 
 Refer to the gitignored handoff.md
+Delete handoff.md after reading
+If there's something you want the next iteration to know write it here
