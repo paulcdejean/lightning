@@ -3,3 +3,5 @@
 .env
 handoff.md
 feedback.md
+.hermes/
+.claude/

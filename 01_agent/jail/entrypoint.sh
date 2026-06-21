@@ -30,5 +30,18 @@ else
        "the [cloudflare] AWS profile will not be written and tofu cannot reach the R2 backend." >&2
 fi
 
-# Hand off to the declared CMD (e.g. pi).
+# Pin HERMES_HOME inside the bind mount (/root/lightning) so that memories,
+# skills, sessions, and state.db survive container rebuilds. The Hermes venv
+# and code live at /usr/local/lib/hermes-agent (baked into the image) and are
+# unaffected. On first run the image's /root/.hermes (populated during build
+# by the installer + our COPY) is used as a seed; after that the bind mount
+# is the source of truth.
+export HERMES_HOME=/root/lightning/.hermes
+mkdir -p "$HERMES_HOME"
+if [ ! -f "$HERMES_HOME/config.yaml" ]; then
+  echo "entrypoint: seeding HERMES_HOME from /root/.hermes (first run)" >&2
+  cp -a /root/.hermes/. "$HERMES_HOME/"
+fi
+
+# Hand off to the declared CMD (e.g. hermes).
 exec "$@"

@@ -14,4 +14,4 @@ Note: This will **not** work out of the box on us-east-1, because us-east-1 has 
 
 # AI support
 Personally I set:
-`alias ai='container run --env-file .env -v $(pwd):/root/lightning/ -it $(container build -f jail.containerfile)'``
+`alias ai='container run --env-file .env -v $(pwd):/root/lightning/ -it $(container build -f 01_agent/jail.containerfile 01_agent)'`

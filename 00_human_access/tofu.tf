@@ -19,17 +19,13 @@ terraform {
       source  = "hashicorp/aws"
       version = "6.51.0"
     }
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "5.21.0"
-    }
-    local = {
-      source  = "hashicorp/local"
-      version = "2.9.0"
-    }
     toml = {
       source  = "Tobotimus/toml"
       version = "0.3.0"
+    }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.21.0"
     }
   }
 }
