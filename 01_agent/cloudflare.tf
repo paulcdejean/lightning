@@ -43,8 +43,8 @@ resource "cloudflare_account_token" "agent" {
     #     across every cloudflare-using folder (this one, 02, 05, 06). Bearer auth
     #     (CLOUDFLARE_API_TOKEN) is required because the value is an API
     #     *token*, not a global API key.
-    # The jail's LLM traffic no longer routes through Cloudflare (it uses the
-    # Nous Portal), so the former Workers AI / AI Gateway read perms are gone.
+    # The jail's LLM traffic no longer routes through Cloudflare (it uses
+    # OpenRouter), so the former Workers AI / AI Gateway read perms are gone.
     # Read perms are granted where they exist. The Zero Trust device default
     # profile (02) and the tunnel routes / tunnel token data source (05/06) only
     # accept Write perms per the provider docs, so Write is granted for those.

@@ -1,20 +1,69 @@
 # Hermes Agent configuration for the lightning jail.
 #
-# LLM traffic goes to the Nous Portal, Nous Research's OpenAI-compatible
-# inference API (https://inference-api.nousresearch.com/v1). The built-in
-# `nous` provider authenticates via interactive OAuth device-code, which can't
-# run in a headless container, so we instead point Hermes at the same endpoint
-# through a `custom` provider authenticated with a static API key.
+# LLM traffic goes to OpenRouter (OpenAI-compatible router) via a `custom`
+# provider authenticated with a static API key — no OAuth, so it works in a
+# headless container.
 #
-# NOUS_API_KEY is injected into the container env from .env (which 01_agent
-# templates from the AWS Secrets Manager secret <workspace>/nous_portal_api_key).
+# Web search and other tools are provided by OpenRouter's server-tools feature.
+# The openrouter-server-tools plugin (plugins/openrouter-server-tools) advertises
+# each server tool to the model and injects its real {type: "openrouter:..."}
+# declaration into the API request; OpenRouter executes them server-side and the
+# model sees results inline. The model itself decides when to call each one.
+# (No `:online` suffix — that deprecated auto-grounding is superseded by the
+# model-callable web_search server tool below.)
+#
+# OPENROUTER_API_KEY is injected into the container env from .env (which 01_agent
+# templates from the AWS Secrets Manager secret agent/openrouter_api_key).
 # ${VAR} placeholders are interpolated from the environment at config load.
 
 model:
-  default: "z-ai/glm-5.2"
+  default: "openrouter/owl-alpha"
   provider: custom
-  base_url: "https://inference-api.nousresearch.com/v1"
-  api_key: ${NOUS_API_KEY}
+  base_url: "https://openrouter.ai/api/v1"
+  api_key: ${OPENROUTER_API_KEY}
+
+# Enable the openrouter-server-tools plugin (copied into ~/.hermes/plugins/ by
+# the containerfile). Each entry below is an OpenRouter server tool; parameters
+# follow https://openrouter.ai/docs/guides/features/server-tools — prune any you
+# don't want (the "extra" group costs credits / extra model calls and is not
+# typical for infra work).
+plugins:
+  enabled:
+    - openrouter-server-tools
+  entries:
+    openrouter-server-tools:
+      server_tools:
+        # --- Core web tools ---
+        - type: openrouter:web_search          # Exa-backed search, grounded inline
+          parameters:
+            engine: exa                        # auto|native|exa|firecrawl|parallel|perplexity
+            max_results: 5                     # 1-25
+            search_context_size: medium        # low|medium|high
+        - type: openrouter:web_fetch           # Fetch + read a specific URL
+          parameters:
+            engine: auto                        # auto|native|exa|openrouter|firecrawl|parallel
+        - type: openrouter:datetime            # Current date/time
+          parameters:
+            timezone: UTC                       # IANA tz name
+        # --- Extra (added per request; each costs credits / extra inner calls) ---
+        - type: openrouter:image_generation    # Generate images
+          parameters:
+            model: openai/gpt-5-image
+            quality: high                       # low|medium|high
+            output_format: png                  # png|jpeg|webp
+        # NOTE: openrouter:apply_patch is intentionally omitted — it is
+        # Responses-API-only, but Hermes uses the Chat Completions endpoint, so
+        # including it 400s the whole request ("only supported for: responses").
+        - type: openrouter:fusion              # Panel-of-models + judge
+          parameters:
+            max_tool_calls: 8                   # 1-16
+        - type: openrouter:advisor             # Consult an advisor model
+          parameters:
+            model: ~anthropic/claude-opus-latest
+            max_tool_calls: 5                   # 1-25
+        - type: openrouter:subagent            # Delegate to a worker model
+          parameters:
+            model: ~anthropic/claude-haiku-latest
 
 # Show the model's reasoning/thinking tokens by default (was the default in pi).
 display:
@@ -42,10 +91,19 @@ security:
 agent:
   coding_context: off
 
+# Cloud browser automation is disabled. The only no-extra-credential option was
+# the Nous Tool Gateway's Browser Use backend, but that authenticates via Nous
+# Portal OAuth (a Portal login stored in auth.json), which can't be completed in
+# a headless, disposable jail. Rather than add a separate Browser Use /
+# Browserbase API key, we leave cloud browsing off. To re-enable later, set:
+#   browser:
+#     cloud_provider: browser-use
+#     use_gateway: false   # then supply a direct BROWSER_USE_API_KEY in .env
+
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.
 mcp_servers:
   opentofu:
     url: "https://mcp.opentofu.org/mcp"
   cloudflare-docs:
-    url: "https://docs.mcp.cloudflare.com/sse"
+    url: "https://docs.mcp.cloudflare.com/mcp"
