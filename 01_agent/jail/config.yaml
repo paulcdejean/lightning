@@ -48,4 +48,4 @@ mcp_servers:
   opentofu:
     url: "https://mcp.opentofu.org/mcp"
   cloudflare-docs:
-    url: "https://docs.mcp.cloudflare.com/sse"
+    url: "https://docs.mcp.cloudflare.com/mcp"
