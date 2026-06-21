@@ -8,7 +8,16 @@ run dnf install -y \
     git gh awscli jq unzip ripgrep fd \
     python3 python3-pip python3-devel gcc gcc-c++ libffi-devel \
     nodejs npm
+run dnf install -y \
+    sqlite yq iproute bind-utils sipcalc ipcalc which \
+    wget tmux htop nmap-ncat vim-enhanced helm
 run git config --global user.name "Lightning Agent" && git config --global user.email "agent@lightning.local"
+
+# kubectl (not in Fedora repos, install from Kubernetes upstream)
+run KUBECTL_VERSION=$(curl -fsSL https://dl.k8s.io/release/stable.txt) \
+    && curl -fsSL -o /usr/local/bin/kubectl \
+       "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')/kubectl" \
+    && chmod +x /usr/local/bin/kubectl
 
 # OpenTofu (terraform state lives on Cloudflare R2 via the [cloudflare] AWS
 # profile that entrypoint.sh writes from the R2_* env vars).
