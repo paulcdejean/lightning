@@ -44,9 +44,8 @@ agent:
 
 # Route browser automation through the Nous Tool Gateway (Browser Use cloud
 # backend) instead of requiring a separate Browser Use / Browserbase API key.
-# The gateway normally authenticates via Nous Portal OAuth (hermes portal),
-# which can't run headless — so instead TOOL_GATEWAY_USER_TOKEN is set to the
-# same sk-nous- inference key (injected from .env, same as NOUS_API_KEY).
+# The gateway authenticates via Nous Portal OAuth (hermes portal), NOT the
+# inference API key — so this also requires a Portal login stored in auth.json.
 # See: https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-gateway
 browser:
   cloud_provider: browser-use
