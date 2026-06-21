@@ -17,6 +17,10 @@ model:
   api_key: ${NOUS_API_KEY}
   context_length: 131072
 
+# Show the model's reasoning/thinking tokens by default (was the default in pi).
+display:
+  show_reasoning: true
+
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.
 mcp_servers:
