@@ -1,0 +1,3 @@
+name: openrouter-server-tools
+version: "1.0"
+description: "Enables OpenRouter server tools (web_search, web_fetch, datetime, image_generation, apply_patch, fusion, advisor, subagent). Advertises each to the model via register_tool and injects the real server-tool declarations into the API request via llm_request middleware; OpenRouter executes them server-side."

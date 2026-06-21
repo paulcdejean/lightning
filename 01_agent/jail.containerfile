@@ -36,10 +36,11 @@ run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-open
 run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
     | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-browser
 
-# OpenRouter server-tools plugin. Injects openrouter:web_search,
-# openrouter:web_fetch, openrouter:datetime into the API request so the
-# model can call them; OpenRouter intercepts and executes server-side.
-copy plugins/openrouter-web-search /root/.hermes/plugins/openrouter-web-search
+# OpenRouter server-tools plugin. Advertises OpenRouter server tools
+# (web_search, web_fetch, datetime, ... — configured in jail/config.yaml) to the
+# model and injects their declarations into the API request; OpenRouter executes
+# them server-side.
+copy plugins/openrouter-server-tools /root/.hermes/plugins/openrouter-server-tools
 
 # Hermes config: OpenRouter (OpenAI-compatible router) as a custom provider
 # keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha, plus the
