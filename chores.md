@@ -1,3 +1,10 @@
+## Important notes
+
+* Chores must be run in order, not in parallel.
+* Whenever tofu plan is run, use lock=false to avoid accidently holding the lock.
+
+## Chores
+
 * Web fetch or curl shouldn't be used for chores, the needed MCP servers should be installed. The `gh` CLI and AWS CLI are also allowed. Report if they aren't available/authenticated and exit.
 * Do these chores for each folder in the git source tree
 * Prompt the user to update opentofu if they're not running the latest version
