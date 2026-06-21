@@ -51,9 +51,9 @@ plugins:
             model: openai/gpt-5-image
             quality: high                       # low|medium|high
             output_format: png                  # png|jpeg|webp
-        - type: openrouter:apply_patch         # Apply V4A diff patches to files
-          parameters:
-            engine: auto                        # auto|native|openrouter
+        # NOTE: openrouter:apply_patch is intentionally omitted — it is
+        # Responses-API-only, but Hermes uses the Chat Completions endpoint, so
+        # including it 400s the whole request ("only supported for: responses").
         - type: openrouter:fusion              # Panel-of-models + judge
           parameters:
             max_tool_calls: 8                   # 1-16
