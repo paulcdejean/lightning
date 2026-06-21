@@ -6,7 +6,7 @@
 # run in a headless container, so we instead point Hermes at the same endpoint
 # through a `custom` provider authenticated with a static API key.
 #
-# NOUS_API_KEY is injected into the container env from ../.env (which 00_aws_users
+# NOUS_API_KEY is injected into the container env from ../.env (which 01_agent
 # templates from the AWS Secrets Manager secret <workspace>/nous_portal_api_key).
 # ${VAR} placeholders are interpolated from the environment at config load.
 
@@ -24,10 +24,16 @@ display:
 # This Hermes instance runs inside a disposable Fedora container jail, so the
 # approval prompt before destructive CLI commands (rm -rf, git reset --hard,
 # etc.) is unnecessary friction. `off` is equivalent to running with --yolo.
-# Note: this only bypasses command approval; secret redaction in tool output
-# is a separate toggle (security.redact_secrets, default on) and stays on.
 approvals:
   mode: off
+
+# Tirith security scanning (default on) is a SEPARATE guard from approvals:
+# it pattern-matches shell commands (e.g. "mass file deletion in a short
+# window") and prompts for approval independently of approvals.mode. In this
+# disposable jail where approvals.mode is already off, the Tirith prompt is
+# the same friction for no benefit, so disable it too.
+security:
+  tirith_enabled: false
 
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.

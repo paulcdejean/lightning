@@ -40,13 +40,13 @@ resource "cloudflare_account_token" "agent" {
     })
     # This token backs the Cloudflare terraform provider via ../.env:
     #   * CLOUDFLARE_API_TOKEN -> used by the read-only `tofu plan` chores
-    #     across every cloudflare-using folder (00, 01, 05). Bearer auth
+    #     across every cloudflare-using folder (this one, 02, 05, 06). Bearer auth
     #     (CLOUDFLARE_API_TOKEN) is required because the value is an API
     #     *token*, not a global API key.
     # The jail's LLM traffic no longer routes through Cloudflare (it uses the
     # Nous Portal), so the former Workers AI / AI Gateway read perms are gone.
     # Read perms are granted where they exist. The Zero Trust device default
-    # profile (01) and the tunnel routes / tunnel token data source (05) only
+    # profile (02) and the tunnel routes / tunnel token data source (05/06) only
     # accept Write perms per the provider docs, so Write is granted for those.
     # The agent never runs `tofu apply`, so these cannot mutate infrastructure.
     #

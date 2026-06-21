@@ -1,4 +1,19 @@
 terraform {
+  required_version = "1.12.3"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "6.51.0"
+    }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.21.0"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "2.9.0"
+    }
+  }
   backend "s3" {
     profile                     = "cloudflare"
     bucket                      = "tofu"
@@ -12,17 +27,6 @@ terraform {
     skip_requesting_account_id  = true
     skip_s3_checksum            = true
     use_path_style              = true
-  }
-  required_version = "1.12.3"
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "6.51.0"
-    }
-    toml = {
-      source  = "Tobotimus/toml"
-      version = "0.3.0"
-    }
   }
 }
 
