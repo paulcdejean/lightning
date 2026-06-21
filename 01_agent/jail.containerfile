@@ -26,7 +26,7 @@ run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
 # Hermes config: the Nous Portal (OpenAI-compatible inference API) as a custom
 # provider keyed off NOUS_API_KEY, defaulting to GLM 5.2, plus the OpenTofu /
 # Cloudflare docs MCP servers. NOUS_API_KEY and the AWS/Cloudflare creds are
-# injected at runtime from .env (container run --env-file .env).
+# injected at runtime from 01_agent/.env (container run --env-file 01_agent/.env).
 copy jail/config.yaml /root/.hermes/config.yaml
 copy jail/entrypoint.sh /root/entrypoint.sh
 run chmod +x /root/entrypoint.sh

@@ -2,7 +2,7 @@
 # Container entrypoint for the lightning agent jail.
 #
 # Generates ~/.aws/config with a [profile cloudflare] pointing the S3 backend
-# at Cloudflare R2, from the R2_* env vars that .env injects at runtime.
+# at Cloudflare R2, from the R2_* env vars that 01_agent/.env injects at runtime.
 # This lets `tofu init`/`tofu plan` reach the S3-on-R2 state backend that every
 # tofu.tf references via `profile = "cloudflare"`.
 #

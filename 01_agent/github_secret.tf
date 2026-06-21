@@ -6,7 +6,7 @@
 #     --secret-id <name> --secret-string '<PAT>'
 # after this secret exists. A later iteration will add a
 # data.aws_secretsmanager_secret_version that reads AWSCURRENT and templates it
-# into ../.env as GH_TOKEN.
+# into .env as GH_TOKEN.
 #
 # This iteration only creates the (empty) secret container and grants the
 # lightning-agent IAM user (created in iam.tf in this same layer)

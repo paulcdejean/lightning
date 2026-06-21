@@ -1,7 +1,7 @@
 # Nous Portal API key for the jail's Hermes Agent. The agent's LLM traffic
 # routes through the Nous Portal (OpenAI-compatible inference API) rather than
 # Cloudflare Workers AI, so the jail needs a `sk-nous-...` key surfaced into
-# ../.env as NOUS_API_KEY (read by ~/.hermes/config.yaml's custom provider).
+# .env as NOUS_API_KEY (read by ~/.hermes/config.yaml's custom provider).
 #
 # As with github_token, the value is *not* managed by terraform: the admin
 # populates it out-of-band with

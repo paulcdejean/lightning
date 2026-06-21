@@ -6,7 +6,7 @@
 # run in a headless container, so we instead point Hermes at the same endpoint
 # through a `custom` provider authenticated with a static API key.
 #
-# NOUS_API_KEY is injected into the container env from ../.env (which 01_agent
+# NOUS_API_KEY is injected into the container env from .env (which 01_agent
 # templates from the AWS Secrets Manager secret <workspace>/nous_portal_api_key).
 # ${VAR} placeholders are interpolated from the environment at config load.
 

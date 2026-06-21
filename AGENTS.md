@@ -2,7 +2,7 @@
 
 * If your working directory is `/root/lightning`, you are likely running inside a sandboxed containerized environment
 * In order to make persistent changes to the environment you'll need to update 01_agent/jail.containerfile
-* Anything in .env will be injected into the environment variables of this sandbox
+* Anything in 01_agent/.env will be injected into the environment variables of this sandbox
 
 ## Objectives
 

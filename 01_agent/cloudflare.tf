@@ -38,7 +38,7 @@ resource "cloudflare_account_token" "agent" {
     resources = jsonencode({
       "com.cloudflare.api.account.${local.cf_account_id}" = "*"
     })
-    # This token backs the Cloudflare terraform provider via ../.env:
+    # This token backs the Cloudflare terraform provider via .env:
     #   * CLOUDFLARE_API_TOKEN -> used by the read-only `tofu plan` chores
     #     across every cloudflare-using folder (this one, 02, 05, 06). Bearer auth
     #     (CLOUDFLARE_API_TOKEN) is required because the value is an API
@@ -72,7 +72,7 @@ resource "cloudflare_account_token" "agent" {
 #   Secret Access Key  = SHA-256 of token value
 # Source: https://developers.cloudflare.com/r2/api/tokens/
 #         #get-s3-api-credentials-from-an-api-token
-# This iteration only surfaces the derived creds into ../.env; a future
+# This iteration only surfaces the derived creds into .env; a future
 # iteration will write the `[cloudflare]` AWS profile to ~/.aws/credentials.
 resource "cloudflare_account_token" "r2" {
   account_id = local.cf_account_id
