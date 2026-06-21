@@ -23,7 +23,7 @@ resource "aws_secretsmanager_secret" "cf_admin" {
 }
 
 resource "aws_secretsmanager_secret_version" "cf_admin" {
-  secret_id = aws_secretsmanager_secret.cf_admin.name
-  secret_string_wo = cloudflare_account_token.admin.value
+  secret_id                = aws_secretsmanager_secret.cf_admin.name
+  secret_string_wo         = cloudflare_account_token.admin.value
   secret_string_wo_version = 0
 }
