@@ -16,23 +16,8 @@
 # the user and the secret live in this layer.
 
 resource "aws_secretsmanager_secret" "github_token" {
-  name                    = "${tofu.workspace}/github_token"
+  name                    = "agent/github_token"
   recovery_window_in_days = 0
-}
-
-data "aws_iam_policy_document" "lightning_agent_github_secret_read" {
-  statement {
-    actions = ["secretsmanager:GetSecretValue"]
-    resources = [
-      aws_secretsmanager_secret.github_token.arn
-    ]
-  }
-}
-
-resource "aws_iam_user_policy" "lightning_agent_github_secret_read" {
-  name   = "github-token-getsecretvalue"
-  user   = aws_iam_user.lightning_agent.name
-  policy = data.aws_iam_policy_document.lightning_agent_github_secret_read.json
 }
 
 resource "aws_secretsmanager_secret_version" "github_token" {

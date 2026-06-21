@@ -1,5 +1,5 @@
 resource "aws_secretsmanager_secret" "cloudflared_tunnel" {
-  name                    = "${tofu.workspace}/cloudflared_tunnel"
+  name                    = "lightning/${tofu.workspace}/cloudflared_tunnel"
   recovery_window_in_days = 0
 }
 
@@ -16,7 +16,7 @@ resource "tls_private_key" "cloudflared_admin_ssh" {
 }
 
 resource "aws_secretsmanager_secret" "cloudflared_admin_ssh" {
-  name                    = "${tofu.workspace}/admin_ssh_keys/cloudflared"
+  name                    = "lightning/${tofu.workspace}/admin_ssh_keys/cloudflared"
   recovery_window_in_days = 0
   lifecycle {
     enabled = local.workspace.enable_admin_ssh

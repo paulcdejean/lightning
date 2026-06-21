@@ -14,23 +14,8 @@
 # secretsmanager:GetSecretValue on it, mirroring the github_token grant.
 
 resource "aws_secretsmanager_secret" "nous_portal_api_key" {
-  name                    = "${tofu.workspace}/nous_portal_api_key"
+  name                    = "agent/nous_portal_api_key"
   recovery_window_in_days = 0
-}
-
-data "aws_iam_policy_document" "lightning_agent_nous_secret_read" {
-  statement {
-    actions = ["secretsmanager:GetSecretValue"]
-    resources = [
-      aws_secretsmanager_secret.nous_portal_api_key.arn
-    ]
-  }
-}
-
-resource "aws_iam_user_policy" "lightning_agent_nous_secret_read" {
-  name   = "nous-portal-api-key-getsecretvalue"
-  user   = aws_iam_user.lightning_agent.name
-  policy = data.aws_iam_policy_document.lightning_agent_nous_secret_read.json
 }
 
 resource "aws_secretsmanager_secret_version" "nous_portal_api_key" {
