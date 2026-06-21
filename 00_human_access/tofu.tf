@@ -23,6 +23,10 @@ terraform {
       source  = "Tobotimus/toml"
       version = "0.3.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "5.21.0"
+    }
   }
 }
 
