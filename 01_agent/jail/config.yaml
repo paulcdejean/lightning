@@ -12,7 +12,7 @@
 # ${VAR} placeholders are interpolated from the environment at config load.
 
 model:
-  default: "z-ai/glm-5.2:online"
+  default: "openrouter/owl-alpha:online"
   provider: custom
   base_url: "https://openrouter.ai/api/v1"
   api_key: ${OPENROUTER_API_KEY}

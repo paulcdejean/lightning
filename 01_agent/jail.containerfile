@@ -37,8 +37,9 @@ run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
     | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-setup --skip-browser
 
 # Hermes config: OpenRouter (OpenAI-compatible router) as a custom provider
-# keyed off OPENROUTER_API_KEY, defaulting to GLM 5.2 with :online web search,
-# plus the OpenTofu / Cloudflare docs MCP servers. OPENROUTER_API_KEY and the
+# keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha with :online
+# web search, plus the OpenTofu / Cloudflare docs MCP servers. OPENROUTER_API_KEY
+# and the
 # AWS/Cloudflare creds are injected at runtime from 01_agent/.env (container run
 # --env-file 01_agent/.env).
 copy jail/config.yaml /root/.hermes/config.yaml
