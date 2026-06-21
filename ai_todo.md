@@ -16,11 +16,11 @@ Last assessed: 2026-06-21
 - AWS CLI — installed (v2.35.0), authenticated as `lightning-agent` (account 593941967609)
 
 ### Gaps / Needs Verification
-- Browser automation — no interactive browser (web_fetch is static only)
-- Image generation (openrouter_image_generation) — **UNAVAILABLE**: OpenRouter account out of credits (402 Payment Required)
-- Docker — need to verify Docker-in-Docker availability in this sandbox
+- Browser automation — **NOT WORKING**: Playwright Node.js (v1.61.0) has browser binaries cached, but `playwright` Python package is installed but Chromium binary download failed. `browser-use` not installed. No `apt-get` in this Fedora sandbox to install system deps. Would need to fix the Python playwright install or use Node.js directly.
+- Image generation (openrouter_image_generation) — **UNAVAILABLE**: OpenRouter account out of credits (402 Payment Required). Needs credit top-up at openrouter.ai/settings/credits.
+- Docker — **NOT AVAILABLE**: `docker` command not found in this sandbox.
 
 ### Action Items
-- [ ] Verify browser automation availability
-- [ ] Verify Docker-in-Docker if container image builds are needed
-- [x] Verify AWS CLI is authenticated and functional
+- [x] Verify browser automation availability — NOT WORKING (see above)
+- [x] Verify Docker availability — NOT AVAILABLE
+- [x] Verify AWS CLI is authenticated and functional — WORKING
