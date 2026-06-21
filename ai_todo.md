@@ -1,37 +1,4 @@
-# AI TODO - Lightning Homelab
-
-Active task list for the AI agent working on Paul's Kubernetes homelab.
-Completed items get struck through. Add new items as they come up.
-
----
-
-## Stale / Older Items (from previous sessions)
-
-- ~~Switch to IPv6-only networking (ENI-based IPv6 prefix allocation on boot)~~
-- Write the script for allocating ENIs on node boot
-- Break ENI allocation into a separate unit/module
-- Get Cilium image pulled into the AMI
-- Adjust pod affinity rules to eliminate "no new claims to deallocate" noise
-- Explore workaround for https://github.com/cilium/cilium/issues/44199
-- Install AWS Node Termination Handler to reduce shutdown noise
-- Get ECR credential helper working; prove ability to pull a private image
-
-## Infrastructure Maintenance (recurring)
-
-- Keep Fedora version up to date
-- Keep OpenTofu up to date
-- Keep OpenTofu provider versions up to date
-- Keep Kubernetes version up to date
-- Keep Helm chart versions up to date
-- Clean up old AMIs
-
-## Active / Current
-
-(None right now — see objectives.md)
-
----
-
-## AI Tooling Notes
+# AI TODO - Tooling Assessment
 
 Last assessed: 2026-06-21
 
@@ -46,14 +13,14 @@ Last assessed: 2026-06-21
 - cronjob scheduling
 - delegate_task / subagent for parallel work
 - 71 skills loaded (~30 relevant to this project)
+- AWS CLI — installed (v2.35.0), authenticated as `lightning-agent` (account 593941967609)
 
 ### Gaps / Needs Verification
 - Browser automation — no interactive browser (web_fetch is static only)
 - Image generation (openrouter_image_generation) — installed but untested
 - Docker — need to verify Docker-in-Docker availability in this sandbox
-- Cloud CLIs (AWS CLI) — chores.md assumes it's available; should verify
 
 ### Action Items
-- [ ] Verify browser automation availability (or work around with curl/web_fetch)
+- [ ] Verify browser automation availability
 - [ ] Verify Docker-in-Docker if container image builds are needed
 - [x] Verify AWS CLI is authenticated and functional
