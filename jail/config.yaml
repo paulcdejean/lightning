@@ -1,0 +1,26 @@
+# Hermes Agent configuration for the lightning jail.
+#
+# LLM traffic goes to the Nous Portal, Nous Research's OpenAI-compatible
+# inference API (https://inference-api.nousresearch.com/v1). The built-in
+# `nous` provider authenticates via interactive OAuth device-code, which can't
+# run in a headless container, so we instead point Hermes at the same endpoint
+# through a `custom` provider authenticated with a static API key.
+#
+# NOUS_API_KEY is injected into the container env from ../.env (which 00_aws_users
+# templates from the AWS Secrets Manager secret <workspace>/nous_portal_api_key).
+# ${VAR} placeholders are interpolated from the environment at config load.
+
+model:
+  default: "z-ai/glm-5.2"
+  provider: custom
+  base_url: "https://inference-api.nousresearch.com/v1"
+  api_key: ${NOUS_API_KEY}
+  context_length: 131072
+
+# Read-only documentation MCP servers used during the terraform `tofu plan`
+# chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.
+mcp_servers:
+  opentofu:
+    url: "https://mcp.opentofu.org/mcp"
+  cloudflare-docs:
+    url: "https://docs.mcp.cloudflare.com/sse"

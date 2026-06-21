@@ -29,27 +29,6 @@ locals {
   }
 }
 
-resource "cloudflare_ai_gateway" "lightning" {
-  account_id                 = local.cf_account_id
-  id                         = "lightning"
-  cache_invalidate_on_update = true
-  cache_ttl                  = 3600
-  collect_logs               = true
-  rate_limiting_interval     = 0
-  rate_limiting_limit        = 0
-  authentication             = true
-  retry_backoff              = "exponential"
-  retry_delay                = 500
-  retry_max_attempts         = 3
-  logpush                    = false
-  log_management_strategy    = "DELETE_OLDEST"
-  log_management             = 100000
-  zdr                        = false
-  lifecycle {
-    ignore_changes = [store_id]
-  }
-}
-
 resource "cloudflare_account_token" "agent" {
   account_id = local.cf_account_id
   name       = "lightning-agent-ai"
@@ -59,13 +38,13 @@ resource "cloudflare_account_token" "agent" {
     resources = jsonencode({
       "com.cloudflare.api.account.${local.cf_account_id}" = "*"
     })
-    # This single token backs two consumers via ../.env:
-    #   * CLOUDFLARE_API_KEY  -> pi's cloudflare-workers-ai provider (LLM
-    #     routing through the AI Gateway). Needs Workers AI + AI Gateway.
-    #   * CLOUDFLARE_API_TOKEN -> the Cloudflare terraform provider, used by
-    #     the read-only `tofu plan` chores across every cloudflare-using
-    #     folder (00, 01, 05). Bearer auth (CLOUDFLARE_API_TOKEN) is required
-    #     because the value is an API *token*, not a global API key.
+    # This token backs the Cloudflare terraform provider via ../.env:
+    #   * CLOUDFLARE_API_TOKEN -> used by the read-only `tofu plan` chores
+    #     across every cloudflare-using folder (00, 01, 05). Bearer auth
+    #     (CLOUDFLARE_API_TOKEN) is required because the value is an API
+    #     *token*, not a global API key.
+    # The jail's LLM traffic no longer routes through Cloudflare (it uses the
+    # Nous Portal), so the former Workers AI / AI Gateway read perms are gone.
     # Read perms are granted where they exist. The Zero Trust device default
     # profile (01) and the tunnel routes / tunnel token data source (05) only
     # accept Write perms per the provider docs, so Write is granted for those.
@@ -76,8 +55,6 @@ resource "cloudflare_account_token" "agent" {
     # the verified env-var (CLOUDFLARE_API_TOKEN) change it ships with.
     permission_groups = [
       for name in [
-        "Workers AI Read",
-        "AI Gateway Read",
         "Account API Tokens Read",
         "Cloudflare Tunnel Read",
         "Cloudflare Tunnel Write",
