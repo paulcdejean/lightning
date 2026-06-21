@@ -34,12 +34,16 @@ run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-open
 # (/root/.hermes, ephemeral in the image) and symlinks skills/ + memories/ into
 # the bind mount for persistence across rebuilds.
 run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
-    | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-setup --skip-browser
+    | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-browser
+
+# OpenRouter server-tools plugin. Injects openrouter:web_search,
+# openrouter:web_fetch, openrouter:datetime into the API request so the
+# model can call them; OpenRouter intercepts and executes server-side.
+copy plugins/openrouter-web-search /root/.hermes/plugins/openrouter-web-search
 
 # Hermes config: OpenRouter (OpenAI-compatible router) as a custom provider
-# keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha with :online
-# web search, plus the OpenTofu / Cloudflare docs MCP servers. OPENROUTER_API_KEY
-# and the
+# keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha, plus the
+# OpenTofu / Cloudflare docs MCP servers. OPENROUTER_API_KEY and the
 # AWS/Cloudflare creds are injected at runtime from 01_agent/.env (container run
 # --env-file 01_agent/.env).
 copy jail/config.yaml /root/.hermes/config.yaml
