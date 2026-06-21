@@ -17,7 +17,7 @@ Last assessed: 2026-06-21
 
 ### Gaps / Needs Verification
 - Browser automation — no interactive browser (web_fetch is static only)
-- Image generation (openrouter_image_generation) — installed but untested
+- Image generation (openrouter_image_generation) — **UNAVAILABLE**: OpenRouter account out of credits (402 Payment Required)
 - Docker — need to verify Docker-in-Docker availability in this sandbox
 
 ### Action Items
