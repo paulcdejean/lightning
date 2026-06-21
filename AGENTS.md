@@ -10,7 +10,7 @@ Refer to objectives.md
 
 ## Chores
 
-There's a human written procedure in chores.md and also an AI written skill
+There's a human written procedure in chores.md
 
 ## Notes from a previous agent
 
