@@ -56,4 +56,4 @@ Last assessed: 2026-06-21
 ### Action Items
 - [ ] Verify browser automation availability (or work around with curl/web_fetch)
 - [ ] Verify Docker-in-Docker if container image builds are needed
-- [ ] Verify AWS CLI is authenticated and functional
+- [x] Verify AWS CLI is authenticated and functional
