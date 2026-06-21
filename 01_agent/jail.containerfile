@@ -37,13 +37,12 @@ run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
     | env HERMES_HOME=/root/.hermes bash -s -- --non-interactive --skip-setup --skip-browser
 
 # Hermes config: OpenRouter (OpenAI-compatible router) as a custom provider
-# keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha, plus the
-# OpenTofu / Cloudflare docs MCP servers and the bundled openrouter-web-search
-# plugin (a model-invocable web_search tool backed by OpenRouter). OPENROUTER_API_KEY
-# and the AWS/Cloudflare creds are injected at runtime from 01_agent/.env
-# (container run --env-file 01_agent/.env).
+# keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha with :online
+# web search, plus the OpenTofu / Cloudflare docs MCP servers. OPENROUTER_API_KEY
+# and the
+# AWS/Cloudflare creds are injected at runtime from 01_agent/.env (container run
+# --env-file 01_agent/.env).
 copy jail/config.yaml /root/.hermes/config.yaml
-copy jail/plugins/ /root/.hermes/plugins/
 copy jail/entrypoint.sh /root/entrypoint.sh
 run chmod +x /root/entrypoint.sh
 

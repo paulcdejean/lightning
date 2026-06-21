@@ -2,30 +2,20 @@
 #
 # LLM traffic goes to OpenRouter (OpenAI-compatible router) via a `custom`
 # provider authenticated with a static API key — no OAuth, so it works in a
-# headless container.
-#
-# Web search: OpenRouter's own openrouter:web_search server tool is opaque to the
-# model (owl-alpha lists it as "not directly invocable" and never calls it), so
-# instead we ship a small Hermes plugin (plugins/openrouter-web-search) that
-# registers a normal, model-invocable `web_search` tool. Its handler runs the
-# search through OpenRouter's web plugin (Exa) using the same OPENROUTER_API_KEY —
-# one credential, no separate search vendor. Enabled under `plugins:` below.
+# headless container. Web search is bundled at OpenRouter's layer: the `:online`
+# suffix on the model slug grounds each response with Exa results, billed to the
+# same OpenRouter key. This replaces the Nous Tool Gateway, whose managed web
+# search / browser tools require interactive Portal OAuth that can't run headless.
 #
 # OPENROUTER_API_KEY is injected into the container env from .env (which 01_agent
 # templates from the AWS Secrets Manager secret agent/openrouter_api_key).
 # ${VAR} placeholders are interpolated from the environment at config load.
 
 model:
-  default: "openrouter/owl-alpha"
+  default: "openrouter/owl-alpha:online"
   provider: custom
   base_url: "https://openrouter.ai/api/v1"
   api_key: ${OPENROUTER_API_KEY}
-
-# Enable the bundled openrouter-web-search plugin (copied into ~/.hermes/plugins
-# by the containerfile), which provides the model-invocable web_search tool.
-plugins:
-  enabled:
-    - openrouter-web-search
 
 # Show the model's reasoning/thinking tokens by default (was the default in pi).
 display:
