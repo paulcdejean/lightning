@@ -10,6 +10,6 @@ resource "local_sensitive_file" "env" {
     r2_secret_access_key  = sha256(cloudflare_account_token.r2.value)
     r2_endpoint           = "https://${local.cf_account_id}.r2.cloudflarestorage.com"
     github_token          = data.aws_secretsmanager_secret_version.github_token.secret_string
-    nous_api_key          = data.aws_secretsmanager_secret_version.nous_portal_api_key.secret_string
+    openrouter_api_key    = data.aws_secretsmanager_secret_version.openrouter_api_key.secret_string
   })
 }
