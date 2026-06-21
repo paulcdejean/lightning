@@ -42,6 +42,15 @@ security:
 agent:
   coding_context: off
 
+# Route browser automation through the Nous Tool Gateway (Browser Use cloud
+# backend) instead of requiring a separate Browser Use / Browserbase API key.
+# The gateway authenticates via Nous Portal OAuth (hermes portal), NOT the
+# inference API key — so this also requires a Portal login stored in auth.json.
+# See: https://hermes-agent.nousresearch.com/docs/user-guide/features/tool-gateway
+browser:
+  cloud_provider: browser-use
+  use_gateway: true
+
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.
 mcp_servers:
