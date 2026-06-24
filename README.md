@@ -14,4 +14,19 @@ Note: This will **not** work out of the box on us-east-1, because us-east-1 has 
 
 # AI support
 Personally I set:
-`alias ai='t=$(git rev-parse --show-toplevel) && container run --env-file $t/01_agent/.env -v $t:/root/lightning/ -it $(container build -f $t/01_agent/jail.containerfile $t/01_agent/)'`
+`alias ai='$(git rev-parse --show-toplevel)/01_agent/scripts/ai.bash'`
+
+Note you will need dnsmasq installed, this is because cloudflare warp and apple containers are not playing nice together.
+
+My /opt/homebrew/etc/dnsmasq.conf is:
+```
+listen-address=127.0.0.1
+bind-interfaces
+port=53
+cache-size=0
+```
+
+Then you will need to run:
+`sudo container system dns create host.container.internal --localhost 203.0.113.113`
+
+Docs say you need to run this every time, but I just had to run it once.
