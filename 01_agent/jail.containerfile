@@ -8,6 +8,15 @@ run dnf install -y \
     git gh awscli jq unzip ripgrep fd \
     python3 python3-pip python3-devel gcc gcc-c++ libffi-devel \
     nodejs npm
+
+# uv/uvx — astral.sh's fast Python package runner. Used by the aws-mcp MCP
+# server (stdio) to launch mcp-proxy-for-aws via uvx. Pre-install the proxy
+# tool in the image so the MCP server starts instantly on boot (uvx would
+# otherwise download + resolve deps on first invocation, adding ~10s latency).
+run curl -fsSL https://astral.sh/uv/install.sh | sh \
+    && ln -sf /root/.local/bin/uv /usr/local/bin/uv \
+    && ln -sf /root/.local/bin/uvx /usr/local/bin/uvx \
+    && uv tool install mcp-proxy-for-aws
 run dnf install -y \
     sqlite yq iproute bind-utils sipcalc ipcalc which \
     wget tmux htop nmap-ncat vim-enhanced helm

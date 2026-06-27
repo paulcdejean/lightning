@@ -112,10 +112,11 @@ mcp_servers:
   # The proxy handles credential management from the AWS profile automatically.
   # Region: us-east-2 (our cluster region). --metadata sets the default region
   # for AWS operations performed by the server.
+  # Binary is pre-installed via `uv tool install` in the containerfile, so we
+  # invoke it directly (no uvx runtime overhead or first-run download delay).
   aws-mcp:
-    command: "uvx"
+    command: "mcp-proxy-for-aws"
     args:
-      - "mcp-proxy-for-aws@latest"
       - "https://aws-mcp.us-east-2.api.aws/mcp"
       - "--metadata"
       - "AWS_REGION=us-east-2"
