@@ -9,7 +9,7 @@ localhost_ip="203.0.113.113"
 git_dir=$(git rev-parse --show-toplevel)
 tag=lightning-agent:$(date +%Y%m%d)
 
-if ! container image inspect lightning-agent:$tag > /dev/null ; then
+if ! container image inspect $tag > /dev/null ; then
   container build --pull --no-cache -t $tag --dns $localhost_ip -f $git_dir/01_agent/jail.containerfile $git_dir/01_agent
 fi
 
