@@ -118,6 +118,7 @@ mcp_servers:
     command: "mcp-proxy-for-aws"
     args:
       - "https://aws-mcp.us-east-1.api.aws/mcp"
+      - "--skip-auth"
       - "--metadata"
       - "AWS_REGION=us-east-2"
     timeout: 120
