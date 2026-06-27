@@ -107,3 +107,16 @@ mcp_servers:
     url: "https://mcp.opentofu.org/mcp"
   cloudflare-docs:
     url: "https://docs.mcp.cloudflare.com/mcp"
+  # AWS MCP Server (hosted) — provides current AWS API docs and tooling.
+  # Uses mcp-proxy-for-aws to bridge IAM SigV4 auth to the MCP protocol.
+  # The proxy handles credential management from the AWS profile automatically.
+  # Region: us-east-2 (our cluster region). --metadata sets the default region
+  # for AWS operations performed by the server.
+  aws-mcp:
+    command: "uvx"
+    args:
+      - "mcp-proxy-for-aws@latest"
+      - "https://aws-mcp.us-east-2.api.aws/mcp"
+      - "--metadata"
+      - "AWS_REGION=us-east-2"
+    timeout: 120

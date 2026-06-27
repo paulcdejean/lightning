@@ -63,7 +63,6 @@ if [ -n "${AWS_ACCESS_KEY_ID:-}" ] || [ -n "${AWS_PROFILE:-}" ]; then
   if ! [ -f "${HOME}/.kube/config" ]; then
     aws eks update-kubeconfig \
       --name lightning-unstable \
-      --alias lightning-unstable \
       --region "${AWS_REGION:-us-east-2}" 2>/dev/null || true
   fi
 fi
