@@ -34,3 +34,7 @@ provider "kubernetes" {
   config_path    = "~/.kube/config"
   config_context = data.aws_eks_cluster.lightning.arn
 }
+
+provider "aws" {
+  region = local.workspace.region
+}
