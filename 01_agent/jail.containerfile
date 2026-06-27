@@ -17,6 +17,12 @@ run curl -fsSL https://astral.sh/uv/install.sh | sh \
     && ln -sf /root/.local/bin/uv /usr/local/bin/uv \
     && ln -sf /root/.local/bin/uvx /usr/local/bin/uvx \
     && uv tool install mcp-proxy-for-aws
+# /root/.local/bin is where uv tool install places binaries (like
+# mcp-proxy-for-aws).  The uv installer only adds it to PATH via shell
+# profile hooks (.bash_profile), which don't apply to the bare container
+# runtime (ENTRYPOINT runs hermes directly, not a login shell).  Set it
+# at the image level so all processes find uv-managed binaries.
+env PATH=/root/.local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/bin
 run dnf install -y \
     sqlite yq iproute bind-utils sipcalc ipcalc which \
     wget tmux htop nmap-ncat vim-enhanced helm
