@@ -55,5 +55,18 @@ if [ -d /root/.hermes/memories ] && [ ! -L /root/.hermes/memories ]; then
 fi
 ln -sfn "$PERSIST/memories" /root/.hermes/memories
 
+# Generate kubeconfig so tofu's kubernetes provider (08_cilium) can access
+# the EKS cluster. Uses the default AWS credentials (the same ones that
+# authenticate the S3 backend). Only run if EKS cluster is reachable;
+# skip silently on first boot or auth failure so the agent still starts.
+if [ -n "${AWS_ACCESS_KEY_ID:-}" ] || [ -n "${AWS_PROFILE:-}" ]; then
+  if ! [ -f "${HOME}/.kube/config" ]; then
+    aws eks update-kubeconfig \
+      --name lightning-unstable \
+      --alias lightning-unstable \
+      --region "${AWS_REGION:-us-east-2}" 2>/dev/null || true
+  fi
+fi
+
 # Hand off to the declared CMD (e.g. hermes).
 exec "$@"
