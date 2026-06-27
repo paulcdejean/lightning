@@ -17,7 +17,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.51.0"
+      version = "6.52.0"
     }
     toml = {
       source  = "Tobotimus/toml"
@@ -25,7 +25,7 @@ terraform {
     }
     cloudflare = {
       source  = "cloudflare/cloudflare"
-      version = "5.21.0"
+      version = "5.21.1"
     }
   }
 }
