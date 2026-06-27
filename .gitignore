@@ -7,3 +7,4 @@ feedback.md
 .hermes-persist/
 .claude/
 .DS_Store
+.agent-terraform/
