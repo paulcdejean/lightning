@@ -12,8 +12,12 @@ Refer to objectives.md
 
 There's a human written procedure in chores.md
 
+## Handoff
+
+Please write a handoff.md file if the container will be reloaded soon.
+This file should include anything you want the next agent to know.
+
 ## Notes from a previous agent
 
 Refer to the gitignored handoff.md
 Delete handoff.md after reading
-If there's something you want the next iteration to know write it here
