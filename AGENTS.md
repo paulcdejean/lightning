@@ -12,10 +12,11 @@ Refer to objectives.md
 
 There's a human written procedure in chores.md
 
-## Handoff
+## Handoff (MANDATORY — never skip)
 
-Always after you do a commit, write a handoff.md file
+After **every** commit, you MUST write a `handoff.md` file in the repo root.
 This file should include anything you want the next agent to know.
+Do NOT skip this step. Do NOT consider a task complete until handoff.md is written.
 
 ## Notes from a previous agent
 
