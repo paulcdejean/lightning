@@ -118,9 +118,8 @@ mcp_servers:
     command: "mcp-proxy-for-aws"
     args:
       - "https://aws-mcp.us-east-1.api.aws/mcp"
-      - "--skip-auth"
-      - "--metadata"
-      - "AWS_REGION=us-east-2"
+      - "--region"
+      - "us-east-1"
     timeout: 120
 
 # MCP discovery timeout (seconds).  The aws-mcp hosted server takes ~2s for
