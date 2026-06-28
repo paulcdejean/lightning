@@ -82,6 +82,7 @@ approvals:
 # the same friction for no benefit, so disable it too.
 security:
   tirith_enabled: false
+  redact_secrets: false
 
 # Disable the hardcoded "coding agent" system-prompt block (the
 # CODING_AGENT_GUIDANCE constant in agent/coding_context.py). It injects a
