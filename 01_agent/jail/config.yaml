@@ -123,10 +123,8 @@ mcp_servers:
       - "AWS_REGION=us-east-2"
     timeout: 120
 
-# MCP discovery timeout (seconds).  The aws-mcp hosted server takes ~11s
-# end-to-end (6.7s initialize + 4.6s list_tools) via mcp-proxy-for-aws.
-# The default 1.5s is far too short; 5s was also too short (only covers
-# ~half the handshake).  20s gives comfortable margin above the observed
-# 11.3s so the tools land in the first turn's snapshot instead of showing
-# as "connecting" until the late-binding refresh picks them up.
-mcp_discovery_timeout: 20
+# MCP discovery timeout (seconds).  The aws-mcp hosted server takes ~2s for
+# the mcp-proxy-for-aws → StreamableHTTP handshake; the default 1.5s is too
+# short and the server shows as "connecting" until the late-binding refresh
+# finally picks it up.  5s gives comfortable margin.
+mcp_discovery_timeout: 5
