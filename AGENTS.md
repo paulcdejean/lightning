@@ -14,7 +14,7 @@ There's a human written procedure in chores.md
 
 ## Handoff
 
-Please write a handoff.md file if the container will be reloaded soon.
+Always after you do a commit, write a handoff.md file
 This file should include anything you want the next agent to know.
 
 ## Notes from a previous agent
