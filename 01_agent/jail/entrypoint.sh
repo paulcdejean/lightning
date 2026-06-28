@@ -59,11 +59,28 @@ ln -sfn "$PERSIST/memories" /root/.hermes/memories
 # the EKS cluster. Uses the default AWS credentials (the same ones that
 # authenticate the S3 backend). Only run if EKS cluster is reachable;
 # skip silently on first boot or auth failure so the agent still starts.
-if [ -n "${AWS_ACCESS_KEY_ID:-}" ] || [ -n "${AWS_PROFILE:-}" ]; then
+# Write ~/.aws/credentials with a [default] profile so that AWS SDKs, CLI,
+# and MCP servers (mcp-proxy-for-aws) can resolve credentials via the standard
+# credential chain — without relying on env vars that get stripped from MCP
+# subprocesses by Hermes's _build_safe_env filter.
+if [ -n "${LIGHTNING_AWS_ACCESS_KEY_ID:-}" ] && [ -n "${LIGHTNING_AWS_SECRET_ACCESS_KEY:-}" ]; then
+  cat > "${HOME}/.aws/credentials" <<EOF
+[default]
+aws_access_key_id = ${LIGHTNING_AWS_ACCESS_KEY_ID}
+aws_secret_access_key = ${LIGHTNING_AWS_SECRET_ACCESS_KEY}
+EOF
+  # Optional session token (only written if present, e.g. temporary STS creds)
+  if [ -n "${LIGHTNING_AWS_SESSION_TOKEN:-}" ]; then
+    echo "aws_session_token = ${LIGHTNING_AWS_SESSION_TOKEN}" >> "${HOME}/.aws/credentials"
+  fi
+  chmod 600 "${HOME}/.aws/credentials"
+fi
+
+if [ -n "${LIGHTNING_AWS_ACCESS_KEY_ID:-}" ] || [ -n "${AWS_PROFILE:-}" ]; then
   if ! [ -f "${HOME}/.kube/config" ]; then
     aws eks update-kubeconfig \
       --name lightning-unstable \
-      --region "${AWS_REGION:-us-east-2}" 2>/dev/null || true
+      --region "${LIGHTNING_AWS_REGION:-us-east-2}" 2>/dev/null || true
   fi
 fi
 
