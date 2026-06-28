@@ -126,6 +126,78 @@ mcp_servers:
       - "--region"
       - "us-east-1"
 
+# Disable bundled skills that are irrelevant to the Lightning homelab work
+# (AWS/K8s/OpenTofu infrastructure, GitHub repo management, debugging).
+# This trims the prompt snapshot from ~47KB to ~10KB, saving tokens every turn.
+# Skills are NOT deleted — just excluded from injection. Local and hub-installed
+# skills (lightning-jail, opentofu-provider-patterns, tofu-infra-maintenance,
+# ami-version-check, hermes-plugin-development, web-search) are unaffected
+# and continue to load normally.
+skills:
+  disabled:
+    # Creative & media tools
+    - airtable
+    - ascii-art
+    - ascii-video
+    - audiocraft-audio-generation
+    - baoyu-infographic
+    - comfyui
+    - design-md
+    - excalidraw
+    - gif-search
+    - heartmula
+    - humanizer
+    - manim-video
+    - p5js
+    - popular-web-designs
+    - pretext
+    - sketch
+    - songsee
+    - songwriting-and-ai-music
+    - touchdesigner-mcp
+    - youtube-content
+    # macOS-only
+    - apple-notes
+    - apple-reminders
+    - findmy
+    - imessage
+    - macos-computer-use
+    # ML/AI research & inference
+    - arxiv
+    - evaluating-llms-harness
+    - hugginggingface-hub
+    - jupyter-live-kernel
+    - llama-cpp
+    - llm-wiki
+    - research-paper-writing
+    - segment-anything-model
+    - serving-llms-vllm
+    - weights-and-biases
+    # Productivity/office apps
+    - google-workspace
+    - nano-pdf
+    - notion
+    - obsidian
+    - ocr-and-documents
+    - powerpoint
+    # Social & communication
+    - blogwatcher
+    - teams-meeting-pipeline
+    - xurl
+    - yuanbao
+    # Smart home
+    - openhue
+    - petdex
+    # Agent delegation (we use delegate_task directly)
+    - claude-code
+    - codex
+    - opencode
+    - computer-use
+    - dogfood
+    - polymarket
+    - maps
+    - codebase-inspection
+
 # MCP discovery timeout (seconds).  The aws-mcp hosted server takes ~2s for
 # the mcp-proxy-for-aws → StreamableHTTP handshake; the default 1.5s is too
 # short and the server shows as "connecting" until the late-binding refresh
