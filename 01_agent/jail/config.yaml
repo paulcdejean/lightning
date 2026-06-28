@@ -120,7 +120,6 @@ mcp_servers:
       - "https://aws-mcp.us-east-1.api.aws/mcp"
       - "--region"
       - "us-east-1"
-    timeout: 120
 
 # MCP discovery timeout (seconds).  The aws-mcp hosted server takes ~2s for
 # the mcp-proxy-for-aws → StreamableHTTP handshake; the default 1.5s is too
