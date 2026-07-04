@@ -11,6 +11,8 @@ tag=lightning-agent:$(date +%Y%m%d)
 
 if ! container image inspect $tag > /dev/null ; then
   container build --pull --no-cache -t $tag --dns $localhost_ip -f $git_dir/01_agent/jail.containerfile $git_dir/01_agent
+else
+  container build --pull -t $tag --dns $localhost_ip -f $git_dir/01_agent/jail.containerfile $git_dir/01_agent
 fi
 
 exec container run --rm --dns $localhost_ip --env-file $git_dir/01_agent/.env -v $git_dir:/root/lightning/ -it $tag
