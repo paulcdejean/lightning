@@ -58,7 +58,7 @@ run curl -fsSL https://hermes-agent.nousresearch.com/install.sh \
 copy plugins/openrouter-server-tools /root/.hermes/plugins/openrouter-server-tools
 
 # Hermes config: OpenRouter (OpenAI-compatible router) as a custom provider
-# keyed off OPENROUTER_API_KEY, defaulting to openrouter/owl-alpha, plus the
+# keyed off OPENROUTER_API_KEY, defaulting to nvidia/nemotron-3-ultra-550b-a55b:free, plus the
 # OpenTofu / Cloudflare docs MCP servers. OPENROUTER_API_KEY and the
 # AWS/Cloudflare creds are injected at runtime from 01_agent/.env (container run
 # --env-file 01_agent/.env).

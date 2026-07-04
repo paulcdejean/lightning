@@ -1,19 +1,7 @@
-Warning: Taking root:admin ownership of some coredns paths:
-  /opt/homebrew/Cellar/coredns/1.14.4/bin
-  /opt/homebrew/Cellar/coredns/1.14.4/bin/coredns
-  /opt/homebrew/opt/coredns
-  /opt/homebrew/opt/coredns/bin
-  /opt/homebrew/var/homebrew/linked/coredns
-This will require manual removal of these paths using `sudo rm` on
+Harness thoughts:
 
+Hermes, works well but so incredibly bulky
+Pi, a harness which is expected to code its own extensions, good ui but felt sketch
+Opencode, just kinda mid overall
+Goose, shows the freaking markdown for some reason??? My help ticket never got replied to
 
-Warning: Taking root:admin ownership of some dnsmasq paths:
-  /opt/homebrew/Cellar/dnsmasq/2.93/sbin
-  /opt/homebrew/Cellar/dnsmasq/2.93/sbin/dnsmasq
-  /opt/homebrew/opt/dnsmasq
-  /opt/homebrew/opt/dnsmasq/sbin
-  /opt/homebrew/var/homebrew/linked/dnsmasq
-
-curl -LkIs -o /dev/null --resolve google.com:443:142.250.115.138 --resolve www.google.com:443:142.251.152.119 https://google.com -w "%{http_code}\n"
-
-curl -sk https://DA34B20B2870D64B3C66D86BCAD167CD.gr7.us-east-2.eks.global.api.aws/version
