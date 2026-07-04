@@ -60,11 +60,10 @@ plugins:
         # - type: openrouter:fusion              # Panel-of-models + judge
         #   parameters:
         #     max_tool_calls: 8                   # 1-16
-        # Disabled due to requiring credits.
-        # - type: openrouter:advisor             # Consult an advisor model
-        #   parameters:
-        #     model: ~anthropic/claude-opus-latest
-        #     max_tool_calls: 5                   # 1-25
+        - type: openrouter:advisor             # Consult an advisor model
+          parameters:
+            model: nousresearch/nous-fable
+            max_tool_calls: 5                   # 1-25
         - type: openrouter:subagent            # Delegate to a worker model
           parameters:
             model: ~anthropic/claude-haiku-latest
