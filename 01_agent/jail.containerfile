@@ -25,7 +25,7 @@ run curl -fsSL https://astral.sh/uv/install.sh | sh \
 env PATH=/root/.local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/bin
 run dnf install -y \
     sqlite yq iproute bind-utils sipcalc ipcalc which \
-    wget tmux htop nmap-ncat vim-enhanced helm
+    wget tmux htop nmap-ncat vim-enhanced helm python3-pyyaml
 run git config --global user.name "Lightning Agent" && git config --global user.email "agent@lightning.local"
 
 # kubectl (not in Fedora repos, install from Kubernetes upstream)
