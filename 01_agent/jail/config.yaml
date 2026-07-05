@@ -62,7 +62,6 @@ plugins:
               - nvidia/nemotron-3-ultra-550b-a55b:free
               - cohere/north-mini-code:free
               - poolside/laguna-m.1:free
-              - openai/gpt-oss-120b:free
         - type: openrouter:advisor             # Consult an advisor model
           parameters:
             model: ~anthropic/claude-fable-latest

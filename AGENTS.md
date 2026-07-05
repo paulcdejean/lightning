@@ -12,6 +12,14 @@ Refer to objectives.md
 
 When asked for a sanity check, refer to sanity.md
 
+## Advisor mode
+
+Is set to Claude fable, and should be used sparingly. Details on this should be in memory.
+
+## Fusion tool
+
+Is set to a collection of free models, can be used liberally, whenever it would be valuable to get feedback from other models.
+
 ## Chores
 
 There's a human written procedure in chores.md
