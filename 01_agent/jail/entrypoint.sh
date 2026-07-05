@@ -111,6 +111,17 @@ if [ -n "${LIGHTNING_AWS_ACCESS_KEY_ID:-}" ] || [ -n "${AWS_PROFILE:-}" ]; then
       --name lightning-unstable \
       --region "${LIGHTNING_AWS_REGION:-us-east-2}" 2>/dev/null || true
   fi
+
+  # Fetch agent secrets from AWS Secrets Manager and export as env vars.
+  # The IAM policy (01_agent/iam.tf) grants GetSecretValue on secret:agent/*.
+  REGION="${LIGHTNING_AWS_REGION:-us-east-2}"
+
+  # Context7 API key — used by the agent for context-aware tool calls.
+  if CONTEXT7_API_KEY=$(aws secretsmanager get-secret-value \
+    --secret-id agent/context7_api_key --region "$REGION" \
+    --query SecretString --output text 2>/dev/null); then
+    export CONTEXT7_API_KEY
+  fi
 fi
 
 # Hand off to the declared CMD (e.g. hermes).
