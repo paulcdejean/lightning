@@ -32,6 +32,7 @@ plugins:
     - openrouter-server-tools
   entries:
     openrouter-server-tools:
+      allow_tool_override: true   # Hermes 0.18.0 blocks user-plugin override=True
       server_tools:
         # --- Core web tools ---
         - type: openrouter:web_search          # Exa-backed search, grounded inline
@@ -62,7 +63,7 @@ plugins:
         #     max_tool_calls: 8                   # 1-16
         - type: openrouter:advisor             # Consult an advisor model
           parameters:
-            model: ~anthropic/claude-fable-5
+            model: ~anthropic/claude-fable-latest
             max_tool_calls: 5                   # 1-25
         - type: openrouter:subagent            # Delegate to a worker model
           parameters:

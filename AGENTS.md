@@ -8,6 +8,10 @@
 
 Refer to objectives.md
 
+## Sanity check
+
+When asked for a sanity check, refer to sanity.md
+
 ## Chores
 
 There's a human written procedure in chores.md
