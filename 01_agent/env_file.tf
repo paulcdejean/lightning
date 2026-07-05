@@ -11,5 +11,6 @@ resource "local_sensitive_file" "env" {
     r2_endpoint           = "https://${local.cf_account_id}.r2.cloudflarestorage.com"
     github_token          = data.aws_secretsmanager_secret_version.github_token.secret_string
     openrouter_api_key    = data.aws_secretsmanager_secret_version.openrouter_api_key.secret_string
+    context7_api_key      = data.aws_secretsmanager_secret_version.context7_api_key.secret_string
   })
 }
