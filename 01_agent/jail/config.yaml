@@ -57,9 +57,9 @@ plugins:
         # including it 400s the whole request ("only supported for: responses").
         - type: openrouter:fusion              # Panel-of-models + judge
           parameters:
-            max_tool_calls: 4
+            max_tool_calls: 3
             analysis_models:
-              - nvidia/nemotron-3-ultra-550b-a55b:free
+              - minimax/minimax-m2.7
               - cohere/north-mini-code:free
               - poolside/laguna-m.1:free
         - type: openrouter:advisor             # Consult an advisor model
