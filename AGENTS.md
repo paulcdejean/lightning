@@ -14,11 +14,11 @@ When asked for a sanity check, refer to sanity.md
 
 ## Advisor mode
 
-Is set to Claude fable, and should be used sparingly. Details on this should be in memory.
+Is set to Claude fable, and should be used sparingly. Details in the model routing skill.
 
 ## Fusion tool
 
-Is set to a collection of free models, can be used liberally, whenever it would be valuable to get feedback from other models.
+A panel of cheap models, less expensive than advisor mode, but slow. Details in the model routing skill.
 
 ## Chores
 
