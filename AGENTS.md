@@ -8,17 +8,13 @@
 
 Refer to objectives.md
 
+## Stuck on a technical challenge
+
+When stuck, make sure you're making full use of all the available skills in the stuck toolset, to get unstuck.
+
 ## Sanity check
 
 When asked for a sanity check, refer to sanity.md
-
-## Advisor mode
-
-Is set to Claude fable, and should be used sparingly. Details in the model routing skill.
-
-## Fusion tool
-
-A panel of cheap models, less expensive than advisor mode, but slow. Details in the model routing skill.
 
 ## Chores
 
