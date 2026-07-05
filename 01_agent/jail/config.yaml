@@ -97,6 +97,14 @@ security:
 agent:
   coding_context: off
 
+# Auxiliary vision model — used by vision_analyze and browser_vision tools for
+# image analysis when the main session model lacks vision support.
+# GPT-4o Mini is cheap ($0.15/M input, $0.60/M output) and vision-capable.
+auxiliary:
+  vision:
+    model: openai/gpt-4o-mini
+    provider: openrouter
+
 # Local browser automation via headless Chromium + agent-browser CLI.
 # Chromium 150 (chromium, chromium-headless, chromium-common) is baked into
 # the jail image.  agent-browser (npm) drives it via CDP.  No credentials or
