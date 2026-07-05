@@ -55,6 +55,35 @@ if [ -d /root/.hermes/memories ] && [ ! -L /root/.hermes/memories ]; then
 fi
 ln -sfn "$PERSIST/memories" /root/.hermes/memories
 
+# Configure rootless podman storage on the persistent bind mount so container
+# images and layers survive jail rebuilds.  The graph root lives under the
+# persist dir alongside skills/ and memories/.  fusermount3 is needed for
+# fuse-overlayfs (rootless overlay) and is already at /usr/bin/fusermount3.
+PODMAN_PERSIST="${PERSIST}/podman"
+mkdir -p "${PODMAN_PERSIST}/storage" "${PODMAN_PERSIST}/cache"
+if [ ! -f "${HOME}/.config/containers/storage.conf" ]; then
+  mkdir -p "${HOME}/.config/containers"
+  cat > "${HOME}/.config/containers/storage.conf" <<EOF
+[storage]
+driver = "overlay"
+graphroot = "${PODMAN_PERSIST}/storage"
+rootless_storage_path = "${PODMAN_PERSIST}/storage"
+
+[storage.options]
+pull_options = {enable_partial_images = "false"}
+
+[storage.options.overlay]
+mount_program = "/usr/bin/fusermount3"
+mountopt = "nodev,metacopy=on"
+EOF
+fi
+# Enable ping/networking in rootless containers.  Without this, slirp4netns
+# containers get ICMP blocked (ping fails), though TCP/UDP works fine via
+# slirp's built-in DNS+TCP proxy.
+# Also set XDG_RUNTIME_DIR for podman to use /run/user/0 (exists inside the
+# user namespace after podman re-execs).
+mkdir -p /run/user/0
+
 # Generate kubeconfig so tofu's kubernetes provider (08_cilium) can access
 # the EKS cluster. Uses the default AWS credentials (the same ones that
 # authenticate the S3 backend). Only run if EKS cluster is reachable;

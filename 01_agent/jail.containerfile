@@ -23,6 +23,21 @@ run curl -fsSL https://astral.sh/uv/install.sh | sh \
 # runtime (ENTRYPOINT runs hermes directly, not a login shell).  Set it
 # at the image level so all processes find uv-managed binaries.
 env PATH=/root/.local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/bin
+
+# Podman — rootless container runtime for nested containers (Docker-compatible).
+# The jail runs inside an Apple/macOS container on the host.  Rootless podman
+# re-execs into its own user namespace and provides a full OCI container engine
+# inside the jail (podman-in-container / DinD pattern).  crun is the low-level
+# OCI runtime; fuse-overlayfs provides overlay-filesystem support for rootless
+# mode; slirp4netns provides user-mode TCP/IP networking for nested containers.
+run dnf install -y podman crun fuse-overlayfs slirp4netns
+# Configure UID/GID subordinate ID ranges for rootless podman.  We're uid 0
+# inside the jail (mapped from the macOS container runtime's user namespace).
+# Podman re-execs into a nested user namespace and needs 65536 subordinate IDs
+# so nested containers can map their own root user and other UIDs/GIDs.
+run echo "root:100000:65536" > /etc/subuid \
+    && echo "root:100000:65536" > /etc/subgid
+
 run dnf install -y \
     sqlite yq iproute bind-utils sipcalc ipcalc which \
     wget tmux htop nmap-ncat vim-enhanced helm python3-pyyaml

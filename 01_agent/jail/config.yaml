@@ -203,3 +203,11 @@ skills:
 # short and the server shows as "connecting" until the late-binding refresh
 # finally picks it up.  5s gives comfortable margin.
 mcp_discovery_timeout: 5
+
+# Podman (rootless) container runtime is installed in the jail.  Use via
+# `terminal(command="podman run ...")`  — no daemon to start, no docker.sock.
+# Storage persists at /root/lightning/.hermes-persist/podman/ across rebuilds.
+# Image pulls go through Docker Hub / quay.io via the host's network (slirp4netns
+# NAT).  HTTP(S) and TCP/UDP work; ICMP/ping may not due to slirp4netns limits.
+# Build with `podman build` using OCI Containerfiles.  Example:
+#   terminal(command="podman run --rm docker.io/library/alpine:latest echo hi")
