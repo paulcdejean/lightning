@@ -97,14 +97,15 @@ security:
 agent:
   coding_context: off
 
-# Cloud browser automation is disabled. The only no-extra-credential option was
-# the Nous Tool Gateway's Browser Use backend, but that authenticates via Nous
-# Portal OAuth (a Portal login stored in auth.json), which can't be completed in
-# a headless, disposable jail. Rather than add a separate Browser Use /
-# Browserbase API key, we leave cloud browsing off. To re-enable later, set:
-#   browser:
-#     cloud_provider: browser-use
-#     use_gateway: false   # then supply a direct BROWSER_USE_API_KEY in .env
+# Local browser automation via headless Chromium + agent-browser CLI.
+# Chromium 150 (chromium, chromium-headless, chromium-common) is baked into
+# the jail image.  agent-browser (npm) drives it via CDP.  No credentials or
+# cloud providers needed — works entirely offline.
+# Hermes auto-detects Chromium on PATH and activates the browser toolset
+# (browser_navigate, browser_snapshot, browser_click, browser_type, etc.)
+# when both /usr/bin/chromium-browser and agent-browser CLI are available.
+# The --no-sandbox flag is auto-applied because we run as root inside a
+# container (see browser_tool._needs_chromium_sandbox_bypass).
 
 # Read-only documentation MCP servers used during the terraform `tofu plan`
 # chores: provider/resource lookups (OpenTofu registry) and Cloudflare docs.

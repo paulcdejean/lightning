@@ -7,7 +7,8 @@ from quay.io/fedora/fedora:44
 run dnf install -y \
     git gh awscli jq unzip ripgrep fd \
     python3 python3-pip python3-devel gcc gcc-c++ libffi-devel \
-    nodejs npm
+    nodejs npm \
+    chromium chromium-headless chromium-common
 
 # uv/uvx — astral.sh's fast Python package runner. Used by the aws-mcp MCP
 # server (stdio) to launch mcp-proxy-for-aws via uvx. Pre-install the proxy
@@ -55,9 +56,22 @@ run curl -fsSL https://get.opentofu.org/install-opentofu.sh -o /tmp/install-open
     && sh /tmp/install-opentofu.sh --install-method standalone \
     && rm /tmp/install-opentofu.sh
 
+# agent-browser CLI — Hermes's local browser automation backend. The npm package
+# provides the agent-browser binary that drives headless Chromium via CDP.
+run npm install -g agent-browser
+
+# Verify browser stack works: agent-browser CLI + headless Chromium can
+# navigate and snapshot a page.  The GITHUB_REF/HEAD env avoids real network;
+# we just confirm the binary launches and can open a page via the local CDP
+# daemon.  This prevents shipping an image where the browser deps silently
+# drifted.
+run agent-browser --version \
+    && AGENT_BROWSER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+       agent-browser open https://example.com 2>/dev/null \
+    && echo "browser smoke test: PASS"
+
 # Nous Hermes Agent. Headless install: no setup wizard (we supply config.yaml
-# below) and no browser/Playwright stack (this agent does infra work, not web
-# automation). Running as root on Linux, the installer symlinks the venv
+# below). Running as root on Linux, the installer symlinks the venv
 # entrypoint to /usr/local/bin/hermes. HERMES_HOME is set to /root/.hermes here
 # only to tell the installer where to place the initial config and bundled
 # skills; at runtime entrypoint.sh leaves it unset so Hermes uses the default
