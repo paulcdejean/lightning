@@ -67,8 +67,7 @@ plugins:
             model: ~anthropic/claude-fable-latest
             max_tool_calls: 5                   # 1-25
         - type: openrouter:subagent            # Delegate to a worker model
-          parameters:
-            model: ~anthropic/claude-haiku-latest
+          parameters: {}
 
 # Show the model's reasoning/thinking tokens by default (was the default in pi).
 display:
